@@ -114,6 +114,10 @@ void EvaluaUI::programLoaded(uint32_t index)
 
     fNameEdit->setText(name);
     fCodeEdit->setText(code);
+
+    fPolyValue->setValue(PresetPolyphony);
+    fPortaValue->setValue(PresetPortaSpeed);
+    fGainValue->setValue(PresetOuputGain);
 }
 
 void EvaluaUI::stateChanged(const char *key, const char *value)

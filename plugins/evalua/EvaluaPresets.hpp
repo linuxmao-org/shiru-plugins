@@ -30,3 +30,9 @@ static const std::pair<const char *, const char *> PresetData[] = {
 
 static constexpr unsigned PresetDataLength =
     sizeof(PresetData) / sizeof(PresetData[0]);
+
+enum {
+    PresetPolyphony = 8,
+    PresetPortaSpeed = 100,
+    PresetOuputGain = 100,
+};
