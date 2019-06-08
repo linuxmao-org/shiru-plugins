@@ -50,7 +50,7 @@ bool ValueFill::onMouse(const MouseEvent &event)
     DGL::Size<uint> wsize = getSize();
     DGL::Point<int> mpos = event.pos;
 
-    if (event.press && event.button == 1) {
+    if (!fIsDragging && event.press && event.button == 1) {
         if (mpos.getY() >= 0 && (unsigned)mpos.getY() < wsize.getHeight()) {
             double fill = mpos.getX() / (double)wsize.getWidth();
             if (fill >= 0 && fill <= 1) {
@@ -60,7 +60,7 @@ bool ValueFill::onMouse(const MouseEvent &event)
             }
         }
     }
-    else if (!event.press && event.button == 1) {
+    else if (fIsDragging && !event.press && event.button == 1) {
         fIsDragging = false;
         return true;
     }
