@@ -233,8 +233,6 @@ bool TextEdit::onMouse(const MouseEvent &event)
 
         setHasKeyFocus(inside);
     }
-    else
-        setHasKeyFocus(false);
 
     return false;
 }
