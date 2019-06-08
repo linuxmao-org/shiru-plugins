@@ -1,0 +1,4 @@
+LIBRARY EVALUA
+EXPORTS
+VSTPluginMain 
+main=VSTPluginMain
