@@ -2,7 +2,6 @@
 #include "Cairo.hpp"
 #include "Window.hpp"
 #include "../ColorPalette.hpp"
-#include <boost/locale/utf.hpp>
 
 TextEdit::TextEdit(Widget *group)
     : Widget(group)
