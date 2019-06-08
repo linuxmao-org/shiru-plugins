@@ -42,6 +42,7 @@ TARGETS += jack
 endif
 
 TARGETS += lv2_sep
+TARGETS += vst
 
 all: $(TARGETS)
 
