@@ -4,6 +4,10 @@
 # Created by falkTX
 #
 
+ifneq ($(shell test -d dpf && echo 1),1)
+$(error DPF is missing, run "git submodule update --init")
+endif
+
 include dpf/Makefile.base.mk
 
 all: dgl plugins gen
