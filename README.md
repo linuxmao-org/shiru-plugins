@@ -11,4 +11,10 @@ Synth based on evaluation of math expressions, similar to the one-liner generati
 
 Type `make`. The build will be found in the `bin` folder.
 
-This build requires: `libcairo2-dev` `libpango1.0-dev` ...
+This build requires:
+
+- `libcairo2-dev`
+- `libpango1.0-dev`
+- `libjack-jackd2-dev` ou `libjack-dev`
+- `libgl1-mesa-dev` ou `libgl-dev`
+- `libglu1-mesa-dev` ou `libglu-dev`
