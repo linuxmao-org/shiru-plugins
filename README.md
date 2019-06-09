@@ -1,5 +1,5 @@
 # EVALUA
-A math synth plugin, unofficial DPF port
+A math synth plugin, unofficial [DPF](https://github.com/DISTRHO/DPF) port
 
 **Official home page:** http://shiru.untergrund.net/software.shtml
 
