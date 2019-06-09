@@ -1,5 +1,6 @@
 #pragma once
 #include "DistrhoPlugin.hpp"
+#include "EvaluaPresets.hpp"
 #include <memory>
 class EV;
 
@@ -44,8 +45,6 @@ public:
 
     const char *Compile();
 
-    enum { MAX_SYNTH_CHANNELS = 8 };
-
     struct ChannelObject {
         int32_t note;
         int32_t velocity;
@@ -71,16 +70,13 @@ public:
     int32_t MidiDataLSB;
     int32_t MidiDataMSB;
 
-    ChannelObject SynthChannel[MAX_SYNTH_CHANNELS];
+    ChannelObject SynthChannel[MaxPolyphony];
 
     int32_t SynthAllocateVoice(int32_t midi_ch, int32_t note);
     void SynthChannelChangeNote(int32_t chn, int32_t midi_ch, int32_t note, int32_t velocity);
     void SynthChannelReleaseNote(int32_t midi_ch, int32_t note);
 
     double SlideStep;
-
-    enum { NORMAL_GAIN = 100, MAX_GAIN = NORMAL_GAIN * 2 };
-    enum { MAX_PORTA_SPEED = 100 };
 
     std::unique_ptr<EV> ev;
 };

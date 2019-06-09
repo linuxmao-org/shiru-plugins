@@ -2,6 +2,7 @@
 #include <utility>
 #include <cstddef>
 
+__attribute__((unused))
 static const std::pair<const char *, const char *> PresetData[] = {
     {"Saw","P&255"},
     {"Pulse","P&128"},
@@ -28,11 +29,17 @@ static const std::pair<const char *, const char *> PresetData[] = {
     {"Arp 2","(T/1500%6)*P&256"},
 };
 
-static constexpr unsigned PresetDataLength =
-    sizeof(PresetData) / sizeof(PresetData[0]);
+enum {
+    PresetDataLength = sizeof(PresetData) / sizeof(PresetData[0]),
+};
+
 
 enum {
-    PresetPolyphony = 8,
-    PresetPortaSpeed = 100,
-    PresetOuputGain = 100,
+    PresetPolyphony = 8, MinPolyphony = 1, MaxPolyphony = 8,
+    PresetPortaSpeed = 100, MinPortaSpeed = 1, MaxPortaSpeed = 100,
+    PresetOuputGain = 100, MinOutputGain = 1, MaxOutputGain = 200,
+};
+
+enum {
+    NormalOutputGain = MaxOutputGain / 2,
 };

@@ -47,8 +47,8 @@ EvaluaUI::EvaluaUI()
 
     ValueFill *polyValue = new ValueFill(this);
     fPolyValue.reset(polyValue);
-    polyValue->setValueBounds(1, 8);
-    polyValue->setNumSteps(7);
+    polyValue->setValueBounds(MinPolyphony, MaxPolyphony);
+    polyValue->setNumSteps(MaxPolyphony - MinPolyphony);
     polyValue->setFont("Sans 8.5");
     polyValue->ValueChangedCallback =
         [this](double value) { setState("Polyphony", std::to_string(lround(value)).c_str()); };
@@ -63,8 +63,8 @@ EvaluaUI::EvaluaUI()
 
     ValueFill *portaValue = new ValueFill(this);
     fPortaValue.reset(portaValue);
-    portaValue->setValueBounds(1, 100);
-    portaValue->setNumSteps(99);
+    portaValue->setValueBounds(MinPortaSpeed, MaxPortaSpeed);
+    portaValue->setNumSteps(MaxPortaSpeed - MinPortaSpeed);
     portaValue->setFont("Sans 8.5");
     portaValue->ValueChangedCallback =
         [this](double value) { setState("PortaSpeed", std::to_string(lround(value)).c_str()); };
@@ -75,8 +75,8 @@ EvaluaUI::EvaluaUI()
 
     ValueFill *gainValue = new ValueFill(this);
     fGainValue.reset(gainValue);
-    gainValue->setValueBounds(1, 200);
-    gainValue->setNumSteps(199);
+    gainValue->setValueBounds(MinOutputGain, MaxOutputGain);
+    gainValue->setNumSteps(MaxOutputGain - MinOutputGain);
     gainValue->setFont("Sans 8.5");
     gainValue->ValueChangedCallback =
         [this](double value) { setState("OutputGain", std::to_string(lround(value)).c_str()); };

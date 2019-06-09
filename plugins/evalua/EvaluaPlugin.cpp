@@ -1,5 +1,4 @@
 #include "EvaluaPlugin.hpp"
-#include "EvaluaPresets.hpp"
 #include "ev.h"
 #include <cstdio>
 #include <cstring>
@@ -12,7 +11,7 @@ EvaluaPlugin::EvaluaPlugin()
 
     loadProgram(0);
 
-    for (unsigned chn = 0; chn < MAX_SYNTH_CHANNELS; ++chn) {
+    for (unsigned chn = 0; chn < MaxPolyphony; ++chn) {
         SynthChannel[chn].note = -1;
         SynthChannel[chn].freq = 0;
         SynthChannel[chn].freq_new = 0;
@@ -20,9 +19,9 @@ EvaluaPlugin::EvaluaPlugin()
 
     Compile();
 
-    PortaSpeed = 100;
-    Polyphony = MAX_SYNTH_CHANNELS;
-    OutputGain = 100;
+    Polyphony = PresetPolyphony;
+    PortaSpeed = PresetPortaSpeed;
+    OutputGain = PresetOuputGain;
 
     MidiPitchBend = 0;
     MidiPitchBendRange = 2.0f;
@@ -113,9 +112,9 @@ void EvaluaPlugin::loadProgram(uint32_t index)
         strncpy(Program.Data, PresetData[0].second, MAX_PROGRAM_LEN);
     }
 
-    Polyphony = MAX_SYNTH_CHANNELS;
-    PortaSpeed = 100;
-    OutputGain = 100;
+    Polyphony = PresetPolyphony;
+    PortaSpeed = PresetPortaSpeed;
+    OutputGain = PresetOuputGain;
 
     Compile();
 }
@@ -133,15 +132,15 @@ void EvaluaPlugin::initState(uint32_t index, String &state_key, String &default_
         break;
     case State_Polyphony:
         state_key = "Polyphony";
-        default_value = String(MAX_SYNTH_CHANNELS);
+        default_value = String(PresetPolyphony);
         break;
     case State_PortaSpeed:
         state_key = "PortaSpeed";
-        default_value = String(100);
+        default_value = String(PresetPortaSpeed);
         break;
     case State_OutputGain:
         state_key = "OutputGain";
-        default_value = String(100);
+        default_value = String(PresetOuputGain);
         break;
     }
 }
@@ -181,11 +180,11 @@ void EvaluaPlugin::setState(const char *key, const char *value)
     else if (!strcmp(key, "ProgramName"))
         strncpy(Program.Name, value, MAX_NAME_LEN);
     else if (!strcmp(key, "Polyphony"))
-        Polyphony = stringToIntBounded(value, 1, 8);
+        Polyphony = stringToIntBounded(value, MinPolyphony, MaxPolyphony);
     else if (!strcmp(key, "PortaSpeed"))
-        PortaSpeed = stringToIntBounded(value, 1, 100);
+        PortaSpeed = stringToIntBounded(value, MinPortaSpeed, MaxPortaSpeed);
     else if (!strcmp(key, "OutputGain"))
-        OutputGain = stringToIntBounded(value, 1, 200);
+        OutputGain = stringToIntBounded(value, MinOutputGain, MaxOutputGain);
 }
 
 void EvaluaPlugin::run(const float **, float **outputs, uint32_t frames, const MidiEvent *events, uint32_t event_count)
@@ -248,7 +247,7 @@ void EvaluaPlugin::run(const float **, float **outputs, uint32_t frames, const M
 
                     if (Polyphony > 1)
                     {
-                        for (chn = 0; chn < MAX_SYNTH_CHANNELS; ++chn) if (SynthChannel[chn].note == msg[1]) SynthChannelReleaseNote(msg[0] & 0xf, msg[1]);
+                        for (chn = 0; chn < MaxPolyphony; ++chn) if (SynthChannel[chn].note == msg[1]) SynthChannelReleaseNote(msg[0] & 0xf, msg[1]);
                     }
                     else
                     {
@@ -317,13 +316,13 @@ void EvaluaPlugin::run(const float **, float **outputs, uint32_t frames, const M
 
         level = 0;
 
-        for (chn = 0; chn < MAX_SYNTH_CHANNELS; ++chn)
+        for (chn = 0; chn < MaxPolyphony; ++chn)
         {
             ch = &SynthChannel[chn];
 
             if (ch->note < 0) continue;
 
-            if (PortaSpeed >= MAX_PORTA_SPEED)
+            if (PortaSpeed >= MaxPortaSpeed)
             {
                 ch->freq = ch->freq_new;
             }
@@ -375,7 +374,7 @@ void EvaluaPlugin::run(const float **, float **outputs, uint32_t frames, const M
             if (n < -256) n = -256;
             if (n > 256) n = 256;
 
-            n = n * OutputGain / NORMAL_GAIN;
+            n = n * OutputGain / NormalOutputGain;
 
             output = (float)n / 256.0f;
 
@@ -445,13 +444,13 @@ void EvaluaPlugin::SynthChannelChangeNote(int32_t chn, int32_t midi_ch, int32_t 
 void EvaluaPlugin::SynthChannelReleaseNote(int32_t midi_ch, int32_t note)
 {
     if (note >= 0) {
-        for (unsigned chn = 0; chn < MAX_SYNTH_CHANNELS; ++chn) {
+        for (unsigned chn = 0; chn < MaxPolyphony; ++chn) {
             if (SynthChannel[chn].note == note) SynthChannel[chn].note = -1;
         }
     }
     else
     {
-        for (unsigned chn = 0; chn < MAX_SYNTH_CHANNELS; ++chn)
+        for (unsigned chn = 0; chn < MaxPolyphony; ++chn)
         {
             SynthChannel[chn].note = -1;
         }
