@@ -1,0 +1,2 @@
+/.* export-ignore
+*.dll export-ignore
