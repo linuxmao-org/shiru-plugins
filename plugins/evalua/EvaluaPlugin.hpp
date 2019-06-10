@@ -1,6 +1,7 @@
 #pragma once
 #include "DistrhoPlugin.hpp"
 #include "EvaluaPresets.hpp"
+#include <random>
 #include <memory>
 class EV;
 
@@ -70,13 +71,15 @@ public:
     int32_t MidiDataLSB;
     int32_t MidiDataMSB;
 
+    double SlideStep;
+
+    std::unique_ptr<EV> ev;
+
+    std::minstd_rand RandomNumberGenerator;
+
     ChannelObject SynthChannel[MaxPolyphony];
 
     int32_t SynthAllocateVoice(int32_t midi_ch, int32_t note);
     void SynthChannelChangeNote(int32_t chn, int32_t midi_ch, int32_t note, int32_t velocity);
     void SynthChannelReleaseNote(int32_t midi_ch, int32_t note);
-
-    double SlideStep;
-
-    std::unique_ptr<EV> ev;
 };

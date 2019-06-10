@@ -197,6 +197,8 @@ void EvaluaPlugin::run(const float **, float **outputs, uint32_t frames, const M
     int32_t chn;
     int64_t n;
 
+    std::minstd_rand &rng = RandomNumberGenerator;
+
     sample_rate = getSampleRate();
 
     time_delta = 65536.0 / sample_rate;
@@ -367,7 +369,7 @@ void EvaluaPlugin::run(const float **, float **outputs, uint32_t frames, const M
             ev->SetVar('P', ch->pitch_cnt);
             ev->SetVar('V', ch->velocity);
             ev->SetVar('M', MidiModulationDepth);
-            ev->SetVar('R', rand());
+            ev->SetVar('R', std::uniform_int_distribution<>{0, 32767}(rng));
 
             n = ev->Solve();
 
