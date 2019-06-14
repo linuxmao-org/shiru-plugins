@@ -1,8 +1,8 @@
 #pragma once
 #define DISTRHO_PLUGIN_BRAND           "Shiru"
 #define DISTRHO_PLUGIN_NAME            "EVALUA"
-#define DISTRHO_PLUGIN_URI             "https://github.com/linuxmao-org/evalua"
-#define DISTRHO_PLUGIN_HOMEPAGE        "https://github.com/linuxmao-org/evalua"
+#define DISTRHO_PLUGIN_URI             "https://github.com/linuxmao-org/shiru-plugins/evalua"
+#define DISTRHO_PLUGIN_HOMEPAGE        "https://github.com/linuxmao-org/shiru-plugins/evalua"
 #define DISTRHO_PLUGIN_UNIQUE_ID       'e','v','a','u'
 #define DISTRHO_PLUGIN_VERSION         1,1,0
 #define DISTRHO_PLUGIN_LABEL           "EVALUA"

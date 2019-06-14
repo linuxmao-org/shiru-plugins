@@ -1,10 +1,10 @@
 #pragma once
-#include "Widget.hpp"
+#include "BasicWidget.hpp"
 #include "Pango.hpp"
 #include <string>
 #include <memory>
 
-class TextLabel : public DGL::Widget {
+class TextLabel : public BasicWidget {
 public:
     explicit TextLabel(Widget *group);
 

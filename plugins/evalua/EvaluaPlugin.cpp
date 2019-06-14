@@ -226,7 +226,7 @@ void EvaluaPlugin::run(const float **, float **outputs, uint32_t frames, const M
             //uint8_t channel = msg[0] & 0x0f;
             msg[0] = msg[0] & 0xf0;
 
-            switch(msg[0] & 0xf0)
+            switch(msg[0])
             {
             case 0x80: // note off
             case 0x90: // note on

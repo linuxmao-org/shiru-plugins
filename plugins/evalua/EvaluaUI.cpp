@@ -1,10 +1,10 @@
 #include "EvaluaUI.hpp"
 #include "EvaluaPresets.hpp"
 #include "Window.hpp"
-#include "ColorPalette.hpp"
-#include "components/TextEdit.hpp"
-#include "components/TextLabel.hpp"
-#include "components/ValueFill.hpp"
+#include "common/components/ColorPalette.hpp"
+#include "common/components/TextEdit.hpp"
+#include "common/components/TextLabel.hpp"
+#include "common/components/ValueFill.hpp"
 #include "ev.h"
 #include <cmath>
 #include <cstdio>
@@ -137,13 +137,14 @@ void EvaluaUI::stateChanged(const char *key, const char *value)
 void EvaluaUI::onDisplay()
 {
     cairo_t *cr = getParentWindow().getGraphicsContext().cairo;
+    const ColorPalette &cp = ColorPalette::getDefault();
 
     DGL::Size<uint> sz = getSize();
     int w = sz.getWidth();
     int h = sz.getHeight();
 
     cairo_rectangle(cr, 0, 0, w, h);
-    cairo_set_source_color(cr, ColorPalette::window_bg);
+    cairo_set_source_color(cr, cp.window_bg);
     cairo_fill(cr);
 }
 

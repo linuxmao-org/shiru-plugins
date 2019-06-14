@@ -10,6 +10,12 @@ A set of music plugins created by Shiru, unofficial [DPF](https://github.com/DIS
 
 Synth based on evaluation of math expressions, similar to the one-liner generative music C programs.
 
+## ChipWave
+
+### Description
+
+Synth plugin that blends characteristics of many old sound chips (AY, SID, POKEY) with features of old subtractive synths.
+
 # Building
 
 Type `make`. The build will be found in the `bin` folder.

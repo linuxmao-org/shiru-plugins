@@ -14,7 +14,7 @@ all: dgl plugins gen
 
 # --------------------------------------------------------------
 
-PLUGINS := evalua
+PLUGINS := evalua chipwave
 
 dgl:
 	$(MAKE) -C dpf/dgl

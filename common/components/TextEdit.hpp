@@ -1,11 +1,11 @@
 #pragma once
-#include "Widget.hpp"
+#include "BasicWidget.hpp"
 #include "Pango.hpp"
 #include <string>
 #include <memory>
 #include <functional>
 
-class TextEdit : public DGL::Widget {
+class TextEdit : public BasicWidget {
 public:
     explicit TextEdit(Widget *group);
 

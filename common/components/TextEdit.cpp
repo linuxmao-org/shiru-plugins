@@ -1,10 +1,10 @@
 #include "TextEdit.hpp"
 #include "Cairo.hpp"
 #include "Window.hpp"
-#include "../ColorPalette.hpp"
+#include "ColorPalette.hpp"
 
 TextEdit::TextEdit(Widget *group)
-    : Widget(group)
+    : BasicWidget(group)
 {
 }
 
@@ -56,6 +56,7 @@ void TextEdit::setFont(const std::string &font)
 void TextEdit::onDisplay()
 {
     cairo_t *cr = getParentWindow().getGraphicsContext().cairo;
+    const ColorPalette *cp = getColorPalette();
 
     PangoLayout *layout = fTextLayout.get();
     if (!layout) {
@@ -71,9 +72,9 @@ void TextEdit::onDisplay()
 
     // paint the text box
     cairo_rectangle(cr, 0, 0, w, h);
-    cairo_set_source_color(cr, ColorPalette::textedit_bg);
+    cairo_set_source_color(cr, cp->textedit_bg);
     cairo_fill_preserve(cr);
-    cairo_set_source_color(cr, ColorPalette::textedit_frame);
+    cairo_set_source_color(cr, cp->textedit_frame);
     cairo_stroke(cr);
 
     // allow cursor to be visible at the left
@@ -89,12 +90,12 @@ void TextEdit::onDisplay()
         cairo_new_path(cr);
         cairo_move_to(cr, cursx, cursy);
         cairo_line_to(cr, cursx, cursy + cursh);
-        cairo_set_source_color(cr, ColorPalette::textedit_cursor);
+        cairo_set_source_color(cr, cp->textedit_cursor);
         cairo_set_line_width(cr, 1.0);
         cairo_stroke(cr);
     }
 
-    cairo_set_source_color(cr, ColorPalette::textedit_text);
+    cairo_set_source_color(cr, cp->textedit_text);
     pango_cairo_show_layout(cr, layout);
 }
 

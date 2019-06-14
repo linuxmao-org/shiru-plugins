@@ -1,9 +1,9 @@
 #include "ValueFill.hpp"
 #include "Window.hpp"
-#include "../ColorPalette.hpp"
+#include "ColorPalette.hpp"
 
 ValueFill::ValueFill(Widget *group)
-    : Widget(group)
+    : BasicWidget(group)
 {
 }
 
@@ -32,6 +32,15 @@ void ValueFill::setNumSteps(unsigned numSteps)
     fNumSteps = numSteps;
 }
 
+void ValueFill::setOrientation(Orientation ori)
+{
+    if (fOrientation == ori)
+        return;
+
+    fOrientation = ori;
+    repaint();
+}
+
 void ValueFill::setFont(const std::string &font)
 {
     if (fFont == font)
@@ -51,13 +60,17 @@ bool ValueFill::onMouse(const MouseEvent &event)
     DGL::Point<int> mpos = event.pos;
 
     if (!fIsDragging && event.press && event.button == 1) {
-        if (mpos.getY() >= 0 && (unsigned)mpos.getY() < wsize.getHeight()) {
-            double fill = mpos.getX() / (double)wsize.getWidth();
-            if (fill >= 0 && fill <= 1) {
-                fIsDragging = true;
-                setValue(fValueBound1 + fill * (fValueBound2 - fValueBound1));
-                return true;
-            }
+        double fill = -1;
+
+        if (fOrientation == Horizontal && mpos.getY() >= 0 && (unsigned)mpos.getY() < wsize.getHeight())
+            fill = mpos.getX() / (double)wsize.getWidth();
+        else if (fOrientation == Vertical && mpos.getX() >= 0 && (unsigned)mpos.getX() < wsize.getWidth())
+            fill = 1.0 - (mpos.getY() / (double)wsize.getHeight());
+
+        if (fill >= 0 && fill <= 1) {
+            fIsDragging = true;
+            setValue(fValueBound1 + fill * (fValueBound2 - fValueBound1));
+            return true;
         }
     }
     else if (fIsDragging && !event.press && event.button == 1) {
@@ -74,7 +87,11 @@ bool ValueFill::onMotion(const MotionEvent &event)
     DGL::Point<int> mpos = event.pos;
 
     if (fIsDragging) {
-        double fill = mpos.getX() / (double)wsize.getWidth();
+        double fill;
+        if (fOrientation == Horizontal)
+            fill = mpos.getX() / (double)wsize.getWidth();
+        else
+            fill = 1.0 - (mpos.getY() / (double)wsize.getHeight());
         fill = (fill < 0) ? 0 : fill;
         fill = (fill > 1) ? 1 : fill;
         setValue(fValueBound1 + fill * (fValueBound2 - fValueBound1));
@@ -95,6 +112,8 @@ bool ValueFill::onScroll(const ScrollEvent &event)
 
     if (inside) {
         double amount = event.delta.getX() - event.delta.getY();
+        if (fOrientation == Vertical)
+            amount = -amount;
         setValue(fValue + amount * (fValueBound2 - fValueBound1) / fNumSteps);
         return true;
     }
@@ -105,30 +124,32 @@ bool ValueFill::onScroll(const ScrollEvent &event)
 void ValueFill::onDisplay()
 {
     cairo_t *cr = getParentWindow().getGraphicsContext().cairo;
+    const ColorPalette *cp = getColorPalette();
 
     int w = getWidth();
     int h = getHeight();
 
     cairo_rectangle(cr, 0, 0, w, h);
-    cairo_set_source_color(cr, ColorPalette::valuefill_frame);
+    cairo_set_source_color(cr, cp->valuefill_frame);
     cairo_stroke(cr);
 
     //
-    double vmin = fValueBound1;
-    double vmax = fValueBound2;
-    if (vmin > vmax)
-        std::swap(vmin, vmax);
+    double v1 = fValueBound1;
+    double v2 = fValueBound2;
 
     //
     double value = fValue;
     double fill = 0;
-    if (vmax != vmin)
-        fill = (value - vmin) / (vmax - vmin);
+    if (v1 != v2)
+        fill = (value - v1) / (v2 - v1);
 
     //
     int xpad = 2, ypad = 2;
-    cairo_rectangle(cr, xpad, ypad, fill * (w - 2 * xpad), h - 2 * ypad);
-    cairo_set_source_color(cr, ColorPalette::valuefill_fill);
+    if (fOrientation == Horizontal)
+        cairo_rectangle(cr, xpad, ypad, fill * (w - 2 * xpad), h - 2 * ypad);
+    else
+        cairo_rectangle(cr, xpad, h - ypad, w - 2 * xpad, - fill * (h - 2 * xpad));
+    cairo_set_source_color(cr, cp->valuefill_fill);
     cairo_fill(cr);
 
     //
@@ -152,7 +173,7 @@ void ValueFill::onDisplay()
         double texth = pango_units_to_double(rect.height);
         cairo_translate(cr, 0, 0.5 * (getHeight() - texth));
 
-        cairo_set_source_color(cr, ColorPalette::valuefill_text);
+        cairo_set_source_color(cr, cp->valuefill_text);
         pango_cairo_show_layout(cr, layout);
     }
 }

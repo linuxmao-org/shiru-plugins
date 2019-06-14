@@ -1,0 +1,19 @@
+#include "ColorPalette.hpp"
+
+ColorPalette &ColorPalette::getDefault()
+{
+    static ColorPalette default_palette = []() -> ColorPalette {
+        ColorPalette cp;
+        cp.window_bg = {0xd4, 0xd0, 0xc8, 0xff};
+        cp.textedit_bg = {0xff, 0xff, 0xff, 0xff};
+        cp.textedit_text = {0x00, 0x00, 0x00, 0xff};
+        cp.textedit_cursor = {0x00, 0x00, 0x00, 0xff};
+        cp.textedit_frame = {0x00, 0x00, 0x00, 0xff};
+        cp.textlabel_text = {0x00, 0x00, 0x00, 0xff};
+        cp.valuefill_frame = {0x00, 0x00, 0x00, 0xff};
+        cp.valuefill_fill = {0x80, 0x80, 0x80, 0xff};
+        cp.valuefill_text = {0x00, 0x00, 0x00, 0xff};
+        return cp;
+    }();
+    return default_palette;
+}

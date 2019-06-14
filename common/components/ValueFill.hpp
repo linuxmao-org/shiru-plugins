@@ -1,10 +1,10 @@
 #pragma once
-#include "Widget.hpp"
+#include "BasicWidget.hpp"
 #include "Pango.hpp"
 #include <string>
 #include <functional>
 
-class ValueFill : public DGL::Widget {
+class ValueFill : public BasicWidget {
 public:
     explicit ValueFill(Widget *group);
 
@@ -13,6 +13,7 @@ public:
 
     void setValueBounds(double v1, double v2);
     void setNumSteps(unsigned numSteps);
+    void setOrientation(Orientation ori);
 
     void setFont(const std::string &font);
 
@@ -31,6 +32,7 @@ private:
     double fValue = 0;
     double fValueBound1 = 0, fValueBound2 = 1;
     unsigned fNumSteps = 100;
+    Orientation fOrientation = Horizontal;
     bool fIsDragging = false;
     PangoLayout_u fTextLayout;
     std::string fFont;

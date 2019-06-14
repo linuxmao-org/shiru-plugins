@@ -1,9 +1,9 @@
 #include "TextLabel.hpp"
 #include "Window.hpp"
-#include "../ColorPalette.hpp"
+#include "ColorPalette.hpp"
 
 TextLabel::TextLabel(Widget *group)
-    : Widget(group)
+    : BasicWidget(group)
 {
 }
 
@@ -36,6 +36,7 @@ void TextLabel::setFont(const std::string &font)
 void TextLabel::onDisplay()
 {
     cairo_t *cr = getParentWindow().getGraphicsContext().cairo;
+    const ColorPalette *cp = getColorPalette();
 
     PangoLayout *layout = fTextLayout.get();
     if (!layout) {
@@ -45,7 +46,7 @@ void TextLabel::onDisplay()
         pango_layout_set_font_description(fTextLayout.get(), fFont.empty() ? nullptr : pango_font_description_from_string(fFont.c_str()));
     }
 
-    cairo_set_source_color(cr, ColorPalette::textlabel_text);
+    cairo_set_source_color(cr, cp->textlabel_text);
     pango_cairo_show_layout(cr, layout);
 
     if (false) {  // XXX: test only

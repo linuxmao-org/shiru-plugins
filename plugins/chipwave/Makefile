@@ -7,18 +7,21 @@
 # --------------------------------------------------------------
 # Project name, used for binaries
 
-NAME = evalua
+NAME = chipwave
 
 # --------------------------------------------------------------
 # Files to build
 
 FILES_DSP = \
-	EvaluaPlugin.cpp \
-	ev.cpp
+	ChipWavePlugin.cpp \
+	ChipWaveShared.cpp \
+	DistrhoPluginInfo.cpp
 
 FILES_UI  = \
-	EvaluaUI.cpp \
-	ev.cpp \
+	ChipWaveUI.cpp \
+	ChipWaveShared.cpp \
+	Artwork.cpp \
+	DistrhoPluginInfo.cpp \
 	common/components/ColorPalette.cpp \
 	common/components/BasicWidget.cpp \
 	common/components/TextEdit.cpp \
@@ -46,5 +49,8 @@ TARGETS += lv2_sep
 TARGETS += vst
 
 all: $(TARGETS)
+
+Artwork.cpp:
+	../../dpf/utils/res2c.py Artwork artwork
 
 # --------------------------------------------------------------
