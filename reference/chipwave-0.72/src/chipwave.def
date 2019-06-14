@@ -1,0 +1,4 @@
+LIBRARY CHIPWAVE
+EXPORTS
+VSTPluginMain 
+main=VSTPluginMain
