@@ -1,9 +1,12 @@
-# EVALUA
-A math synth plugin, unofficial [DPF](https://github.com/DISTRHO/DPF) port
+# shiru-plugins
+
+A set of music plugins created by Shiru, unofficial [DPF](https://github.com/DISTRHO/DPF) ports
 
 **Official home page:** http://shiru.untergrund.net/software.shtml
 
-# Description
+## EVALUA
+
+### Description
 
 Synth based on evaluation of math expressions, similar to the one-liner generative music C programs.
 

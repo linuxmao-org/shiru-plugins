@@ -14,11 +14,13 @@ all: dgl plugins gen
 
 # --------------------------------------------------------------
 
+PLUGINS := evalua
+
 dgl:
 	$(MAKE) -C dpf/dgl
 
 plugins: dgl
-	$(MAKE) all -C plugins/evalua
+	$(foreach p,$(PLUGINS),$(MAKE) all -C plugins/$(p);)
 
 ifneq ($(CROSS_COMPILING),true)
 gen: plugins dpf/utils/lv2_ttl_generator
@@ -38,7 +40,7 @@ endif
 clean:
 	$(MAKE) clean -C dpf/dgl
 	$(MAKE) clean -C dpf/utils/lv2-ttl-generator
-	$(MAKE) clean -C plugins/evalua
+	$(foreach p,$(PLUGINS),$(MAKE) clean -C plugins/$(p);)
 	rm -rf bin build
 
 # --------------------------------------------------------------
