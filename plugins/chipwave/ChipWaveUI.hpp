@@ -30,6 +30,7 @@ private:
     DGL::Image fBackgroundImage;
     std::unique_ptr<TextEdit> fNameEdit;
     std::unique_ptr<std::unique_ptr<DGL::Widget>[]> fControls;
+    std::unique_ptr<int[]> fControlNumSteps;
     int fControlHovered = -1;
     int32_t fNoise[65536];
 };

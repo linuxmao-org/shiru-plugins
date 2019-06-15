@@ -10,7 +10,8 @@
 
 ChipWaveUI::ChipWaveUI()
     : UI(1120, 410),
-      fControls(new std::unique_ptr<DGL::Widget>[Parameter_Count])
+      fControls(new std::unique_ptr<DGL::Widget>[Parameter_Count]),
+      fControlNumSteps(new int[Parameter_Count]())
 {
     InitNoise(fNoise);
 
@@ -199,6 +200,38 @@ void ChipWaveUI::onDisplay()
         pango_cairo_show_layout(cr, layout.get());
         cairo_set_matrix(cr, &mat);
     }
+
+    for (unsigned p = 0; p < Parameter_Count; ++p) {
+        unsigned steps = fControlNumSteps[p];
+        DGL::Widget *control = fControls[p].get();
+
+        if (steps == 0)
+            continue;
+
+        DISTRHO_SAFE_ASSERT_CONTINUE(control);
+
+        double cx = control->getAbsoluteX();
+        double cy = control->getAbsoluteY();
+        double cw = control->getWidth();
+        double ch = control->getHeight();
+
+        cairo_set_source_color(cr, ColorRGBA{0xff, 0xff, 0xff, 0x80});
+        cairo_set_line_width(cr, 1.0);
+
+        if ((int)steps == -1) {
+            cairo_move_to(cr, cx, cy + 0.5 * ch);
+            cairo_line_to(cr, cx + cw, cy + 0.5 * ch);
+            cairo_stroke(cr);
+        }
+        else if (steps > 1) {
+            double sh = ch / steps;
+            for (unsigned i = 1; i < steps; ++i) {
+                cairo_move_to(cr, cx, cy + i * sh);
+                cairo_line_to(cr, cx + cw, cy + i * sh);
+                cairo_stroke(cr);
+            }
+        }
+    }
 }
 
 void ChipWaveUI::parameterChanged(uint32_t index, float value)
@@ -233,8 +266,7 @@ void ChipWaveUI::SliderAdd(int32_t x, int32_t y, int32_t w, int32_t h, int32_t p
     control->setAbsolutePos(x, y);
     control->setOrientation(ValueFill::Vertical);
 
-    //TODO steps
-    
+    fControlNumSteps[param] = steps;
 
     control->ValueChangedCallback =
         [this, param](double value) { setParameterValue(param, value); };
