@@ -12,6 +12,8 @@ struct ColorPalette {
     ColorRGBA valuefill_frame;
     ColorRGBA valuefill_fill;
     ColorRGBA valuefill_text;
+    ColorRGBA button_frame;
+    ColorRGBA button_pressed;
 
     virtual ~ColorPalette() {}
     static ColorPalette &getDefault();

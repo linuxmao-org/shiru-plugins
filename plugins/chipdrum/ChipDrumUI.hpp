@@ -1,15 +1,17 @@
 #pragma once
 #include "DistrhoUI.hpp"
 #include "Image.hpp"
+#include "ChipDrumShared.hpp"
 #include <vector>
 #include <memory>
 class TextEdit;
+class ToggleButton;
 
-class ChipWaveUI : public DISTRHO::UI
+class ChipDrumUI : public DISTRHO::UI
 {
 public:
-    ChipWaveUI();
-    ~ChipWaveUI();
+    ChipDrumUI();
+    ~ChipDrumUI();
 
     bool onMotion(const MotionEvent &event) override;
     void onDisplay() override;
@@ -18,13 +20,16 @@ public:
     void stateChanged(const char* key, const char* value) override;
 
 private:
+    void ButtonAdd(int32_t x, int32_t y, int32_t w, int32_t h, bool hover);
     void SliderAdd(int32_t x, int32_t y, int32_t w, int32_t h, int32_t param, int32_t steps, bool invert);
-    void RenderWaveform(int32_t x, int32_t y, int32_t w, int32_t h, int32_t osc);
-    void RenderEnvelope(int32_t x, int32_t y, int32_t w, int32_t h, int32_t env);
+    void RenderWaveform(int32_t x, int32_t y, int32_t w, int32_t h);
+    void RenderEnvelope(int32_t x, int32_t y, int32_t w, int32_t h);
 
 private:
     float getControlValue(uint32_t index) const;
     void setControlValue(uint32_t index, float value);
+
+    void selectNote(unsigned note);
 
 private:
     bool fGraphicsInitialized = false;
@@ -33,5 +38,15 @@ private:
     std::unique_ptr<std::unique_ptr<DGL::Widget>[]> fControls;
     std::unique_ptr<int[]> fControlNumSteps;
     int fControlHovered = -1;
-    int32_t fNoise[65536];
+    unsigned fSelectedNoteNumber = 0;
+
+    std::vector<std::unique_ptr<ToggleButton>> fButtons;
+    ToggleButton *fNoteSelectButton[SYNTH_NOTES] = {};
+
+    float fParameterValues[Parameter_Count] = {};
+
+private: //XXX: remove after implementing copy/paste support
+    struct MaskRect { int x, y, w, h; };
+    std::vector<MaskRect> fMaskAreas;
+    void MaskBackgroundArea(int x, int y, int w, int h) { fMaskAreas.push_back(MaskRect{x, y, w, h}); }
 };

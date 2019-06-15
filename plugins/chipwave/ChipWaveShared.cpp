@@ -7,7 +7,7 @@ void InitNoise(int32_t noise[65536])
 {
     std::minstd_rand prng;
     prng.seed(1);
-    for(unsigned i = 0; i < 65536; ++i) noise[i] = prng() & 1;
+    for (unsigned i = 0; i < 65536; ++i) noise[i] = prng() & 1;
 }
 
 float OverdriveValue(float value)

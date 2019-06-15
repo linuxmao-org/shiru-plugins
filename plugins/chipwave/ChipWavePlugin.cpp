@@ -107,7 +107,6 @@ void ChipWavePlugin::setParameterValue(uint32_t index, float value)
     Program.values[index] = value;
 }
 
-
 void ChipWavePlugin::initProgramName(uint32_t index, String &name)
 {
     DISTRHO_SAFE_ASSERT_RETURN(index < PresetData.size(), );

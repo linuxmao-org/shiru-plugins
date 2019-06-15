@@ -16,6 +16,12 @@ Synth based on evaluation of math expressions, similar to the one-liner generati
 
 Synth plugin that blends characteristics of many old sound chips (AY, SID, POKEY) with features of old subtractive synths.
 
+## ChipDrum
+
+### Description
+
+Drum synth plugin, a counterpart for ChipWave, sharing the same concept, but for drum sounds, and capable to produce a range of sounds between 1-bit, chip tune, and classic analog drum machines.
+
 # Building
 
 Type `make`. The build will be found in the `bin` folder.

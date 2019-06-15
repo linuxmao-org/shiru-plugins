@@ -122,6 +122,10 @@ ChipWaveUI::ChipWaveUI()
     SliderAdd(sx+2*30,sy,20,128,Parameter_OutputGain,0,true);
 }
 
+ChipWaveUI::~ChipWaveUI()
+{
+}
+
 bool ChipWaveUI::onMotion(const MotionEvent &event)
 {
     int mx = event.pos.getX();
