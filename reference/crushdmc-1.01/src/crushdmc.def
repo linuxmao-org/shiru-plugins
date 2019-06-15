@@ -1,0 +1,4 @@
+LIBRARY CRUSHDMC
+EXPORTS
+VSTPluginMain 
+main=VSTPluginMain
