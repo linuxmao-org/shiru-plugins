@@ -1,0 +1,4 @@
+LIBRARY CHIPDRUM
+EXPORTS
+VSTPluginMain 
+main=VSTPluginMain
