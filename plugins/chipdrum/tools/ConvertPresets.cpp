@@ -173,57 +173,57 @@ int main(int argc, char *argv[])
     fprintf(stderr, "tag: %c %c %c %c\n", tagi & 0xff, (tagi >> 7) & 0xff, (tagi >> 14) & 0xff, (tagi >> 21) & 0xff);
 }
 
-            if (tag == str_tag("TLVL")) id = Parameter_ToneLevel1 + note;
-            else if (tag == str_tag("TDC1")) id = Parameter_ToneDecay1 + note;
-            else if (tag == str_tag("TDCL")) id = Parameter_ToneSustain1 + note;
-            else if (tag == str_tag("TDC2")) id = Parameter_ToneRelease1 + note;
-            else if (tag == str_tag("TNPI")) id = Parameter_TonePitch1 + note;
-            else if (tag == str_tag("TNSL")) id = Parameter_ToneSlide1 + note;
-            else if (tag == str_tag("TWAV")) id = Parameter_ToneWave1 + note;
-            else if (tag == str_tag("TOVR")) id = Parameter_ToneOver1 + note;
+            if (tag == str_tag("TLVL")) id = pIdToneLevel1 + note;
+            else if (tag == str_tag("TDC1")) id = pIdToneDecay1 + note;
+            else if (tag == str_tag("TDCL")) id = pIdToneSustain1 + note;
+            else if (tag == str_tag("TDC2")) id = pIdToneRelease1 + note;
+            else if (tag == str_tag("TNPI")) id = pIdTonePitch1 + note;
+            else if (tag == str_tag("TNSL")) id = pIdToneSlide1 + note;
+            else if (tag == str_tag("TWAV")) id = pIdToneWave1 + note;
+            else if (tag == str_tag("TOVR")) id = pIdToneOver1 + note;
 
-            else if (tag == str_tag("LVLN")) id = Parameter_NoiseLevel1 + note;
-            else if (tag == str_tag("DC1N")) id = Parameter_NoiseDecay1 + note;
-            else if (tag == str_tag("DCLN")) id = Parameter_NoiseSustain1 + note;
-            else if (tag == str_tag("DC2N")) id = Parameter_NoiseRelease1 + note;
-            else if (tag == str_tag("PT1N")) id = Parameter_NoisePitch11 + note;
-            else if (tag == str_tag("PT2N")) id = Parameter_NoisePitch21 + note;
-            else if (tag == str_tag("2OFN")) id = Parameter_NoisePitch2Off1 + note;
-            else if (tag == str_tag("2LNN")) id = Parameter_NoisePitch2Len1 + note;
-            else if (tag == str_tag("PRDN")) id = Parameter_NoisePeriod1 + note;
-            else if (tag == str_tag("PSEN")) id = Parameter_NoiseSeed1 + note;
-            else if (tag == str_tag("TYPN")) id = Parameter_NoiseType1 + note;
+            else if (tag == str_tag("LVLN")) id = pIdNoiseLevel1 + note;
+            else if (tag == str_tag("DC1N")) id = pIdNoiseDecay1 + note;
+            else if (tag == str_tag("DCLN")) id = pIdNoiseSustain1 + note;
+            else if (tag == str_tag("DC2N")) id = pIdNoiseRelease1 + note;
+            else if (tag == str_tag("PT1N")) id = pIdNoisePitch11 + note;
+            else if (tag == str_tag("PT2N")) id = pIdNoisePitch21 + note;
+            else if (tag == str_tag("2OFN")) id = pIdNoisePitch2Off1 + note;
+            else if (tag == str_tag("2LNN")) id = pIdNoisePitch2Len1 + note;
+            else if (tag == str_tag("PRDN")) id = pIdNoisePeriod1 + note;
+            else if (tag == str_tag("PSEN")) id = pIdNoiseSeed1 + note;
+            else if (tag == str_tag("TYPN")) id = pIdNoiseType1 + note;
 
-            else if (tag == str_tag("RTME")) id = Parameter_RetrigTime1 + note;
-            else if (tag == str_tag("RCNT")) id = Parameter_RetrigCount1 + note;
-            else if (tag == str_tag("RRTE")) id = Parameter_RetrigRoute1 + note;
+            else if (tag == str_tag("RTME")) id = pIdRetrigTime1 + note;
+            else if (tag == str_tag("RCNT")) id = pIdRetrigCount1 + note;
+            else if (tag == str_tag("RRTE")) id = pIdRetrigRoute1 + note;
 
-            else if (tag == str_tag("LLPF")) id = Parameter_FilterLP1 + note;
-            else if (tag == str_tag("HHPF")) id = Parameter_FilterHP1 + note;
-            else if (tag == str_tag("FLTR")) id = Parameter_FilterRoute1 + note;
+            else if (tag == str_tag("LLPF")) id = pIdFilterLP1 + note;
+            else if (tag == str_tag("HHPF")) id = pIdFilterHP1 + note;
+            else if (tag == str_tag("FLTR")) id = pIdFilterRoute1 + note;
 
-            else if (tag == str_tag("GRPO")) id = Parameter_DrumGroup1 + note;
-            else if (tag == str_tag("BDPT")) id = Parameter_DrumBitDepth1 + note;
-            else if (tag == str_tag("UPDR")) id = Parameter_DrumUpdateRate1 + note;
-            else if (tag == str_tag("VOLU")) id = Parameter_DrumVolume1 + note;
-            else if (tag == str_tag("PANO")) id = Parameter_DrumPan1 + note;
+            else if (tag == str_tag("GRPO")) id = pIdDrumGroup1 + note;
+            else if (tag == str_tag("BDPT")) id = pIdDrumBitDepth1 + note;
+            else if (tag == str_tag("UPDR")) id = pIdDrumUpdateRate1 + note;
+            else if (tag == str_tag("VOLU")) id = pIdDrumVolume1 + note;
+            else if (tag == str_tag("PANO")) id = pIdDrumPan1 + note;
 
-            else if (tag == str_tag("VDVL")) id = Parameter_VelDrumVolume1 + note;
-            else if (tag == str_tag("VTPL")) id = Parameter_VelTonePitch1 + note;
-            else if (tag == str_tag("VNPL")) id = Parameter_VelNoisePitch1 + note;
-            else if (tag == str_tag("VODL")) id = Parameter_VelToneOver1 + note;
+            else if (tag == str_tag("VDVL")) id = pIdVelDrumVolume1 + note;
+            else if (tag == str_tag("VTPL")) id = pIdVelTonePitch1 + note;
+            else if (tag == str_tag("VNPL")) id = pIdVelNoisePitch1 + note;
+            else if (tag == str_tag("VODL")) id = pIdVelToneOver1 + note;
 
-            else if (tag == str_tag("1LNH")) id = Parameter_Hat1Length;
-            else if (tag == str_tag("L2NH")) id = Parameter_Hat2Length;
-            else if (tag == str_tag("LN3H")) id = Parameter_Hat3Length;
-            else if (tag == str_tag("HPAN")) id = Parameter_HatPanWidth;
+            else if (tag == str_tag("1LNH")) id = pIdHat1Length;
+            else if (tag == str_tag("L2NH")) id = pIdHat2Length;
+            else if (tag == str_tag("LN3H")) id = pIdHat3Length;
+            else if (tag == str_tag("HPAN")) id = pIdHatPanWidth;
 
-            else if (tag == str_tag("1PTT")) id = Parameter_Tom1Pitch;
-            else if (tag == str_tag("P2TT")) id = Parameter_Tom2Pitch;
-            else if (tag == str_tag("PT3T")) id = Parameter_Tom3Pitch;
-            else if (tag == str_tag("TPAN")) id = Parameter_TomPanWidth;
+            else if (tag == str_tag("1PTT")) id = pIdTom1Pitch;
+            else if (tag == str_tag("P2TT")) id = pIdTom2Pitch;
+            else if (tag == str_tag("PT3T")) id = pIdTom3Pitch;
+            else if (tag == str_tag("TPAN")) id = pIdTomPanWidth;
 
-            else if (tag == str_tag("GAIN")) id = Parameter_OutputGain;
+            else if (tag == str_tag("GAIN")) id = pIdOutputGain;
 
             if (id == -1) {
                 fprintf(stderr, "Unrecognized parameter ID\n");

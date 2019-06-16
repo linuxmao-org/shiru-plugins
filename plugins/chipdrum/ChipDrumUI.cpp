@@ -58,89 +58,89 @@ ChipDrumUI::ChipDrumUI()
     sx=165;
     sy=77;
 
-    SliderAdd(sx+0*30,sy,20,128,Parameter_ToneWave1,4,false);
-    SliderAdd(sx+1*30,sy,20,128,Parameter_ToneOver1,0,true);
-    SliderAdd(sx+2*30,sy,20,128,Parameter_TonePitch1,0,true);
-    SliderAdd(sx+3*30,sy,20,128,Parameter_ToneSlide1,-1,true);
+    SliderAdd(sx+0*30,sy,20,128,pIdToneWave1,4,false);
+    SliderAdd(sx+1*30,sy,20,128,pIdToneOver1,0,true);
+    SliderAdd(sx+2*30,sy,20,128,pIdTonePitch1,0,true);
+    SliderAdd(sx+3*30,sy,20,128,pIdToneSlide1,-1,true);
 
     sx=308;
     sy=77;
 
-    SliderAdd(sx+0*30,sy,20,128,Parameter_ToneLevel1,0,true);
-    SliderAdd(sx+1*30,sy,20,128,Parameter_ToneDecay1,0,true);
-    SliderAdd(sx+2*30,sy,20,128,Parameter_ToneSustain1,0,true);
-    SliderAdd(sx+3*30,sy,20,128,Parameter_ToneRelease1,0,true);
+    SliderAdd(sx+0*30,sy,20,128,pIdToneLevel1,0,true);
+    SliderAdd(sx+1*30,sy,20,128,pIdToneDecay1,0,true);
+    SliderAdd(sx+2*30,sy,20,128,pIdToneSustain1,0,true);
+    SliderAdd(sx+3*30,sy,20,128,pIdToneRelease1,0,true);
 
     sx=562;
     sy=77;
 
-    SliderAdd(sx+0*30,sy,20,128,Parameter_NoiseLevel1,0,true);
-    SliderAdd(sx+1*30,sy,20,128,Parameter_NoiseDecay1,0,true);
-    SliderAdd(sx+2*30,sy,20,128,Parameter_NoiseSustain1,0,true);
-    SliderAdd(sx+3*30,sy,20,128,Parameter_NoiseRelease1,0,true);
+    SliderAdd(sx+0*30,sy,20,128,pIdNoiseLevel1,0,true);
+    SliderAdd(sx+1*30,sy,20,128,pIdNoiseDecay1,0,true);
+    SliderAdd(sx+2*30,sy,20,128,pIdNoiseSustain1,0,true);
+    SliderAdd(sx+3*30,sy,20,128,pIdNoiseRelease1,0,true);
 
     sx=165;
     sy=250;
 
-    SliderAdd(sx+0*30,sy,20,128,Parameter_NoiseType1,2,true);
-    SliderAdd(sx+1*30,sy,20,128,Parameter_NoisePeriod1,0,true);
-    SliderAdd(sx+2*30,sy,20,128,Parameter_NoiseSeed1,0,true);
-    SliderAdd(sx+3*30,sy,20,128,Parameter_NoisePitch11,0,true);
-    SliderAdd(sx+4*30,sy,20,128,Parameter_NoisePitch21,0,true);
-    SliderAdd(sx+5*30,sy,20,128,Parameter_NoisePitch2Off1,0,true);
-    SliderAdd(sx+6*30,sy,20,128,Parameter_NoisePitch2Len1,0,true);
+    SliderAdd(sx+0*30,sy,20,128,pIdNoiseType1,2,true);
+    SliderAdd(sx+1*30,sy,20,128,pIdNoisePeriod1,0,true);
+    SliderAdd(sx+2*30,sy,20,128,pIdNoiseSeed1,0,true);
+    SliderAdd(sx+3*30,sy,20,128,pIdNoisePitch11,0,true);
+    SliderAdd(sx+4*30,sy,20,128,pIdNoisePitch21,0,true);
+    SliderAdd(sx+5*30,sy,20,128,pIdNoisePitch2Off1,0,true);
+    SliderAdd(sx+6*30,sy,20,128,pIdNoisePitch2Len1,0,true);
 
     sx=396;
     sy=250;
 
-    SliderAdd(sx+0*30,sy,20,128,Parameter_RetrigTime1,0,true);
-    SliderAdd(sx+1*30,sy,20,128,Parameter_RetrigCount1,0,true);
-    SliderAdd(sx+2*30,sy,20,128,Parameter_RetrigRoute1,3,true);
+    SliderAdd(sx+0*30,sy,20,128,pIdRetrigTime1,0,true);
+    SliderAdd(sx+1*30,sy,20,128,pIdRetrigCount1,0,true);
+    SliderAdd(sx+2*30,sy,20,128,pIdRetrigRoute1,3,true);
 
     sx=509;
     sy=250;
 
-    SliderAdd(sx+0*30,sy,20,128,Parameter_FilterLP1,0,true);
-    SliderAdd(sx+1*30,sy,20,128,Parameter_FilterHP1,0,true);
-    SliderAdd(sx+2*30,sy,20,128,Parameter_FilterRoute1,4,true);
+    SliderAdd(sx+0*30,sy,20,128,pIdFilterLP1,0,true);
+    SliderAdd(sx+1*30,sy,20,128,pIdFilterHP1,0,true);
+    SliderAdd(sx+2*30,sy,20,128,pIdFilterRoute1,4,true);
 
     sx=620;
     sy=250;
 
-    SliderAdd(sx+0*30,sy,20,128,Parameter_VelDrumVolume1,0,true);
-    SliderAdd(sx+1*30,sy,20,128,Parameter_VelTonePitch1,-1,true);
-    SliderAdd(sx+2*30,sy,20,128,Parameter_VelNoisePitch1,-1,true);
-    SliderAdd(sx+3*30,sy,20,128,Parameter_VelToneOver1,-1,true);
+    SliderAdd(sx+0*30,sy,20,128,pIdVelDrumVolume1,0,true);
+    SliderAdd(sx+1*30,sy,20,128,pIdVelTonePitch1,-1,true);
+    SliderAdd(sx+2*30,sy,20,128,pIdVelNoisePitch1,-1,true);
+    SliderAdd(sx+3*30,sy,20,128,pIdVelToneOver1,-1,true);
 
     sx=761;
     sy=250;
 
-    SliderAdd(sx+0*30,sy,20,128,Parameter_DrumVolume1,0,true);
-    SliderAdd(sx+1*30,sy,20,128,Parameter_DrumPan1,-1,true);
-    SliderAdd(sx+2*30,sy,20,128,Parameter_DrumGroup1,4,true);
-    SliderAdd(sx+3*30,sy,20,128,Parameter_DrumBitDepth1,8,true);
-    SliderAdd(sx+4*30,sy,20,128,Parameter_DrumUpdateRate1,0,true);
+    SliderAdd(sx+0*30,sy,20,128,pIdDrumVolume1,0,true);
+    SliderAdd(sx+1*30,sy,20,128,pIdDrumPan1,-1,true);
+    SliderAdd(sx+2*30,sy,20,128,pIdDrumGroup1,4,true);
+    SliderAdd(sx+3*30,sy,20,128,pIdDrumBitDepth1,8,true);
+    SliderAdd(sx+4*30,sy,20,128,pIdDrumUpdateRate1,0,true);
 
     sx=702;
     sy=77;
 
-    SliderAdd(sx+0*30,sy,20,128,Parameter_Hat1Length,0,true);
-    SliderAdd(sx+1*30,sy,20,128,Parameter_Hat2Length,0,true);
-    SliderAdd(sx+2*30,sy,20,128,Parameter_Hat3Length,0,true);
-    SliderAdd(sx+3*30,sy,20,128,Parameter_HatPanWidth,-1,true);
+    SliderAdd(sx+0*30,sy,20,128,pIdHat1Length,0,true);
+    SliderAdd(sx+1*30,sy,20,128,pIdHat2Length,0,true);
+    SliderAdd(sx+2*30,sy,20,128,pIdHat3Length,0,true);
+    SliderAdd(sx+3*30,sy,20,128,pIdHatPanWidth,-1,true);
 
     sx=843;
     sy=77;
 
-    SliderAdd(sx+0*30,sy,20,128,Parameter_Tom1Pitch,0,true);
-    SliderAdd(sx+1*30,sy,20,128,Parameter_Tom2Pitch,0,true);
-    SliderAdd(sx+2*30,sy,20,128,Parameter_Tom3Pitch,0,true);
-    SliderAdd(sx+3*30,sy,20,128,Parameter_TomPanWidth,-1,true);
+    SliderAdd(sx+0*30,sy,20,128,pIdTom1Pitch,0,true);
+    SliderAdd(sx+1*30,sy,20,128,pIdTom2Pitch,0,true);
+    SliderAdd(sx+2*30,sy,20,128,pIdTom3Pitch,0,true);
+    SliderAdd(sx+3*30,sy,20,128,pIdTomPanWidth,-1,true);
 
     sx=933;
     sy=250;
 
-    SliderAdd(sx+0*30,sy,20,128,Parameter_OutputGain,0,true);
+    SliderAdd(sx+0*30,sy,20,128,pIdOutputGain,0,true);
 }
 
 ChipDrumUI::~ChipDrumUI()
@@ -351,9 +351,9 @@ void ChipDrumUI::RenderWaveform(int32_t x, int32_t y, int32_t w, int32_t h)
     fh=(float)h;
     sx=x;
 
-    over=OverdriveValue(fParameterValues[Parameter_ToneOver1 + fSelectedNoteNumber]);
+    over=OverdriveValue(fParameterValues[pIdToneOver1 + fSelectedNoteNumber]);
 
-    wave=(int32_t)(fParameterValues[Parameter_ToneWave1 + fSelectedNoteNumber]*3.99f);
+    wave=(int32_t)(fParameterValues[pIdToneWave1 + fSelectedNoteNumber]*3.99f);
 
     acc=0;
 
@@ -401,8 +401,8 @@ void ChipDrumUI::RenderEnvelope(int32_t x, int32_t y, int32_t w, int32_t h)
     sx=x;
 
     time=0;
-    time_start=fParameterValues[Parameter_NoisePitch2Off1 + fSelectedNoteNumber]*DECAY_TIME_MAX_MS /1000.0f;
-    time_end  =fParameterValues[Parameter_NoisePitch2Len1 + fSelectedNoteNumber]*NOISE_BURST_MAX_MS/1000.0f+time_start;
+    time_start=fParameterValues[pIdNoisePitch2Off1 + fSelectedNoteNumber]*DECAY_TIME_MAX_MS /1000.0f;
+    time_end  =fParameterValues[pIdNoisePitch2Len1 + fSelectedNoteNumber]*NOISE_BURST_MAX_MS/1000.0f+time_start;
 
     cairo_new_path(cr);
     for(i=0;i<w;++i)
@@ -429,14 +429,14 @@ void ChipDrumUI::RenderEnvelope(int32_t x, int32_t y, int32_t w, int32_t h)
     sx=x;
 
     time=0;
-    time_decay  =fParameterValues[Parameter_NoiseDecay1 + fSelectedNoteNumber]*DECAY_TIME_MAX_MS  /1000.0f;
-    time_release=fParameterValues[Parameter_NoiseRelease1 + fSelectedNoteNumber]*RELEASE_TIME_MAX_MS/1000.0f;
+    time_decay  =fParameterValues[pIdNoiseDecay1 + fSelectedNoteNumber]*DECAY_TIME_MAX_MS  /1000.0f;
+    time_release=fParameterValues[pIdNoiseRelease1 + fSelectedNoteNumber]*RELEASE_TIME_MAX_MS/1000.0f;
 
     if(time_decay==0) time_decay=.01f;
     if(time_release==0) time_release=.01f;
 
-    level  =fParameterValues[Parameter_NoiseLevel1 + fSelectedNoteNumber];
-    sustain=fParameterValues[Parameter_NoiseSustain1 + fSelectedNoteNumber]*level;
+    level  =fParameterValues[pIdNoiseLevel1 + fSelectedNoteNumber];
+    sustain=fParameterValues[pIdNoiseSustain1 + fSelectedNoteNumber]*level;
     decay  =(level-sustain)*scale/time_decay;
     release=sustain*scale/time_release;
 
@@ -479,14 +479,14 @@ void ChipDrumUI::RenderEnvelope(int32_t x, int32_t y, int32_t w, int32_t h)
     sx=x;
 
     time=0;
-    time_decay  =fParameterValues[Parameter_ToneDecay1 + fSelectedNoteNumber]*DECAY_TIME_MAX_MS  /1000.0f;
-    time_release=fParameterValues[Parameter_ToneRelease1 + fSelectedNoteNumber]*RELEASE_TIME_MAX_MS/1000.0f;
+    time_decay  =fParameterValues[pIdToneDecay1 + fSelectedNoteNumber]*DECAY_TIME_MAX_MS  /1000.0f;
+    time_release=fParameterValues[pIdToneRelease1 + fSelectedNoteNumber]*RELEASE_TIME_MAX_MS/1000.0f;
 
     if(time_decay==0) time_decay=.01f;
     if(time_release==0) time_release=.01f;
 
-    level  =fParameterValues[Parameter_ToneLevel1 + fSelectedNoteNumber];
-    sustain=fParameterValues[Parameter_ToneSustain1 + fSelectedNoteNumber]*level;
+    level  =fParameterValues[pIdToneLevel1 + fSelectedNoteNumber];
+    sustain=fParameterValues[pIdToneSustain1 + fSelectedNoteNumber]*level;
     decay  =(level-sustain)*scale/time_decay;
     release=sustain*scale/time_release;
 

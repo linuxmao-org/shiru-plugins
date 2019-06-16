@@ -154,65 +154,65 @@ int main(int argc, char *argv[])
 
             int id = -1;
 
-            if (tag == str_tag("OAWF")) id = Parameter_OscAWave;
-            else if (tag == str_tag("OADU")) id = Parameter_OscADuty;
-            else if (tag == str_tag("OAOV")) id = Parameter_OscAOver;
-            else if (tag == str_tag("OAMU")) id = Parameter_OscAMultiple;
-            else if (tag == str_tag("OASD")) id = Parameter_OscASeed;
-            else if (tag == str_tag("OACT")) id = Parameter_OscACut;
+            if (tag == str_tag("OAWF")) id = pIdOscAWave;
+            else if (tag == str_tag("OADU")) id = pIdOscADuty;
+            else if (tag == str_tag("OAOV")) id = pIdOscAOver;
+            else if (tag == str_tag("OAMU")) id = pIdOscAMultiple;
+            else if (tag == str_tag("OASD")) id = pIdOscASeed;
+            else if (tag == str_tag("OACT")) id = pIdOscACut;
 
-            else if (tag == str_tag("OBWF")) id = Parameter_OscBWave;
-            else if (tag == str_tag("OBDU")) id = Parameter_OscBDuty;
-            else if (tag == str_tag("OBOV")) id = Parameter_OscBOver;
-            else if (tag == str_tag("OBDE")) id = Parameter_OscBDetune;
-            else if (tag == str_tag("OBMU")) id = Parameter_OscBMultiple;
-            else if (tag == str_tag("OBSD")) id = Parameter_OscBSeed;
-            else if (tag == str_tag("OBCT")) id = Parameter_OscBCut;
+            else if (tag == str_tag("OBWF")) id = pIdOscBWave;
+            else if (tag == str_tag("OBDU")) id = pIdOscBDuty;
+            else if (tag == str_tag("OBOV")) id = pIdOscBOver;
+            else if (tag == str_tag("OBDE")) id = pIdOscBDetune;
+            else if (tag == str_tag("OBMU")) id = pIdOscBMultiple;
+            else if (tag == str_tag("OBSD")) id = pIdOscBSeed;
+            else if (tag == str_tag("OBCT")) id = pIdOscBCut;
 
-            else if (tag == str_tag("OBAL")) id = Parameter_OscBalance;
-            else if (tag == str_tag("OMIX")) id = Parameter_OscMixMode;
+            else if (tag == str_tag("OBAL")) id = pIdOscBalance;
+            else if (tag == str_tag("OMIX")) id = pIdOscMixMode;
 
-            else if (tag == str_tag("FLCU")) id = Parameter_FltCutoff;
-            else if (tag == str_tag("FLRE")) id = Parameter_FltReso;
+            else if (tag == str_tag("FLCU")) id = pIdFltCutoff;
+            else if (tag == str_tag("FLRE")) id = pIdFltReso;
 
-            else if (tag == str_tag("SLDE")) id = Parameter_SlideDelay;
-            else if (tag == str_tag("SLSP")) id = Parameter_SlideSpeed;
-            else if (tag == str_tag("SLRO")) id = Parameter_SlideRoute;
+            else if (tag == str_tag("SLDE")) id = pIdSlideDelay;
+            else if (tag == str_tag("SLSP")) id = pIdSlideSpeed;
+            else if (tag == str_tag("SLRO")) id = pIdSlideRoute;
 
-            else if (tag == str_tag("ENAT")) id = Parameter_EnvAttack;
-            else if (tag == str_tag("ENDC")) id = Parameter_EnvDecay;
-            else if (tag == str_tag("ENSU")) id = Parameter_EnvSustain;
-            else if (tag == str_tag("ENRE")) id = Parameter_EnvRelease;
+            else if (tag == str_tag("ENAT")) id = pIdEnvAttack;
+            else if (tag == str_tag("ENDC")) id = pIdEnvDecay;
+            else if (tag == str_tag("ENSU")) id = pIdEnvSustain;
+            else if (tag == str_tag("ENRE")) id = pIdEnvRelease;
 
-            else if (tag == str_tag("ENOA")) id = Parameter_EnvOscADepth;
-            else if (tag == str_tag("ENOB")) id = Parameter_EnvOscBDepth;
-            else if (tag == str_tag("ENOD")) id = Parameter_EnvOscBDetuneDepth;
-            else if (tag == str_tag("ENMX")) id = Parameter_EnvOscMixDepth;
-            else if (tag == str_tag("ENFL")) id = Parameter_EnvFltDepth;
-            else if (tag == str_tag("ENLF")) id = Parameter_EnvLfoDepth;
+            else if (tag == str_tag("ENOA")) id = pIdEnvOscADepth;
+            else if (tag == str_tag("ENOB")) id = pIdEnvOscBDepth;
+            else if (tag == str_tag("ENOD")) id = pIdEnvOscBDetuneDepth;
+            else if (tag == str_tag("ENMX")) id = pIdEnvOscMixDepth;
+            else if (tag == str_tag("ENFL")) id = pIdEnvFltDepth;
+            else if (tag == str_tag("ENLF")) id = pIdEnvLfoDepth;
 
-            else if (tag == str_tag("LFSP")) id = Parameter_LfoSpeed;
-            else if (tag == str_tag("LFPI")) id = Parameter_LfoPitchDepth;
-            else if (tag == str_tag("LFOA")) id = Parameter_LfoOscADepth;
-            else if (tag == str_tag("LFOB")) id = Parameter_LfoOscBDepth;
-            else if (tag == str_tag("LFMX")) id = Parameter_LfoOscMixDepth;
-            else if (tag == str_tag("LFFL")) id = Parameter_LfoFltDepth;
+            else if (tag == str_tag("LFSP")) id = pIdLfoSpeed;
+            else if (tag == str_tag("LFPI")) id = pIdLfoPitchDepth;
+            else if (tag == str_tag("LFOA")) id = pIdLfoOscADepth;
+            else if (tag == str_tag("LFOB")) id = pIdLfoOscBDepth;
+            else if (tag == str_tag("LFMX")) id = pIdLfoOscMixDepth;
+            else if (tag == str_tag("LFFL")) id = pIdLfoFltDepth;
 
-            else if (tag == str_tag("VOAT")) id = Parameter_AmpAttack;
-            else if (tag == str_tag("VODE")) id = Parameter_AmpDecay;
-            else if (tag == str_tag("VOSU")) id = Parameter_AmpSustain;
-            else if (tag == str_tag("VORE")) id = Parameter_AmpRelease;
+            else if (tag == str_tag("VOAT")) id = pIdAmpAttack;
+            else if (tag == str_tag("VODE")) id = pIdAmpDecay;
+            else if (tag == str_tag("VOSU")) id = pIdAmpSustain;
+            else if (tag == str_tag("VORE")) id = pIdAmpRelease;
 
-            else if (tag == str_tag("VLAM")) id = Parameter_VelAmp;
-            else if (tag == str_tag("VLOA")) id = Parameter_VelOscADepth;
-            else if (tag == str_tag("VLOB")) id = Parameter_VelOscBDepth;
-            else if (tag == str_tag("VLMX")) id = Parameter_VelOscMixDepth;
-            else if (tag == str_tag("VLFC")) id = Parameter_VelFltCutoff;
-            else if (tag == str_tag("VLFR")) id = Parameter_VelFltReso;
+            else if (tag == str_tag("VLAM")) id = pIdVelAmp;
+            else if (tag == str_tag("VLOA")) id = pIdVelOscADepth;
+            else if (tag == str_tag("VLOB")) id = pIdVelOscBDepth;
+            else if (tag == str_tag("VLMX")) id = pIdVelOscMixDepth;
+            else if (tag == str_tag("VLFC")) id = pIdVelFltCutoff;
+            else if (tag == str_tag("VLFR")) id = pIdVelFltReso;
 
-            else if (tag == str_tag("POLY")) id = Parameter_Polyphony;
-            else if (tag == str_tag("POSP")) id = Parameter_PortaSpeed;
-            else if (tag == str_tag("GAIN")) id = Parameter_OutputGain;
+            else if (tag == str_tag("POLY")) id = pIdPolyphony;
+            else if (tag == str_tag("POSP")) id = pIdPortaSpeed;
+            else if (tag == str_tag("GAIN")) id = pIdOutputGain;
 
             if (id == -1) {
                 fprintf(stderr, "Unrecognized parameter ID\n");

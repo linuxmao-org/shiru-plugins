@@ -78,99 +78,99 @@ std::string GetParameterDisplay(uint32_t index, double value)
 
     switch (ParameterFirstOfGroup(index))
     {
-    case Parameter_ToneLevel1:
+    case pIdToneLevel1:
         text = std::to_string(value); break;
-    case Parameter_ToneDecay1:
+    case pIdToneDecay1:
         text = std::to_string(DECAY_TIME_MAX_MS*value); break;
-    case Parameter_ToneSustain1:
+    case pIdToneSustain1:
         text = std::to_string(value); break;
-    case Parameter_ToneRelease1:
+    case pIdToneRelease1:
         text = std::to_string(RELEASE_TIME_MAX_MS*value); break;
-    case Parameter_TonePitch1:
+    case pIdTonePitch1:
         text = std::to_string(FloatToHz(value,TONE_PITCH_MAX_HZ)); break;
-    case Parameter_ToneSlide1:
+    case pIdToneSlide1:
         text = std::to_string(-1.0f+value*2.0f); break;
-    case Parameter_ToneWave1:
+    case pIdToneWave1:
         text=pWaveformNames[(int32_t)(value*3.99f)]; break;
-    case Parameter_ToneOver1:
+    case pIdToneOver1:
         text = std::to_string(OverdriveValue(value)); break;
 
-    case Parameter_NoiseLevel1:
+    case pIdNoiseLevel1:
         text = std::to_string(value); break;
-    case Parameter_NoiseDecay1:
+    case pIdNoiseDecay1:
         text = std::to_string(DECAY_TIME_MAX_MS*value); break;
-    case Parameter_NoiseSustain1:
+    case pIdNoiseSustain1:
         text = std::to_string(value); break;
-    case Parameter_NoiseRelease1:
+    case pIdNoiseRelease1:
         text = std::to_string(RELEASE_TIME_MAX_MS*value); break;
-    case Parameter_NoisePitch11:
+    case pIdNoisePitch11:
         text = std::to_string((value*NOISE_PITCH_MAX_HZ)); break;
-    case Parameter_NoisePitch21:
+    case pIdNoisePitch21:
         text = std::to_string((value*NOISE_PITCH_MAX_HZ)); break;
-    case Parameter_NoisePitch2Off1:
+    case pIdNoisePitch2Off1:
         text = std::to_string((value*DECAY_TIME_MAX_MS)); break;
-    case Parameter_NoisePitch2Len1:
+    case pIdNoisePitch2Len1:
         text = std::to_string((value*NOISE_BURST_MAX_MS)); break;
-    case Parameter_NoisePeriod1:
+    case pIdNoisePeriod1:
         text = std::to_string((FloatToNoisePeriod(value)+1)); break;
-    case Parameter_NoiseSeed1:
+    case pIdNoiseSeed1:
         if(value>0) text = std::to_string(value); else text="Random"; break;
-    case Parameter_NoiseType1:
+    case pIdNoiseType1:
         text = value<.5f?"White":"Digital"; break;
 
-    case Parameter_RetrigTime1:
+    case pIdRetrigTime1:
         text = std::to_string(RETRIGGER_MAX_MS*value); break;
-    case Parameter_RetrigCount1:
+    case pIdRetrigCount1:
         text = std::to_string((int32_t)(1+RETRIGGER_MAX_COUNT*value)); break;
-    case Parameter_RetrigRoute1:
+    case pIdRetrigRoute1:
         text = pRetrigRouteNames[(int32_t)(value*2.99f)]; break;
 
-    case Parameter_FilterLP1:
+    case pIdFilterLP1:
         if(value<1.0f) text = std::to_string(FILTER_CUTOFF_MAX_HZ*value); else text="Disabled"; break;
-    case Parameter_FilterHP1:
+    case pIdFilterHP1:
         if(value>0.0f) text = std::to_string(FILTER_CUTOFF_MAX_HZ*value); else text="Disabled"; break;
-    case Parameter_FilterRoute1:
+    case pIdFilterRoute1:
         text = pFilterRouteNames[(int32_t)(value*3.99f)]; break;
 
-    case Parameter_DrumGroup1:
+    case pIdDrumGroup1:
         text = std::to_string((int32_t)(value*((DISTRHO_PLUGIN_NUM_OUTPUTS/2)-0.1f))); break;
-    case Parameter_DrumBitDepth1:
+    case pIdDrumBitDepth1:
         text = pBitDepthNames[(int32_t)(value*7.99f)]; break;
-    case Parameter_DrumUpdateRate1:
+    case pIdDrumUpdateRate1:
         if(value<1.0f) text = std::to_string(MIN_UPDATE_RATE+value*MAX_UPDATE_RATE); else text="Analog"; break;
-    case Parameter_DrumVolume1:
+    case pIdDrumVolume1:
         text = std::to_string(20 * log10(value)) + " dB"; break;
-    case Parameter_DrumPan1:
+    case pIdDrumPan1:
         text = std::to_string(value-.5f); break;
 
-    case Parameter_VelDrumVolume1:
+    case pIdVelDrumVolume1:
         text = std::to_string(value); break;
-    case Parameter_VelTonePitch1:
+    case pIdVelTonePitch1:
         text = std::to_string(value*2.0f-1.0f); break;
-    case Parameter_VelNoisePitch1:
+    case pIdVelNoisePitch1:
         text = std::to_string(value*2.0f-1.0f); break;
-    case Parameter_VelToneOver1:
-        text = std::to_string(value*2.0f-1.0f); break;
-
-    case Parameter_Hat1Length:
-        text = std::to_string(value*2.0f-1.0f); break;
-    case Parameter_Hat2Length:
-        text = std::to_string(value*2.0f-1.0f); break;
-    case Parameter_Hat3Length:
-        text = std::to_string(value*2.0f-1.0f); break;
-    case Parameter_HatPanWidth:
+    case pIdVelToneOver1:
         text = std::to_string(value*2.0f-1.0f); break;
 
-    case Parameter_Tom1Pitch:
+    case pIdHat1Length:
+        text = std::to_string(value*2.0f-1.0f); break;
+    case pIdHat2Length:
+        text = std::to_string(value*2.0f-1.0f); break;
+    case pIdHat3Length:
+        text = std::to_string(value*2.0f-1.0f); break;
+    case pIdHatPanWidth:
+        text = std::to_string(value*2.0f-1.0f); break;
+
+    case pIdTom1Pitch:
         text = std::to_string(value*2.0f-1.0f);break;
-    case Parameter_Tom2Pitch:
+    case pIdTom2Pitch:
         text = std::to_string(value*2.0f-1.0f); break;
-    case Parameter_Tom3Pitch:
+    case pIdTom3Pitch:
         text = std::to_string(value*2.0f-1.0f); break;
-    case Parameter_TomPanWidth:
+    case pIdTomPanWidth:
         text = std::to_string(value*2.0f-1.0f); break;
 
-    case Parameter_OutputGain:
+    case pIdOutputGain:
         text = std::to_string(20 * log10(value)) + " dB"; break;
     }
 

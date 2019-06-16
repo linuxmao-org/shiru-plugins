@@ -65,9 +65,9 @@ __attribute__((unused)) static const char *const pBitDepthNames[] = {"1 bit","2 
 
 inline int ParameterNoteNumber(int p)
 {
-    if (p < Parameter_NoteLevelFirstGroup || (unsigned)p >= Parameter_NoteLevelLastGroup + SYNTH_NOTES)
+    if (p < pIdNoteLevelFirstGroup || (unsigned)p >= pIdNoteLevelLastGroup + SYNTH_NOTES)
         return -1;
-    return (p - Parameter_NoteLevelFirstGroup) % SYNTH_NOTES;
+    return (p - pIdNoteLevelFirstGroup) % SYNTH_NOTES;
 }
 
 inline int ParameterFirstOfGroup(int p)

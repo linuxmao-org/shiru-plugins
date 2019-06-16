@@ -55,7 +55,7 @@ int64_t CrushDMCPlugin::getUniqueId() const
 
 void CrushDMCPlugin::initParameter(uint32_t index, Parameter &parameter)
 {
-    if (index == Parameter_Bypass) {
+    if (index == pIdBypass) {
         parameter.designation = kParameterDesignationBypass;
         return;
     }
@@ -63,7 +63,7 @@ void CrushDMCPlugin::initParameter(uint32_t index, Parameter &parameter)
     std::unique_ptr<ParameterEnumerationValue[]> pev;
 
     switch (index) {
-    case Parameter_InputGain:
+    case pIdInputGain:
         parameter.symbol = "GAIN";
         parameter.name = "Input Gain";
         parameter.ranges.min = 0.1;
@@ -71,7 +71,7 @@ void CrushDMCPlugin::initParameter(uint32_t index, Parameter &parameter)
         parameter.ranges.def = 1;
         parameter.hints = kParameterIsAutomable|kParameterIsLogarithmic;
         break;
-    case Parameter_SampleRate:
+    case pIdSampleRate:
         parameter.symbol = "SPFR";
         parameter.name = "Sample Rate";
         parameter.ranges.min = 0;
@@ -88,7 +88,7 @@ void CrushDMCPlugin::initParameter(uint32_t index, Parameter &parameter)
         parameter.enumValues.values = pev.release();
         parameter.enumValues.count = 32;
         break;
-    case Parameter_OutputGain:
+    case pIdOutputGain:
         parameter.symbol = "GOUT";
         parameter.name = "Output Gain";
         parameter.ranges.min = 0.1;
@@ -104,13 +104,13 @@ void CrushDMCPlugin::initParameter(uint32_t index, Parameter &parameter)
 float CrushDMCPlugin::getParameterValue(uint32_t index) const
 {
     switch (index) {
-    case Parameter_Bypass:
+    case pIdBypass:
         return fBypassed;
-    case Parameter_InputGain:
+    case pIdInputGain:
         return pInputGain;
-    case Parameter_SampleRate:
+    case pIdSampleRate:
         return pSampleRate;
-    case Parameter_OutputGain:
+    case pIdOutputGain:
         return pOutputGain;
     default:
         DISTRHO_SAFE_ASSERT_RETURN(false, 0);
@@ -120,16 +120,16 @@ float CrushDMCPlugin::getParameterValue(uint32_t index) const
 void CrushDMCPlugin::setParameterValue(uint32_t index, float value)
 {
     switch (index) {
-    case Parameter_Bypass:
+    case pIdBypass:
         fBypassed = value > 0.5f;
         break;
-    case Parameter_InputGain:
+    case pIdInputGain:
         pInputGain = value;
         break;
-    case Parameter_SampleRate:
+    case pIdSampleRate:
         pSampleRate = std::max<int32_t>(0, std::min<int32_t>(31, value));
         break;
-    case Parameter_OutputGain:
+    case pIdOutputGain:
         pOutputGain = value;
         break;
     default:

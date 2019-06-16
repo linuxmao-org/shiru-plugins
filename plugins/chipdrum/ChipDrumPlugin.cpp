@@ -195,14 +195,14 @@ void ChipDrumPlugin::run(const float **, float **outputs, uint32_t frames, const
                     SynthRestartTone(chn);
                     SynthRestartNoise(chn);
 
-                    vol=Program.values[Parameter_DrumVolume1 + note]*(1.0f*(1.0f-Program.values[Parameter_VelDrumVolume1 + note])+SynthChannel[chn].velocity*Program.values[Parameter_VelDrumVolume1 + note]);
+                    vol=Program.values[pIdDrumVolume1 + note]*(1.0f*(1.0f-Program.values[pIdVelDrumVolume1 + note])+SynthChannel[chn].velocity*Program.values[pIdVelDrumVolume1 + note]);
 
-                    pan=Program.values[Parameter_DrumPan1 + note];
+                    pan=Program.values[pIdDrumPan1 + note];
 
-                    if(notem==6)  pan-=Program.values[Parameter_HatPanWidth]*.5f;
-                    if(notem==7)  pan-=Program.values[Parameter_TomPanWidth]*.5f;
-                    if(notem==10) pan+=Program.values[Parameter_HatPanWidth]*.5f;
-                    if(notem==11) pan+=Program.values[Parameter_TomPanWidth]*.5f;
+                    if(notem==6)  pan-=Program.values[pIdHatPanWidth]*.5f;
+                    if(notem==7)  pan-=Program.values[pIdTomPanWidth]*.5f;
+                    if(notem==10) pan+=Program.values[pIdHatPanWidth]*.5f;
+                    if(notem==11) pan+=Program.values[pIdTomPanWidth]*.5f;
 
                     if(pan<0.0f) pan=0.0f;
                     if(pan>1.0f) pan=1.0f;
@@ -210,19 +210,19 @@ void ChipDrumPlugin::run(const float **, float **outputs, uint32_t frames, const
                     SynthChannel[chn].volume_l=vol*(1.0f-pan);
                     SynthChannel[chn].volume_r=vol*pan;
 
-                    SynthChannel[chn].tone_wave=(int32_t)(Program.values[Parameter_ToneWave1 + note]*3.99f);
+                    SynthChannel[chn].tone_wave=(int32_t)(Program.values[pIdToneWave1 + note]*3.99f);
 
-                    SynthChannel[chn].tone_over=OverdriveValue(Program.values[Parameter_ToneOver1 + note]+(Program.values[Parameter_VelToneOver1 + note]*2.0f-1.0f)*(1.0f-SynthChannel[chn].velocity)*.5f);
+                    SynthChannel[chn].tone_over=OverdriveValue(Program.values[pIdToneOver1 + note]+(Program.values[pIdVelToneOver1 + note]*2.0f-1.0f)*(1.0f-SynthChannel[chn].velocity)*.5f);
 
-                    SynthChannel[chn].group=(int32_t)(Program.values[Parameter_DrumGroup1 + note]*((DISTRHO_PLUGIN_NUM_OUTPUTS/2)-.1f));
+                    SynthChannel[chn].group=(int32_t)(Program.values[pIdDrumGroup1 + note]*((DISTRHO_PLUGIN_NUM_OUTPUTS/2)-.1f));
 
-                    SynthChannel[chn].bit_depth=pBitDepth[(int32_t)(Program.values[Parameter_DrumBitDepth1 + note]*7.99f)];
+                    SynthChannel[chn].bit_depth=pBitDepth[(int32_t)(Program.values[pIdDrumBitDepth1 + note]*7.99f)];
 
                     SynthChannel[chn].frame_acc=1.0f;    //force first update
 
-                    if(Program.values[Parameter_DrumUpdateRate1 + note]<1.0f)
+                    if(Program.values[pIdDrumUpdateRate1 + note]<1.0f)
                     {
-                        SynthChannel[chn].frame_add=1.0f/(sampleRate/(MIN_UPDATE_RATE+Program.values[Parameter_DrumUpdateRate1 + note]*MAX_UPDATE_RATE));
+                        SynthChannel[chn].frame_add=1.0f/(sampleRate/(MIN_UPDATE_RATE+Program.values[pIdDrumUpdateRate1 + note]*MAX_UPDATE_RATE));
                     }
                     else
                     {
@@ -231,11 +231,11 @@ void ChipDrumPlugin::run(const float **, float **outputs, uint32_t frames, const
 
                     //calculate filter coefficients, does not change during note play
 
-                    SynthChannel[chn].filter_route=(int32_t)(Program.values[Parameter_FilterRoute1 + note]*3.99f);
+                    SynthChannel[chn].filter_route=(int32_t)(Program.values[pIdFilterRoute1 + note]*3.99f);
 
-                    if(Program.values[Parameter_FilterLP1 + note]<1.0f)
+                    if(Program.values[pIdFilterLP1 + note]<1.0f)
                     {
-                        SynthChannel[chn].lpf_resofreq=Program.values[Parameter_FilterLP1 + note]*FILTER_CUTOFF_MAX_HZ;
+                        SynthChannel[chn].lpf_resofreq=Program.values[pIdFilterLP1 + note]*FILTER_CUTOFF_MAX_HZ;
                     }
                     else
                     {
@@ -251,9 +251,9 @@ void ChipDrumPlugin::run(const float **, float **outputs, uint32_t frames, const
                     SynthChannel[chn].lpf_r=q*q;
                     SynthChannel[chn].lpf_c=SynthChannel[chn].lpf_r+1.0-2.0*cos(w)*q;
 
-                    if(Program.values[Parameter_FilterHP1 + note]>0.0f)
+                    if(Program.values[pIdFilterHP1 + note]>0.0f)
                     {
-                        SynthChannel[chn].hpf_resofreq=Program.values[Parameter_FilterHP1 + note]*FILTER_CUTOFF_MAX_HZ;
+                        SynthChannel[chn].hpf_resofreq=Program.values[pIdFilterHP1 + note]*FILTER_CUTOFF_MAX_HZ;
                     }
                     else
                     {
@@ -277,9 +277,9 @@ void ChipDrumPlugin::run(const float **, float **outputs, uint32_t frames, const
                     //retrigger
 
                     SynthChannel[chn].retrigger_acc=0;
-                    SynthChannel[chn].retrigger_add=1.0f/(RETRIGGER_MAX_MS*Program.values[Parameter_RetrigTime1 + note]/1000.0f*sampleRate);
-                    SynthChannel[chn].retrigger_count=(int32_t)(Program.values[Parameter_RetrigCount1 + note]*RETRIGGER_MAX_COUNT);
-                    SynthChannel[chn].retrigger_route=(int32_t)(Program.values[Parameter_RetrigRoute1 + note]*2.99f);
+                    SynthChannel[chn].retrigger_add=1.0f/(RETRIGGER_MAX_MS*Program.values[pIdRetrigTime1 + note]/1000.0f*sampleRate);
+                    SynthChannel[chn].retrigger_count=(int32_t)(Program.values[pIdRetrigCount1 + note]*RETRIGGER_MAX_COUNT);
+                    SynthChannel[chn].retrigger_route=(int32_t)(Program.values[pIdRetrigRoute1 + note]*2.99f);
                 }
             }
             break;
@@ -534,14 +534,14 @@ void ChipDrumPlugin::run(const float **, float **outputs, uint32_t frames, const
             }
         }
 
-        level_l[0]*=Program.values[Parameter_OutputGain];
-        level_l[1]*=Program.values[Parameter_OutputGain];
-        level_l[2]*=Program.values[Parameter_OutputGain];
-        level_l[3]*=Program.values[Parameter_OutputGain];
-        level_r[0]*=Program.values[Parameter_OutputGain];
-        level_r[1]*=Program.values[Parameter_OutputGain];
-        level_r[2]*=Program.values[Parameter_OutputGain];
-        level_r[3]*=Program.values[Parameter_OutputGain];
+        level_l[0]*=Program.values[pIdOutputGain];
+        level_l[1]*=Program.values[pIdOutputGain];
+        level_l[2]*=Program.values[pIdOutputGain];
+        level_l[3]*=Program.values[pIdOutputGain];
+        level_r[0]*=Program.values[pIdOutputGain];
+        level_r[1]*=Program.values[pIdOutputGain];
+        level_r[2]*=Program.values[pIdOutputGain];
+        level_r[3]*=Program.values[pIdOutputGain];
 
         if(level_l[0]<-1.0f) level_l[0]=-1.0f; else if(level_l[0]> 1.0f) level_l[0]= 1.0f;
         if(level_l[1]<-1.0f) level_l[1]=-1.0f; else if(level_l[1]> 1.0f) level_l[1]= 1.0f;
@@ -578,25 +578,25 @@ void ChipDrumPlugin::SynthRestartTone(int32_t chn)
 
     float sampleRate = getSampleRate();
 
-    dc=Program.values[Parameter_ToneDecay1 + note];
-    rl=Program.values[Parameter_ToneRelease1 + note];
+    dc=Program.values[pIdToneDecay1 + note];
+    rl=Program.values[pIdToneRelease1 + note];
 
     if(SynthChannel[chn].notem==6)
     {
-        dc+=(Program.values[Parameter_Hat1Length]-.5f);
-        rl+=(Program.values[Parameter_Hat1Length]-.5f);
+        dc+=(Program.values[pIdHat1Length]-.5f);
+        rl+=(Program.values[pIdHat1Length]-.5f);
     }
 
     if(SynthChannel[chn].notem==8)
     {
-        dc+=(Program.values[Parameter_Hat2Length]-.5f);
-        rl+=(Program.values[Parameter_Hat2Length]-.5f);
+        dc+=(Program.values[pIdHat2Length]-.5f);
+        rl+=(Program.values[pIdHat2Length]-.5f);
     }
 
     if(SynthChannel[chn].notem==10)
     {
-        dc+=(Program.values[Parameter_Hat3Length]-.5f);
-        rl+=(Program.values[Parameter_Hat3Length]-.5f);
+        dc+=(Program.values[pIdHat3Length]-.5f);
+        rl+=(Program.values[pIdHat3Length]-.5f);
     }
 
     if(dc<0) dc=0;
@@ -607,8 +607,8 @@ void ChipDrumPlugin::SynthRestartTone(int32_t chn)
     div1=dc*(DECAY_TIME_MAX_MS  /1000.0f)*sampleRate;
     div2=rl*(RELEASE_TIME_MAX_MS/1000.0f)*sampleRate;
 
-    SynthChannel[chn].tone_level  =Program.values[Parameter_ToneLevel1 + note];
-    SynthChannel[chn].tone_sustain=Program.values[Parameter_ToneLevel1 + note]*Program.values[Parameter_ToneSustain1 + note];
+    SynthChannel[chn].tone_level  =Program.values[pIdToneLevel1 + note];
+    SynthChannel[chn].tone_sustain=Program.values[pIdToneLevel1 + note]*Program.values[pIdToneSustain1 + note];
     SynthChannel[chn].tone_decay  =div1>0?((SynthChannel[chn].tone_level-SynthChannel[chn].tone_sustain)/div1/OVERSAMPLING):1.0f;
     SynthChannel[chn].tone_release=div2>0?(SynthChannel[chn].tone_sustain/div2/OVERSAMPLING):1.0f;
 
@@ -618,15 +618,15 @@ void ChipDrumPlugin::SynthRestartTone(int32_t chn)
 
     if(SynthChannel[chn].tone_decay==0) SynthChannel[chn].tone_decay=.000001f;
 
-    freq=Program.values[Parameter_TonePitch1 + note]+(Program.values[Parameter_VelTonePitch1 + note]*2.0f-1.0f)*(1.0f-SynthChannel[chn].velocity)*.1f;
+    freq=Program.values[pIdTonePitch1 + note]+(Program.values[pIdVelTonePitch1 + note]*2.0f-1.0f)*(1.0f-SynthChannel[chn].velocity)*.1f;
 
-    if(SynthChannel[chn].notem==7 ) freq+=(Program.values[Parameter_Tom1Pitch]*2.0f-1.0f)*.1f;
-    if(SynthChannel[chn].notem==9 ) freq+=(Program.values[Parameter_Tom2Pitch]*2.0f-1.0f)*.1f;
-    if(SynthChannel[chn].notem==11) freq+=(Program.values[Parameter_Tom3Pitch]*2.0f-1.0f)*.1f;
+    if(SynthChannel[chn].notem==7 ) freq+=(Program.values[pIdTom1Pitch]*2.0f-1.0f)*.1f;
+    if(SynthChannel[chn].notem==9 ) freq+=(Program.values[pIdTom2Pitch]*2.0f-1.0f)*.1f;
+    if(SynthChannel[chn].notem==11) freq+=(Program.values[pIdTom3Pitch]*2.0f-1.0f)*.1f;
 
     SynthChannel[chn].tone_acc=0;
     SynthChannel[chn].tone_add=FloatToHz(freq,TONE_PITCH_MAX_HZ)/sampleRate/OVERSAMPLING;
-    SynthChannel[chn].tone_delta=(-1.0f+Program.values[Parameter_ToneSlide1 + note]*2.0f)*(48000.0f/sampleRate)/(50.0f*sampleRate)/OVERSAMPLING;
+    SynthChannel[chn].tone_delta=(-1.0f+Program.values[pIdToneSlide1 + note]*2.0f)*(48000.0f/sampleRate)/(50.0f*sampleRate)/OVERSAMPLING;
 }
 
 void ChipDrumPlugin::SynthRestartNoise(int32_t chn)
@@ -639,25 +639,25 @@ void ChipDrumPlugin::SynthRestartNoise(int32_t chn)
 
     float sampleRate = getSampleRate();
 
-    dc=Program.values[Parameter_NoiseDecay1 + note];
-    rl=Program.values[Parameter_NoiseRelease1 + note];
+    dc=Program.values[pIdNoiseDecay1 + note];
+    rl=Program.values[pIdNoiseRelease1 + note];
 
     if(SynthChannel[chn].notem==6)
     {
-        dc+=(Program.values[Parameter_Hat1Length]-.5f);
-        rl+=(Program.values[Parameter_Hat1Length]-.5f);
+        dc+=(Program.values[pIdHat1Length]-.5f);
+        rl+=(Program.values[pIdHat1Length]-.5f);
     }
 
     if(SynthChannel[chn].notem==8)
     {
-        dc+=(Program.values[Parameter_Hat2Length]-.5f);
-        rl+=(Program.values[Parameter_Hat2Length]-.5f);
+        dc+=(Program.values[pIdHat2Length]-.5f);
+        rl+=(Program.values[pIdHat2Length]-.5f);
     }
 
     if(SynthChannel[chn].notem==10)
     {
-        dc+=(Program.values[Parameter_Hat3Length]-.5f);
-        rl+=(Program.values[Parameter_Hat3Length]-.5f);
+        dc+=(Program.values[pIdHat3Length]-.5f);
+        rl+=(Program.values[pIdHat3Length]-.5f);
     }
 
     if(dc<0) dc=0;
@@ -668,8 +668,8 @@ void ChipDrumPlugin::SynthRestartNoise(int32_t chn)
     div1=dc*(DECAY_TIME_MAX_MS  /1000.0f)*sampleRate;
     div2=rl*(RELEASE_TIME_MAX_MS/1000.0f)*sampleRate;
 
-    SynthChannel[chn].noise_level  =Program.values[Parameter_NoiseLevel1 + note];
-    SynthChannel[chn].noise_sustain=Program.values[Parameter_NoiseLevel1 + note]*Program.values[Parameter_NoiseSustain1 + note];
+    SynthChannel[chn].noise_level  =Program.values[pIdNoiseLevel1 + note];
+    SynthChannel[chn].noise_sustain=Program.values[pIdNoiseLevel1 + note]*Program.values[pIdNoiseSustain1 + note];
     SynthChannel[chn].noise_decay  =div1>0?((SynthChannel[chn].noise_level-SynthChannel[chn].noise_sustain)/div1/OVERSAMPLING):1.0f;
     SynthChannel[chn].noise_release=div2>0?(SynthChannel[chn].noise_sustain/div2/OVERSAMPLING):1.0f;
 
@@ -677,26 +677,26 @@ void ChipDrumPlugin::SynthRestartNoise(int32_t chn)
     SynthChannel[chn].noise_env_add1=div1>0?(1.0f/div1/OVERSAMPLING):1.0f;
     SynthChannel[chn].noise_env_add2=div2>0?(1.0f/div2/OVERSAMPLING):1.0f;
 
-    freq1=Program.values[Parameter_NoisePitch11 + note]+(Program.values[Parameter_VelNoisePitch1 + note]*2.0f-1.0f)*(1.0f-SynthChannel[chn].velocity)*.1f;
-    freq2=Program.values[Parameter_NoisePitch21 + note]+(Program.values[Parameter_VelNoisePitch1 + note]*2.0f-1.0f)*(1.0f-SynthChannel[chn].velocity)*.1f;
+    freq1=Program.values[pIdNoisePitch11 + note]+(Program.values[pIdVelNoisePitch1 + note]*2.0f-1.0f)*(1.0f-SynthChannel[chn].velocity)*.1f;
+    freq2=Program.values[pIdNoisePitch21 + note]+(Program.values[pIdVelNoisePitch1 + note]*2.0f-1.0f)*(1.0f-SynthChannel[chn].velocity)*.1f;
 
     SynthChannel[chn].noise_acc=0;
     SynthChannel[chn].noise_add1=freq1*NOISE_PITCH_MAX_HZ/sampleRate/OVERSAMPLING;
     SynthChannel[chn].noise_add2=freq2*NOISE_PITCH_MAX_HZ/sampleRate/OVERSAMPLING;
 
-    if(Program.values[Parameter_NoiseSeed1 + note]>0) SynthChannel[chn].noise_seed=(int32_t)(Program.values[Parameter_NoiseSeed1 + note]*65535.9f); else SynthChannel[chn].noise_seed=std::uniform_int_distribution<>{0, 32767}(rng);
+    if(Program.values[pIdNoiseSeed1 + note]>0) SynthChannel[chn].noise_seed=(int32_t)(Program.values[pIdNoiseSeed1 + note]*65535.9f); else SynthChannel[chn].noise_seed=std::uniform_int_distribution<>{0, 32767}(rng);
 
-    SynthChannel[chn].noise_type=Program.values[Parameter_NoiseType1 + note]<.5f?0:1;
+    SynthChannel[chn].noise_type=Program.values[pIdNoiseType1 + note]<.5f?0:1;
 
-    div1=Program.values[Parameter_NoisePitch2Off1 + note]*(DECAY_TIME_MAX_MS/1000.0f)*sampleRate;
-    div2=Program.values[Parameter_NoisePitch2Len1 + note]*(NOISE_BURST_MAX_MS/1000.0f)*sampleRate;
+    div1=Program.values[pIdNoisePitch2Off1 + note]*(DECAY_TIME_MAX_MS/1000.0f)*sampleRate;
+    div2=Program.values[pIdNoisePitch2Len1 + note]*(NOISE_BURST_MAX_MS/1000.0f)*sampleRate;
 
     SynthChannel[chn].noise_ptr=0;
     SynthChannel[chn].noise_frame_acc=0;
     SynthChannel[chn].noise_frame_add1=div1>0?(1.0f/div1/OVERSAMPLING):1.0f;
     SynthChannel[chn].noise_frame_add2=div2>0?(1.0f/div2/OVERSAMPLING):1.0f;
 
-    SynthChannel[chn].noise_mask=FloatToNoisePeriod(Program.values[Parameter_NoisePeriod1 + note]);
+    SynthChannel[chn].noise_mask=FloatToNoisePeriod(Program.values[pIdNoisePeriod1 + note]);
 }
 
 ///

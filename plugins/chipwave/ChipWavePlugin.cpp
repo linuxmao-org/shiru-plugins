@@ -170,17 +170,17 @@ void ChipWavePlugin::run(const float **, float **outputs, uint32_t frames, const
 
     mod_step=12.0f/sampleRate*pi;
 
-    poly=(Program.values[Parameter_Polyphony]<.5f?false:true);
+    poly=(Program.values[pIdPolyphony]<.5f?false:true);
 
-    oscaw=(int)(Program.values[Parameter_OscAWave]*3.99f);
-    oscbw=(int)(Program.values[Parameter_OscBWave]*3.99f);
+    oscaw=(int)(Program.values[pIdOscAWave]*3.99f);
+    oscbw=(int)(Program.values[pIdOscBWave]*3.99f);
 
-    overa=OverdriveValue(Program.values[Parameter_OscAOver]);
-    overb=OverdriveValue(Program.values[Parameter_OscBOver]);
+    overa=OverdriveValue(Program.values[pIdOscAOver]);
+    overb=OverdriveValue(Program.values[pIdOscBOver]);
 
-    mix_mode=(int)(Program.values[Parameter_OscMixMode]<.5f?0:1);
+    mix_mode=(int)(Program.values[pIdOscMixMode]<.5f?0:1);
 
-    slide=(int)(Program.values[Parameter_SlideRoute]*2.99f);
+    slide=(int)(Program.values[pIdSlideRoute]*2.99f);
 
     uint32_t event_index = 0;
 
@@ -235,21 +235,21 @@ void ChipWavePlugin::run(const float **, float **outputs, uint32_t frames, const
                             SynthChannel[chn].osca.acc=0;    //phase reset
                             SynthChannel[chn].oscb.acc=0;
 
-                            SynthChannel[chn].osca.cut=sampleRate*(Program.values[Parameter_OscACut]*OSC_CUT_MAX_MS)/1000.0f;
-                            SynthChannel[chn].oscb.cut=sampleRate*(Program.values[Parameter_OscBCut]*OSC_CUT_MAX_MS)/1000.0f;
+                            SynthChannel[chn].osca.cut=sampleRate*(Program.values[pIdOscACut]*OSC_CUT_MAX_MS)/1000.0f;
+                            SynthChannel[chn].oscb.cut=sampleRate*(Program.values[pIdOscBCut]*OSC_CUT_MAX_MS)/1000.0f;
 
-                            if(Program.values[Parameter_OscASeed]>0)
+                            if(Program.values[pIdOscASeed]>0)
                             {
-                                SynthChannel[chn].osca.noise_seed=(int32_t)(Program.values[Parameter_OscASeed]*65535.99f);
+                                SynthChannel[chn].osca.noise_seed=(int32_t)(Program.values[pIdOscASeed]*65535.99f);
                             }
                             else
                             {
                                 SynthChannel[chn].osca.noise_seed=std::uniform_int_distribution<>{0, 32767}(rng);
                             }
 
-                            if(Program.values[Parameter_OscBSeed]>0)
+                            if(Program.values[pIdOscBSeed]>0)
                             {
-                                SynthChannel[chn].oscb.noise_seed=(int32_t)(Program.values[Parameter_OscBSeed]*65535.99f);
+                                SynthChannel[chn].oscb.noise_seed=(int32_t)(Program.values[pIdOscBSeed]*65535.99f);
                             }
                             else
                             {
@@ -257,9 +257,9 @@ void ChipWavePlugin::run(const float **, float **outputs, uint32_t frames, const
                             }
 
                             SynthChannel[chn].velocity=((float)msg[2]/100.0f);
-                            SynthChannel[chn].volume=1.0f*(1.0f-Program.values[Parameter_VelAmp])+SynthChannel[chn].velocity*Program.values[Parameter_VelAmp];
+                            SynthChannel[chn].volume=1.0f*(1.0f-Program.values[pIdVelAmp])+SynthChannel[chn].velocity*Program.values[pIdVelAmp];
 
-                            SynthChannel[chn].slide_delay=sampleRate*(Program.values[Parameter_SlideDelay]*MOD_DELAY_MAX_MS)/1000.0f;
+                            SynthChannel[chn].slide_delay=sampleRate*(Program.values[pIdSlideDelay]*MOD_DELAY_MAX_MS)/1000.0f;
                             SynthChannel[chn].slide_osca=0;
                             SynthChannel[chn].slide_oscb=0;
 
@@ -370,11 +370,11 @@ void ChipWavePlugin::run(const float **, float **outputs, uint32_t frames, const
 
             while(SynthChannel[chn].lfo_count>=pi) SynthChannel[chn].lfo_count-=pi;
 
-            depth=1.0f*(1.0f-Program.values[Parameter_EnvLfoDepth])+SynthChannel[chn].ef_level*Program.values[Parameter_EnvLfoDepth];    //balance between just lfo and influenced by envelope
+            depth=1.0f*(1.0f-Program.values[pIdEnvLfoDepth])+SynthChannel[chn].ef_level*Program.values[pIdEnvLfoDepth];    //balance between just lfo and influenced by envelope
 
             SynthChannel[chn].lfo_out=sinf(SynthChannel[chn].lfo_count)*depth;
 
-            SynthChannel[chn].lfo_count+=Program.values[Parameter_LfoSpeed]*LFO_MAX_HZ/sampleRate;
+            SynthChannel[chn].lfo_count+=Program.values[pIdLfoSpeed]*LFO_MAX_HZ/sampleRate;
 
             //process slide
 
@@ -384,8 +384,8 @@ void ChipWavePlugin::run(const float **, float **outputs, uint32_t frames, const
             }
             else
             {
-                if(!slide||slide==1) SynthChannel[chn].slide_osca+=(Program.values[Parameter_SlideSpeed]*2.0f-1.0f)*.01f;
-                if(!slide||slide==2) SynthChannel[chn].slide_oscb+=(Program.values[Parameter_SlideSpeed]*2.0f-1.0f)*.01f;
+                if(!slide||slide==1) SynthChannel[chn].slide_osca+=(Program.values[pIdSlideSpeed]*2.0f-1.0f)*.01f;
+                if(!slide||slide==2) SynthChannel[chn].slide_oscb+=(Program.values[pIdSlideSpeed]*2.0f-1.0f)*.01f;
             }
 
             //process osc cut
@@ -395,7 +395,7 @@ void ChipWavePlugin::run(const float **, float **outputs, uint32_t frames, const
 
             //process portamento
 
-            if(Program.values[Parameter_PortaSpeed]>=1.0f)
+            if(Program.values[pIdPortaSpeed]>=1.0f)
             {
                 SynthChannel[chn].freq=SynthChannel[chn].freq_new;
             }
@@ -418,29 +418,29 @@ void ChipWavePlugin::run(const float **, float **outputs, uint32_t frames, const
 
             //process vibrato
 
-            vibrato=Program.values[Parameter_LfoPitchDepth]*SynthChannel[chn].lfo_out;
+            vibrato=Program.values[pIdLfoPitchDepth]*SynthChannel[chn].lfo_out;
 
             //get adders out of frequencies
 
-            detune=Program.values[Parameter_OscBDetune]+Program.values[Parameter_EnvOscBDetuneDepth]*.1f*SynthChannel[chn].ef_level;
+            detune=Program.values[pIdOscBDetune]+Program.values[pIdEnvOscBDetuneDepth]*.1f*SynthChannel[chn].ef_level;
 
             if(detune<0.0f) detune=0.0f;
             if(detune>1.0f) detune=1.0f;
 
-            SynthChannel[chn].osca.add=440.0f*pow(2.0f,(SynthChannel[chn].freq+modulation+vibrato+SynthChannel[chn].slide_osca+MidiPitchBend)/12.0f)*FloatToMultiple(Program.values[Parameter_OscAMultiple])/sampleRate/OVERSAMPLING;
-            SynthChannel[chn].oscb.add=440.0f*pow(2.0f,(SynthChannel[chn].freq+modulation+vibrato+SynthChannel[chn].slide_oscb+MidiPitchBend+detune*DETUNE_SEMITONES)/12.0f)*FloatToMultiple(Program.values[Parameter_OscBMultiple])/sampleRate/OVERSAMPLING;
+            SynthChannel[chn].osca.add=440.0f*pow(2.0f,(SynthChannel[chn].freq+modulation+vibrato+SynthChannel[chn].slide_osca+MidiPitchBend)/12.0f)*FloatToMultiple(Program.values[pIdOscAMultiple])/sampleRate/OVERSAMPLING;
+            SynthChannel[chn].oscb.add=440.0f*pow(2.0f,(SynthChannel[chn].freq+modulation+vibrato+SynthChannel[chn].slide_oscb+MidiPitchBend+detune*DETUNE_SEMITONES)/12.0f)*FloatToMultiple(Program.values[pIdOscBMultiple])/sampleRate/OVERSAMPLING;
 
             //process filter
 
-            if(Program.values[Parameter_FltCutoff]<1.0f)    //calculate filter coefficients
+            if(Program.values[pIdFltCutoff]<1.0f)    //calculate filter coefficients
             {
-                SynthChannel[chn].filter_resofreq=Program.values[Parameter_FltCutoff]+(SynthChannel[chn].velocity*(Program.values[Parameter_VelFltCutoff]*2.0f-1.0f))+(SynthChannel[chn].ef_level*(Program.values[Parameter_EnvFltDepth]*2.0f-1.0f))+(SynthChannel[chn].lfo_out*(Program.values[Parameter_LfoFltDepth]*2.0f-1.0f));
+                SynthChannel[chn].filter_resofreq=Program.values[pIdFltCutoff]+(SynthChannel[chn].velocity*(Program.values[pIdVelFltCutoff]*2.0f-1.0f))+(SynthChannel[chn].ef_level*(Program.values[pIdEnvFltDepth]*2.0f-1.0f))+(SynthChannel[chn].lfo_out*(Program.values[pIdLfoFltDepth]*2.0f-1.0f));
                 SynthChannel[chn].filter_resofreq*=FILTER_CUTOFF_MAX_HZ;
 
                 if(SynthChannel[chn].filter_resofreq<FILTER_CUTOFF_MIN_HZ) SynthChannel[chn].filter_resofreq=FILTER_CUTOFF_MIN_HZ;
                 if(SynthChannel[chn].filter_resofreq>FILTER_CUTOFF_MAX_HZ) SynthChannel[chn].filter_resofreq=FILTER_CUTOFF_MAX_HZ;
 
-                SynthChannel[chn].filter_amp=FILTER_MIN_RESONANCE+(Program.values[Parameter_FltReso]+SynthChannel[chn].velocity*(Program.values[Parameter_VelFltReso]*2.0f-1.0f))*FILTER_MAX_RESONANCE;
+                SynthChannel[chn].filter_amp=FILTER_MIN_RESONANCE+(Program.values[pIdFltReso]+SynthChannel[chn].velocity*(Program.values[pIdVelFltReso]*2.0f-1.0f))*FILTER_MAX_RESONANCE;
 
                 if(SynthChannel[chn].filter_amp<FILTER_MIN_RESONANCE) SynthChannel[chn].filter_amp=FILTER_MIN_RESONANCE;
                 if(SynthChannel[chn].filter_amp>FILTER_MAX_RESONANCE) SynthChannel[chn].filter_amp=FILTER_MAX_RESONANCE;
@@ -459,15 +459,15 @@ void ChipWavePlugin::run(const float **, float **outputs, uint32_t frames, const
         {
             if(SynthChannel[chn].note<0) continue;
 
-            dutya=Program.values[Parameter_OscADuty]+(Program.values[Parameter_VelOscADepth]*2.0f-1.0f)*SynthChannel[chn].velocity+(Program.values[Parameter_EnvOscADepth]*2.0f-1.0f)*SynthChannel[chn].ef_level+(Program.values[Parameter_LfoOscADepth]*2.0f-1.0f)*SynthChannel[chn].lfo_out;
-            dutyb=Program.values[Parameter_OscBDuty]+(Program.values[Parameter_VelOscBDepth]*2.0f-1.0f)*SynthChannel[chn].velocity+(Program.values[Parameter_EnvOscBDepth]*2.0f-1.0f)*SynthChannel[chn].ef_level+(Program.values[Parameter_LfoOscBDepth]*2.0f-1.0f)*SynthChannel[chn].lfo_out;
+            dutya=Program.values[pIdOscADuty]+(Program.values[pIdVelOscADepth]*2.0f-1.0f)*SynthChannel[chn].velocity+(Program.values[pIdEnvOscADepth]*2.0f-1.0f)*SynthChannel[chn].ef_level+(Program.values[pIdLfoOscADepth]*2.0f-1.0f)*SynthChannel[chn].lfo_out;
+            dutyb=Program.values[pIdOscBDuty]+(Program.values[pIdVelOscBDepth]*2.0f-1.0f)*SynthChannel[chn].velocity+(Program.values[pIdEnvOscBDepth]*2.0f-1.0f)*SynthChannel[chn].ef_level+(Program.values[pIdLfoOscBDepth]*2.0f-1.0f)*SynthChannel[chn].lfo_out;
 
             if(dutya<0.0f) dutya=0.0f;
             if(dutyb<0.0f) dutyb=0.0f;
             if(dutya>1.0f) dutya=1.0f;
             if(dutyb>1.0f) dutyb=1.0f;
 
-            osc_balance=Program.values[Parameter_OscBalance]+(Program.values[Parameter_VelOscMixDepth]*2.0f-1.0f)*SynthChannel[chn].velocity+(Program.values[Parameter_EnvOscMixDepth]*2.0f-1.0f)*SynthChannel[chn].ef_level+(Program.values[Parameter_LfoOscMixDepth]*2.0f-1.0f)*SynthChannel[chn].lfo_out;
+            osc_balance=Program.values[pIdOscBalance]+(Program.values[pIdVelOscMixDepth]*2.0f-1.0f)*SynthChannel[chn].velocity+(Program.values[pIdEnvOscMixDepth]*2.0f-1.0f)*SynthChannel[chn].ef_level+(Program.values[pIdLfoOscMixDepth]*2.0f-1.0f)*SynthChannel[chn].lfo_out;
 
             if(osc_balance<0.0f) osc_balance=0.0f;
             if(osc_balance>1.0f) osc_balance=1.0f;
@@ -476,8 +476,8 @@ void ChipWavePlugin::run(const float **, float **outputs, uint32_t frames, const
 
             osc_mute=0;
 
-            if(Program.values[Parameter_OscACut]>0) if(SynthChannel[chn].osca.cut<=0) osc_mute|=1;
-            if(Program.values[Parameter_OscBCut]>0) if(SynthChannel[chn].oscb.cut<=0) osc_mute|=2;
+            if(Program.values[pIdOscACut]>0) if(SynthChannel[chn].osca.cut<=0) osc_mute|=1;
+            if(Program.values[pIdOscBCut]>0) if(SynthChannel[chn].oscb.cut<=0) osc_mute|=2;
 
             for(s=0;s<OVERSAMPLING;++s)
             {
@@ -501,7 +501,7 @@ void ChipWavePlugin::run(const float **, float **outputs, uint32_t frames, const
 
             //12db filter
 
-            if(Program.values[Parameter_FltCutoff]<1.0f)
+            if(Program.values[pIdFltCutoff]<1.0f)
             {
                 SynthChannel[chn].filter_vibraspeed+=(level_osc*32768.0-SynthChannel[chn].filter_vibrapos)*SynthChannel[chn].filter_c;
 
@@ -519,7 +519,7 @@ void ChipWavePlugin::run(const float **, float **outputs, uint32_t frames, const
             level_mix+=level_osc;
         }
 
-        level_mix=level_mix*Program.values[Parameter_OutputGain];
+        level_mix=level_mix*Program.values[pIdOutputGain];
 
         (*outL++)=level_mix;
         (*outR++)=level_mix;
@@ -552,34 +552,34 @@ void ChipWavePlugin::SynthChannelChangeNote(int32_t chn, int32_t note)
     {
         SynthChannel[chn].freq_new=(float)SynthChannel[chn].note-69;
 
-        sSlideStep=(SynthChannel[chn].freq-SynthChannel[chn].freq_new)*20.0f*log(1.0f-Program.values[Parameter_PortaSpeed]);
+        sSlideStep=(SynthChannel[chn].freq-SynthChannel[chn].freq_new)*20.0f*log(1.0f-Program.values[pIdPortaSpeed]);
     }
 }
 
 void ChipWavePlugin::SynthRestartEnvelope(int32_t chn)
 {
-    if (Program.values[Parameter_AmpAttack]>0||Program.values[Parameter_AmpDecay]>0)
+    if (Program.values[pIdAmpAttack]>0||Program.values[pIdAmpDecay]>0)
     {
         SynthChannel[chn].ev_stage=eStageAttack;
         SynthChannel[chn].ev_level=0;
-        SynthChannel[chn].ev_delta=SynthEnvelopeTimeToDelta(Program.values[Parameter_AmpAttack],ENVELOPE_ATTACK_MAX_MS);
+        SynthChannel[chn].ev_delta=SynthEnvelopeTimeToDelta(Program.values[pIdAmpAttack],ENVELOPE_ATTACK_MAX_MS);
     }
     else
     {
         SynthChannel[chn].ev_stage=eStageSustain;
-        SynthChannel[chn].ev_level=Program.values[Parameter_AmpSustain];
+        SynthChannel[chn].ev_level=Program.values[pIdAmpSustain];
     }
 
-    if (Program.values[Parameter_EnvAttack]>0||Program.values[Parameter_EnvDecay]>0)
+    if (Program.values[pIdEnvAttack]>0||Program.values[pIdEnvDecay]>0)
     {
         SynthChannel[chn].ef_stage=eStageAttack;
         SynthChannel[chn].ef_level=0;
-        SynthChannel[chn].ef_delta=SynthEnvelopeTimeToDelta(Program.values[Parameter_EnvAttack],ENVELOPE_ATTACK_MAX_MS);
+        SynthChannel[chn].ef_delta=SynthEnvelopeTimeToDelta(Program.values[pIdEnvAttack],ENVELOPE_ATTACK_MAX_MS);
     }
     else
     {
         SynthChannel[chn].ef_stage=eStageSustain;
-        SynthChannel[chn].ef_level=Program.values[Parameter_EnvSustain];
+        SynthChannel[chn].ef_level=Program.values[pIdEnvSustain];
     }
 }
 
@@ -588,10 +588,10 @@ void ChipWavePlugin::SynthStopEnvelope(int32_t chn)
     SynthChannel[chn].ev_stage=eStageRelease;
     SynthChannel[chn].ef_stage=eStageRelease;
 
-    SynthChannel[chn].ev_delta=SynthEnvelopeTimeToDelta(Program.values[Parameter_AmpRelease],ENVELOPE_RELEASE_MAX_MS)*SynthChannel[chn].ev_level;
-    SynthChannel[chn].ef_delta=SynthEnvelopeTimeToDelta(Program.values[Parameter_EnvRelease],ENVELOPE_RELEASE_MAX_MS)*SynthChannel[chn].ef_level;
+    SynthChannel[chn].ev_delta=SynthEnvelopeTimeToDelta(Program.values[pIdAmpRelease],ENVELOPE_RELEASE_MAX_MS)*SynthChannel[chn].ev_level;
+    SynthChannel[chn].ef_delta=SynthEnvelopeTimeToDelta(Program.values[pIdEnvRelease],ENVELOPE_RELEASE_MAX_MS)*SynthChannel[chn].ef_level;
 
-    if (Program.values[Parameter_SlideDelay]>=1.0f) SynthChannel[chn].slide_delay=0;
+    if (Program.values[pIdSlideDelay]>=1.0f) SynthChannel[chn].slide_delay=0;
 }
 
 void ChipWavePlugin::SynthAdvanceEnvelopes()
@@ -618,7 +618,7 @@ void ChipWavePlugin::SynthAdvanceEnvelopes()
                     if (SynthChannel[chn].ev_level>=1.0f)
                     {
                         SynthChannel[chn].ev_level=1.0f;
-                        SynthChannel[chn].ev_delta=SynthEnvelopeTimeToDelta(Program.values[Parameter_AmpDecay],ENVELOPE_DECAY_MAX_MS);
+                        SynthChannel[chn].ev_delta=SynthEnvelopeTimeToDelta(Program.values[pIdAmpDecay],ENVELOPE_DECAY_MAX_MS);
                         SynthChannel[chn].ev_stage=eStageDecay;
                     }
                 }
@@ -628,9 +628,9 @@ void ChipWavePlugin::SynthAdvanceEnvelopes()
                 {
                     SynthChannel[chn].ev_level-=SynthChannel[chn].ev_delta;
 
-                    if (SynthChannel[chn].ev_level<=Program.values[Parameter_AmpSustain])
+                    if (SynthChannel[chn].ev_level<=Program.values[pIdAmpSustain])
                     {
-                        SynthChannel[chn].ev_level=Program.values[Parameter_AmpSustain];
+                        SynthChannel[chn].ev_level=Program.values[pIdAmpSustain];
                         SynthChannel[chn].ev_stage=eStageSustain;
                     }
                 }
@@ -667,7 +667,7 @@ void ChipWavePlugin::SynthAdvanceEnvelopes()
                     if (SynthChannel[chn].ef_level>=1.0f)
                     {
                         SynthChannel[chn].ef_level=1.0f;
-                        SynthChannel[chn].ef_delta=SynthEnvelopeTimeToDelta(Program.values[Parameter_EnvDecay],ENVELOPE_DECAY_MAX_MS);
+                        SynthChannel[chn].ef_delta=SynthEnvelopeTimeToDelta(Program.values[pIdEnvDecay],ENVELOPE_DECAY_MAX_MS);
                         SynthChannel[chn].ef_stage=eStageDecay;
                     }
                 }
@@ -677,9 +677,9 @@ void ChipWavePlugin::SynthAdvanceEnvelopes()
                 {
                     SynthChannel[chn].ef_level-=SynthChannel[chn].ef_delta;
 
-                    if (SynthChannel[chn].ef_level<=Program.values[Parameter_EnvSustain])
+                    if (SynthChannel[chn].ef_level<=Program.values[pIdEnvSustain])
                     {
-                        SynthChannel[chn].ef_level=Program.values[Parameter_EnvSustain];
+                        SynthChannel[chn].ef_level=Program.values[pIdEnvSustain];
                         SynthChannel[chn].ef_stage=eStageSustain;
                     }
                 }

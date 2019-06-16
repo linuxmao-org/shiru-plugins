@@ -31,95 +31,95 @@ ChipWaveUI::ChipWaveUI()
     sx=150;
     sy=77;
 
-    SliderAdd(sx+0*30,sy,20,128,Parameter_OscAWave,4,false);
-    SliderAdd(sx+1*30,sy,20,128,Parameter_OscADuty,-1,true);
-    SliderAdd(sx+2*30,sy,20,128,Parameter_OscAOver,-1,true);
-    SliderAdd(sx+3*30,sy,20,128,Parameter_OscACut,0,true);
-    SliderAdd(sx+4*30,sy,20,128,Parameter_OscAMultiple,15,true);
-    SliderAdd(sx+5*30,sy,20,128,Parameter_OscASeed,0,true);
+    SliderAdd(sx+0*30,sy,20,128,pIdOscAWave,4,false);
+    SliderAdd(sx+1*30,sy,20,128,pIdOscADuty,-1,true);
+    SliderAdd(sx+2*30,sy,20,128,pIdOscAOver,-1,true);
+    SliderAdd(sx+3*30,sy,20,128,pIdOscACut,0,true);
+    SliderAdd(sx+4*30,sy,20,128,pIdOscAMultiple,15,true);
+    SliderAdd(sx+5*30,sy,20,128,pIdOscASeed,0,true);
 
     sx=150;
     sy=250;
 
-    SliderAdd(sx+0*30,sy,20,128,Parameter_OscBWave    , 4,false);
-    SliderAdd(sx+1*30,sy,20,128,Parameter_OscBDuty    ,-1,true);
-    SliderAdd(sx+2*30,sy,20,128,Parameter_OscBOver    ,-1,true);
-    SliderAdd(sx+3*30,sy,20,128,Parameter_OscBCut     , 0,true);
-    SliderAdd(sx+4*30,sy,20,128,Parameter_OscBMultiple,15,true);
-    SliderAdd(sx+5*30,sy,20,128,Parameter_OscBSeed    ,0,true);
-    SliderAdd(sx+6*30,sy,20,128,Parameter_OscBDetune  ,0,true);
+    SliderAdd(sx+0*30,sy,20,128,pIdOscBWave    , 4,false);
+    SliderAdd(sx+1*30,sy,20,128,pIdOscBDuty    ,-1,true);
+    SliderAdd(sx+2*30,sy,20,128,pIdOscBOver    ,-1,true);
+    SliderAdd(sx+3*30,sy,20,128,pIdOscBCut     , 0,true);
+    SliderAdd(sx+4*30,sy,20,128,pIdOscBMultiple,15,true);
+    SliderAdd(sx+5*30,sy,20,128,pIdOscBSeed    ,0,true);
+    SliderAdd(sx+6*30,sy,20,128,pIdOscBDetune  ,0,true);
 
     sx=354;
     sy=77;
 
-    SliderAdd(sx+0*30,sy,20,128,Parameter_OscBalance,-1,false);
-    SliderAdd(sx+1*30,sy,20,128,Parameter_OscMixMode, 2,true);
+    SliderAdd(sx+0*30,sy,20,128,pIdOscBalance,-1,false);
+    SliderAdd(sx+1*30,sy,20,128,pIdOscMixMode, 2,true);
 
     sx=439;
     sy=77;
 
-    SliderAdd(sx+0*30,sy,20,128,Parameter_EnvAttack ,0,true);
-    SliderAdd(sx+1*30,sy,20,128,Parameter_EnvDecay  ,0,true);
-    SliderAdd(sx+2*30,sy,20,128,Parameter_EnvSustain,0,true);
-    SliderAdd(sx+3*30,sy,20,128,Parameter_EnvRelease,0,true);
+    SliderAdd(sx+0*30,sy,20,128,pIdEnvAttack ,0,true);
+    SliderAdd(sx+1*30,sy,20,128,pIdEnvDecay  ,0,true);
+    SliderAdd(sx+2*30,sy,20,128,pIdEnvSustain,0,true);
+    SliderAdd(sx+3*30,sy,20,128,pIdEnvRelease,0,true);
 
     sx=786;
     sy=77;
 
-    SliderAdd(sx+0*30,sy,20,128,Parameter_AmpAttack ,0,true);
-    SliderAdd(sx+1*30,sy,20,128,Parameter_AmpDecay  ,0,true);
-    SliderAdd(sx+2*30,sy,20,128,Parameter_AmpSustain,0,true);
-    SliderAdd(sx+3*30,sy,20,128,Parameter_AmpRelease,0,true);
+    SliderAdd(sx+0*30,sy,20,128,pIdAmpAttack ,0,true);
+    SliderAdd(sx+1*30,sy,20,128,pIdAmpDecay  ,0,true);
+    SliderAdd(sx+2*30,sy,20,128,pIdAmpSustain,0,true);
+    SliderAdd(sx+3*30,sy,20,128,pIdAmpRelease,0,true);
 
     sx=409;
     sy=250;
 
-    SliderAdd(sx+0*30,sy,20,128,Parameter_EnvOscADepth      ,-1,true);
-    SliderAdd(sx+1*30,sy,20,128,Parameter_EnvOscBDepth      ,-1,true);
-    SliderAdd(sx+2*30,sy,20,128,Parameter_EnvOscBDetuneDepth, 0,true);
-    SliderAdd(sx+3*30,sy,20,128,Parameter_EnvOscMixDepth    ,-1,true);
-    SliderAdd(sx+4*30,sy,20,128,Parameter_EnvFltDepth       ,-1,true);
-    SliderAdd(sx+5*30,sy,20,128,Parameter_EnvLfoDepth       , 0,true);
+    SliderAdd(sx+0*30,sy,20,128,pIdEnvOscADepth      ,-1,true);
+    SliderAdd(sx+1*30,sy,20,128,pIdEnvOscBDepth      ,-1,true);
+    SliderAdd(sx+2*30,sy,20,128,pIdEnvOscBDetuneDepth, 0,true);
+    SliderAdd(sx+3*30,sy,20,128,pIdEnvOscMixDepth    ,-1,true);
+    SliderAdd(sx+4*30,sy,20,128,pIdEnvFltDepth       ,-1,true);
+    SliderAdd(sx+5*30,sy,20,128,pIdEnvLfoDepth       , 0,true);
 
     sx=611;
     sy=250;
 
-    SliderAdd(sx+0*30,sy,20,128,Parameter_LfoSpeed      , 0,true);
-    SliderAdd(sx+1*30,sy,20,128,Parameter_LfoPitchDepth , 0,true);
-    SliderAdd(sx+2*30,sy,20,128,Parameter_LfoOscADepth  ,-1,true);
-    SliderAdd(sx+3*30,sy,20,128,Parameter_LfoOscBDepth  ,-1,true);
-    SliderAdd(sx+4*30,sy,20,128,Parameter_LfoOscMixDepth,-1,true);
-    SliderAdd(sx+5*30,sy,20,128,Parameter_LfoFltDepth   ,-1,true);
+    SliderAdd(sx+0*30,sy,20,128,pIdLfoSpeed      , 0,true);
+    SliderAdd(sx+1*30,sy,20,128,pIdLfoPitchDepth , 0,true);
+    SliderAdd(sx+2*30,sy,20,128,pIdLfoOscADepth  ,-1,true);
+    SliderAdd(sx+3*30,sy,20,128,pIdLfoOscBDepth  ,-1,true);
+    SliderAdd(sx+4*30,sy,20,128,pIdLfoOscMixDepth,-1,true);
+    SliderAdd(sx+5*30,sy,20,128,pIdLfoFltDepth   ,-1,true);
 
     sx=813;
     sy=250;
 
-    SliderAdd(sx+0*30,sy,20,128,Parameter_VelAmp        , 0,true);
-    SliderAdd(sx+1*30,sy,20,128,Parameter_VelOscADepth  ,-1,true);
-    SliderAdd(sx+2*30,sy,20,128,Parameter_VelOscBDepth  ,-1,true);
-    SliderAdd(sx+3*30,sy,20,128,Parameter_VelOscMixDepth,-1,true);
-    SliderAdd(sx+4*30,sy,20,128,Parameter_VelFltCutoff  ,-1,true);
-    SliderAdd(sx+5*30,sy,20,128,Parameter_VelFltReso    ,-1,true);
+    SliderAdd(sx+0*30,sy,20,128,pIdVelAmp        , 0,true);
+    SliderAdd(sx+1*30,sy,20,128,pIdVelOscADepth  ,-1,true);
+    SliderAdd(sx+2*30,sy,20,128,pIdVelOscBDepth  ,-1,true);
+    SliderAdd(sx+3*30,sy,20,128,pIdVelOscMixDepth,-1,true);
+    SliderAdd(sx+4*30,sy,20,128,pIdVelFltCutoff  ,-1,true);
+    SliderAdd(sx+5*30,sy,20,128,pIdVelFltReso    ,-1,true);
 
     sx=930;
     sy=77;
 
-    SliderAdd(sx+0*30,sy,20,128,Parameter_FltCutoff,0,true);
-    SliderAdd(sx+1*30,sy,20,128,Parameter_FltReso  ,0,true);
+    SliderAdd(sx+0*30,sy,20,128,pIdFltCutoff,0,true);
+    SliderAdd(sx+1*30,sy,20,128,pIdFltReso  ,0,true);
 
     sx=1015;
     sy=77;
 
-    SliderAdd(sx+0*30,sy,20,128,Parameter_SlideDelay,0,true);
-    SliderAdd(sx+1*30,sy,20,128,Parameter_SlideSpeed,-1,true);
-    SliderAdd(sx+2*30,sy,20,128,Parameter_SlideRoute,3,true);
+    SliderAdd(sx+0*30,sy,20,128,pIdSlideDelay,0,true);
+    SliderAdd(sx+1*30,sy,20,128,pIdSlideSpeed,-1,true);
+    SliderAdd(sx+2*30,sy,20,128,pIdSlideRoute,3,true);
 
     sx=1015;
     sy=250;
 
-    SliderAdd(sx+0*30,sy,20,128,Parameter_Polyphony ,2,true);
-    SliderAdd(sx+1*30,sy,20,128,Parameter_PortaSpeed,0,true);
-    SliderAdd(sx+2*30,sy,20,128,Parameter_OutputGain,0,true);
+    SliderAdd(sx+0*30,sy,20,128,pIdPolyphony ,2,true);
+    SliderAdd(sx+1*30,sy,20,128,pIdPortaSpeed,0,true);
+    SliderAdd(sx+2*30,sy,20,128,pIdOutputGain,0,true);
 }
 
 ChipWaveUI::~ChipWaveUI()
@@ -304,25 +304,25 @@ void ChipWaveUI::RenderWaveform(int32_t x, int32_t y, int32_t w, int32_t h, int3
     {
     case 0:
         {
-            duty=getControlValue(Parameter_OscADuty);
+            duty=getControlValue(pIdOscADuty);
 
-            over=OverdriveValue(getControlValue(Parameter_OscAOver));
+            over=OverdriveValue(getControlValue(pIdOscAOver));
 
-            wave=(int32_t)(getControlValue(Parameter_OscAWave)*3.99f);
+            wave=(int32_t)(getControlValue(pIdOscAWave)*3.99f);
 
-            oscn.noise_seed=(int32_t)(getControlValue(Parameter_OscASeed)*65535.99f);
+            oscn.noise_seed=(int32_t)(getControlValue(pIdOscASeed)*65535.99f);
         }
         break;
 
     case 1:
         {
-            duty=getControlValue(Parameter_OscBDuty);
+            duty=getControlValue(pIdOscBDuty);
 
-            over=OverdriveValue(getControlValue(Parameter_OscBOver));
+            over=OverdriveValue(getControlValue(pIdOscBOver));
 
-            wave=(int32_t)(getControlValue(Parameter_OscBWave)*3.99f);
+            wave=(int32_t)(getControlValue(pIdOscBWave)*3.99f);
 
-            oscn.noise_seed=(int32_t)(getControlValue(Parameter_OscBSeed)*65535.99f);
+            oscn.noise_seed=(int32_t)(getControlValue(pIdOscBSeed)*65535.99f);
         }
         break;
 
@@ -382,19 +382,19 @@ void ChipWaveUI::RenderEnvelope(int32_t x, int32_t y, int32_t w, int32_t h, int3
     {
     case 0://envelope
         {
-            attack= SynthEnvelopeTimeToDelta(getControlValue(Parameter_EnvAttack),ENVELOPE_ATTACK_MAX_MS)*scale;
-            decay=  SynthEnvelopeTimeToDelta(getControlValue(Parameter_EnvDecay),ENVELOPE_DECAY_MAX_MS )*scale;
-            sustain=getControlValue(Parameter_EnvSustain);
-            release=SynthEnvelopeTimeToDelta(getControlValue(Parameter_EnvRelease),ENVELOPE_RELEASE_MAX_MS)*scale;
+            attack= SynthEnvelopeTimeToDelta(getControlValue(pIdEnvAttack),ENVELOPE_ATTACK_MAX_MS)*scale;
+            decay=  SynthEnvelopeTimeToDelta(getControlValue(pIdEnvDecay),ENVELOPE_DECAY_MAX_MS )*scale;
+            sustain=getControlValue(pIdEnvSustain);
+            release=SynthEnvelopeTimeToDelta(getControlValue(pIdEnvRelease),ENVELOPE_RELEASE_MAX_MS)*scale;
         }
         break;
 
     case 1://amp
         {
-            attack= SynthEnvelopeTimeToDelta(getControlValue(Parameter_AmpAttack),ENVELOPE_ATTACK_MAX_MS)*scale;
-            decay=  SynthEnvelopeTimeToDelta(getControlValue(Parameter_AmpDecay),ENVELOPE_DECAY_MAX_MS )*scale;
-            sustain=getControlValue(Parameter_AmpSustain);
-            release=SynthEnvelopeTimeToDelta(getControlValue(Parameter_AmpRelease),ENVELOPE_RELEASE_MAX_MS)*scale;
+            attack= SynthEnvelopeTimeToDelta(getControlValue(pIdAmpAttack),ENVELOPE_ATTACK_MAX_MS)*scale;
+            decay=  SynthEnvelopeTimeToDelta(getControlValue(pIdAmpDecay),ENVELOPE_DECAY_MAX_MS )*scale;
+            sustain=getControlValue(pIdAmpSustain);
+            release=SynthEnvelopeTimeToDelta(getControlValue(pIdAmpRelease),ENVELOPE_RELEASE_MAX_MS)*scale;
         }
         break;
 

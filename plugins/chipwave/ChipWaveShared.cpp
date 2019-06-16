@@ -86,66 +86,65 @@ std::string GetParameterDisplay(uint32_t index, double value)
 
     switch(index)
     {
-    case Parameter_OscAWave: text = OscWaveformNames[(int)(value*3.99f)]; break;
-    case Parameter_OscADuty: text = std::to_string(value*100.0f); break;
-    case Parameter_OscAOver: text = std::to_string(OverdriveValue(value)); break;
-    case Parameter_OscACut: if(value>0) text = std::to_string(OSC_CUT_MAX_MS*value); else text = "Inf"; break;
-    case Parameter_OscAMultiple: text = std::to_string(FloatToMultiple(value)); break;
-    case Parameter_OscASeed: if(value==0) text = "Random"; else text = std::to_string(value); break;
+    case pIdOscAWave: text = OscWaveformNames[(int)(value*3.99f)]; break;
+    case pIdOscADuty: text = std::to_string(value*100.0f); break;
+    case pIdOscAOver: text = std::to_string(OverdriveValue(value)); break;
+    case pIdOscACut: if(value>0) text = std::to_string(OSC_CUT_MAX_MS*value); else text = "Inf"; break;
+    case pIdOscAMultiple: text = std::to_string(FloatToMultiple(value)); break;
+    case pIdOscASeed: if(value==0) text = "Random"; else text = std::to_string(value); break;
 
-    case Parameter_OscBWave: text = OscWaveformNames[(int)(value*3.99f)]; break;
-    case Parameter_OscBDuty: text = std::to_string(value*100.0f); break;
-    case Parameter_OscBOver: text = std::to_string(OverdriveValue(value)); break;
-    case Parameter_OscBCut: if(value>0) text = std::to_string(OSC_CUT_MAX_MS*value); else text = "Inf"; break;
-    case Parameter_OscBDetune: text = std::to_string(value*DETUNE_SEMITONES); break;
-    case Parameter_OscBMultiple: text = std::to_string(FloatToMultiple(value)); break;
-    case Parameter_OscBSeed: if(value==0) text = "Random"; else text = std::to_string(value); break;
+    case pIdOscBWave: text = OscWaveformNames[(int)(value*3.99f)]; break;
+    case pIdOscBDuty: text = std::to_string(value*100.0f); break;
+    case pIdOscBOver: text = std::to_string(OverdriveValue(value)); break;
+    case pIdOscBCut: if(value>0) text = std::to_string(OSC_CUT_MAX_MS*value); else text = "Inf"; break;
+    case pIdOscBDetune: text = std::to_string(value*DETUNE_SEMITONES); break;
+    case pIdOscBMultiple: text = std::to_string(FloatToMultiple(value)); break;
+    case pIdOscBSeed: if(value==0) text = "Random"; else text = std::to_string(value); break;
 
-    case Parameter_OscBalance: text = std::to_string(value*2.0f-1.0f); break;
-    case Parameter_OscMixMode: text = value<.5f?"Add":"Mul"; break;
+    case pIdOscBalance: text = std::to_string(value*2.0f-1.0f); break;
+    case pIdOscMixMode: text = value<.5f?"Add":"Mul"; break;
 
-    case Parameter_FltCutoff: if(value<1.0f) text = std::to_string(value*FILTER_CUTOFF_MAX_HZ); else text = "Disabled";; break;
-    case Parameter_FltReso: text = std::to_string(value); break;
+    case pIdFltCutoff: if(value<1.0f) text = std::to_string(value*FILTER_CUTOFF_MAX_HZ); else text = "Disabled"; break;
+    case pIdFltReso: text = std::to_string(value); break;
 
-    case Parameter_SlideDelay: if(value<1.0f) text = std::to_string(MOD_DELAY_MAX_MS*value); else text = "Key Off"; break;
-    case Parameter_SlideSpeed: text = std::to_string(value*2.0f-1.0f); break;
-    case Parameter_SlideRoute: text = SlideRouteNames[(int)(value*2.99f)]; break;
+    case pIdSlideDelay: if(value<1.0f) text = std::to_string(MOD_DELAY_MAX_MS*value); else text = "Key Off"; break;
+    case pIdSlideSpeed: text = std::to_string(value*2.0f-1.0f); break;
+    case pIdSlideRoute: text = SlideRouteNames[(int)(value*2.99f)]; break;
 
-    case Parameter_EnvAttack: text = std::to_string(ENVELOPE_ATTACK_MAX_MS*value); break;
-    case Parameter_EnvDecay: text = std::to_string(ENVELOPE_DECAY_MAX_MS*value); break;
-    case Parameter_EnvSustain: text = std::to_string(value); break;
-    case Parameter_EnvRelease: text = std::to_string(ENVELOPE_RELEASE_MAX_MS*value); break;
+    case pIdEnvAttack: text = std::to_string(ENVELOPE_ATTACK_MAX_MS*value); break;
+    case pIdEnvDecay: text = std::to_string(ENVELOPE_DECAY_MAX_MS*value); break;
+    case pIdEnvSustain: text = std::to_string(value); break;
+    case pIdEnvRelease: text = std::to_string(ENVELOPE_RELEASE_MAX_MS*value); break;
 
-    case Parameter_EnvOscADepth: text = std::to_string(value*2.0f-1.0f); break;
-    case Parameter_EnvOscBDepth: text = std::to_string(value*2.0f-1.0f); break;
-    case Parameter_EnvOscBDetuneDepth: text = std::to_string(value); break;
-    case Parameter_EnvOscMixDepth: text = std::to_string(value*2.0f-1.0f); break;
-    case Parameter_EnvFltDepth: text = std::to_string(value*2.0f-1.0f); break;
-    case Parameter_EnvLfoDepth: text = std::to_string(value); break;
+    case pIdEnvOscADepth: text = std::to_string(value*2.0f-1.0f); break;
+    case pIdEnvOscBDepth: text = std::to_string(value*2.0f-1.0f); break;
+    case pIdEnvOscBDetuneDepth: text = std::to_string(value); break;
+    case pIdEnvOscMixDepth: text = std::to_string(value*2.0f-1.0f); break;
+    case pIdEnvFltDepth: text = std::to_string(value*2.0f-1.0f); break;
+    case pIdEnvLfoDepth: text = std::to_string(value); break;
 
-    case Parameter_AmpAttack: text = std::to_string(ENVELOPE_ATTACK_MAX_MS*value); break;
-    case Parameter_AmpDecay: text = std::to_string(ENVELOPE_DECAY_MAX_MS*value); break;
-    case Parameter_AmpSustain: text = std::to_string(value); break;
-    case Parameter_AmpRelease: text = std::to_string(ENVELOPE_RELEASE_MAX_MS*value); break;
+    case pIdAmpAttack: text = std::to_string(ENVELOPE_ATTACK_MAX_MS*value); break;
+    case pIdAmpDecay: text = std::to_string(ENVELOPE_DECAY_MAX_MS*value); break;
+    case pIdAmpSustain: text = std::to_string(value); break;
+    case pIdAmpRelease: text = std::to_string(ENVELOPE_RELEASE_MAX_MS*value); break;
 
-    case Parameter_LfoSpeed: text = std::to_string(value*LFO_MAX_HZ); break;
-    case Parameter_LfoPitchDepth: text = std::to_string(value); break;
-    case Parameter_LfoOscADepth: text = std::to_string(value*2.0f-1.0f); break;
-    case Parameter_LfoOscBDepth: text = std::to_string(value*2.0f-1.0f); break;
-    case Parameter_LfoOscMixDepth: text = std::to_string(value*2.0f-1.0f); break;
-    case Parameter_LfoFltDepth: text = std::to_string(value*2.0f-1.0f); break;
+    case pIdLfoSpeed: text = std::to_string(value*LFO_MAX_HZ); break;
+    case pIdLfoPitchDepth: text = std::to_string(value); break;
+    case pIdLfoOscADepth: text = std::to_string(value*2.0f-1.0f); break;
+    case pIdLfoOscBDepth: text = std::to_string(value*2.0f-1.0f); break;
+    case pIdLfoOscMixDepth: text = std::to_string(value*2.0f-1.0f); break;
+    case pIdLfoFltDepth: text = std::to_string(value*2.0f-1.0f); break;
 
-    case Parameter_VelAmp: text = std::to_string(value); break;
-    case Parameter_VelOscADepth: text = std::to_string(value*2.0f-1.0f); break;
-    case Parameter_VelOscBDepth: text = std::to_string(value*2.0f-1.0f); break;
-    case Parameter_VelOscMixDepth: text = std::to_string(value*2.0f-1.0f); break;
-    case Parameter_VelFltCutoff: text = std::to_string(value*2.0f-1.0f); break;
-    case Parameter_VelFltReso: text = std::to_string(value*2.0f-1.0f); break;
+    case pIdVelAmp: text = std::to_string(value); break;
+    case pIdVelOscADepth: text = std::to_string(value*2.0f-1.0f); break;
+    case pIdVelOscBDepth: text = std::to_string(value*2.0f-1.0f); break;
+    case pIdVelOscMixDepth: text = std::to_string(value*2.0f-1.0f); break;
+    case pIdVelFltCutoff: text = std::to_string(value*2.0f-1.0f); break;
+    case pIdVelFltReso: text = std::to_string(value*2.0f-1.0f); break;
 
-
-    case Parameter_Polyphony: text = value<.5f?"Mono":"Poly"; break;
-    case Parameter_PortaSpeed: text = std::to_string(value); break;
-    case Parameter_OutputGain: text = std::to_string(20 * log10(value)) + " dB"; break;
+    case pIdPolyphony: text = value<.5f?"Mono":"Poly"; break;
+    case pIdPortaSpeed: text = std::to_string(value); break;
+    case pIdOutputGain: text = std::to_string(20 * log10(value)) + " dB"; break;
     }
 
     return text;

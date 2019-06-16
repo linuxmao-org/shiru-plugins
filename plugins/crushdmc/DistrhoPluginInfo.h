@@ -24,10 +24,10 @@
 
 enum {
     /* parameter IDs */
-    Parameter_Bypass,
-    Parameter_InputGain,
-    Parameter_SampleRate,
-    Parameter_OutputGain,
+    pIdBypass,
+    pIdInputGain,
+    pIdSampleRate,
+    pIdOutputGain,
 
     Parameter_Count
 };
