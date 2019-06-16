@@ -1,21 +1,26 @@
 #include "ChipWaveShared.hpp"
-#include "DistrhoPluginInfo.h"
+#include "ChipWavePresets.hpp"
+#include "DistrhoPlugin.hpp"
 #include <random>
 #include <cmath>
 
-void InitNoise(int32_t noise[65536])
+static std::array<int32_t, 65536> InitNoise()
 {
     std::minstd_rand prng;
     prng.seed(1);
+    std::array<int32_t, 65536> noise;
     for (unsigned i = 0; i < 65536; ++i) noise[i] = prng() & 1;
+    return noise;
 }
+
+const std::array<int32_t, 65536> Noise = InitNoise();
 
 float OverdriveValue(float value)
 {
     if(value<.5f) return value*2.0f; else return 1.0f+(value-.5f)*2.0f*(OVERDRIVE_MAX-1.0f);
 }
 
-float SynthGetSample(SynthOscObject *osc, const int32_t *noise, float over, float duty, int wave)
+float SynthGetSample(SynthOscObject *osc, float over, float duty, int wave)
 {
     const int32_t noise_mask[]={7,15,31,63,127,255,511,1023,2047,4095,8191,16383,32767,65535};
     int32_t mask;
@@ -50,7 +55,7 @@ float SynthGetSample(SynthOscObject *osc, const int32_t *noise, float over, floa
         {
             mask=(int)(duty*13.99f);
 
-            out=noise[((osc->noise&noise_mask[mask])+osc->noise_seed)&65535]?.5f:0;
+            out=Noise[((osc->noise&noise_mask[mask])+osc->noise_seed)&65535]?.5f:0;
 
             break;
         }
@@ -78,6 +83,127 @@ float FloatToMultiple(float value)
 {
     const float mul[]={1.0f/128,1.0f/64,1.0f/32,1.0f/16,1.0f/8,1.0f/4,1.0f/2,1,2,4,8,16,32,64,128};
     return mul[(int)(value*14.99f)];
+}
+
+void InitParameter(uint32_t index, Parameter &parameter)
+{
+    DISTRHO_SAFE_ASSERT_RETURN(index < Parameter_Count, );
+
+    parameter.hints = kParameterIsAutomable;
+
+    parameter.ranges.min = 0.0;
+    parameter.ranges.max = 1.0;
+    parameter.ranges.def = PresetData[0].values[index];
+
+    switch (index) {
+    case pIdOscAWave:
+        parameter.symbol = "OAWF"; parameter.name = "OscA Waveform"; break;
+    case pIdOscADuty:
+        parameter.symbol = "OADU"; parameter.name = "OscA Skew/Duty"; break;
+    case pIdOscAOver:
+        parameter.symbol = "OAOV"; parameter.name = "OscA Overdrive"; break;
+    case pIdOscACut:
+        parameter.symbol = "OACT"; parameter.name = "OscA Cut"; break;
+    case pIdOscAMultiple:
+        parameter.symbol = "OAMU"; parameter.name = "OscA Div/Mul"; break;
+    case pIdOscASeed:
+        parameter.symbol = "OASD"; parameter.name = "OscA Noise Seed"; break;
+
+    case pIdOscBWave:
+        parameter.symbol = "OBWF"; parameter.name = "OscB Waveform"; break;
+    case pIdOscBDuty:
+        parameter.symbol = "OBDU"; parameter.name = "OscB Skew/Duty"; break;
+    case pIdOscBOver:
+        parameter.symbol = "OBOV"; parameter.name = "OscB Overdrive"; break;
+    case pIdOscBCut:
+        parameter.symbol = "OBCT"; parameter.name = "OscB Cut"; break;
+    case pIdOscBDetune:
+        parameter.symbol = "OBDE"; parameter.name = "OscB Detune"; break;
+    case pIdOscBMultiple:
+        parameter.symbol = "OBMU"; parameter.name = "OscB Div/Mul"; break;
+    case pIdOscBSeed:
+        parameter.symbol = "OBSD"; parameter.name = "OscB Noise Seed"; break;
+
+    case pIdOscBalance:
+        parameter.symbol = "OBAL"; parameter.name = "Osc Balance"; break;
+    case pIdOscMixMode:
+        parameter.symbol = "OMIX"; parameter.name = "Osc Mix Mode"; break;
+
+    case pIdFltCutoff:
+        parameter.symbol = "FLCU"; parameter.name = "Filter Cutoff"; break;
+    case pIdFltReso:
+        parameter.symbol = "FLRE"; parameter.name = "Filter Resonance"; break;
+
+    case pIdSlideDelay:
+        parameter.symbol = "SLDE"; parameter.name = "Slide Delay"; break;
+    case pIdSlideSpeed:
+        parameter.symbol = "SLSP"; parameter.name = "Slide Speed"; break;
+    case pIdSlideRoute:
+        parameter.symbol = "SLRO"; parameter.name = "Slide Route"; break;
+
+    case pIdEnvAttack:
+        parameter.symbol = "ENAT"; parameter.name = "Envelope Attack"; break;
+    case pIdEnvDecay:
+        parameter.symbol = "ENDC"; parameter.name = "Envelope Decay"; break;
+    case pIdEnvSustain:
+        parameter.symbol = "ENSU"; parameter.name = "Envelope Sustain"; break;
+    case pIdEnvRelease:
+        parameter.symbol = "ENRE"; parameter.name = "Envelope Release"; break;
+    case pIdEnvOscADepth:
+        parameter.symbol = "ENOA"; parameter.name = "Env OscA Skew Depth"; break;
+    case pIdEnvOscBDepth:
+        parameter.symbol = "ENOB"; parameter.name = "Env OscB Skew Depth"; break;
+    case pIdEnvOscBDetuneDepth:
+        parameter.symbol = "ENOD"; parameter.name = "Env OscB Detune Depth"; break;
+    case pIdEnvOscMixDepth:
+        parameter.symbol = "ENMX"; parameter.name = "Env Osc Balance Depth"; break;
+    case pIdEnvFltDepth:
+        parameter.symbol = "ENFL"; parameter.name = "Env Filter Depth"; break;
+    case pIdEnvLfoDepth:
+        parameter.symbol = "ENLF"; parameter.name = "Env LFO Depth"; break;
+
+    case pIdLfoSpeed:
+        parameter.symbol = "LFSP"; parameter.name = "LFO Frequency"; break;
+    case pIdLfoPitchDepth:
+        parameter.symbol = "LFPI"; parameter.name = "LFO Pitch Depth"; break;
+    case pIdLfoOscADepth:
+        parameter.symbol = "LFOA"; parameter.name = "LFO OscA Skew Depth"; break;
+    case pIdLfoOscBDepth:
+        parameter.symbol = "LFOB"; parameter.name = "LFO OscB Skew Depth"; break;
+    case pIdLfoOscMixDepth:
+        parameter.symbol = "LFMX"; parameter.name = "LFO Osc Balance Depth"; break;
+    case pIdLfoFltDepth:
+        parameter.symbol = "LFFL"; parameter.name = "LFO Filter Depth"; break;
+
+    case pIdAmpAttack:
+        parameter.symbol = "VOAT"; parameter.name = "Amp Attack"; break;
+    case pIdAmpDecay:
+        parameter.symbol = "VODE"; parameter.name = "Amp Decay"; break;
+    case pIdAmpSustain:
+        parameter.symbol = "VOSU"; parameter.name = "Amp Sustain"; break;
+    case pIdAmpRelease:
+        parameter.symbol = "VORE"; parameter.name = "Amp Release"; break;
+
+    case pIdVelAmp:
+        parameter.symbol = "VLAM"; parameter.name = "Vel to Amp"; break;
+    case pIdVelOscADepth:
+        parameter.symbol = "VLOA"; parameter.name = "Vel to OscA Skew Depth"; break;
+    case pIdVelOscBDepth:
+        parameter.symbol = "VLOB"; parameter.name = "Vel to OscB Skew Depth"; break;
+    case pIdVelOscMixDepth:
+        parameter.symbol = "VLMX"; parameter.name = "Vel to Osc Balance Depth"; break;
+    case pIdVelFltCutoff:
+        parameter.symbol = "VLFC"; parameter.name = "Vel to Filter Cutoff"; break;
+    case pIdVelFltReso:
+        parameter.symbol = "VLFR"; parameter.name = "Vel to Filter Resonance"; break;
+
+    case pIdPolyphony:
+        parameter.symbol = "POLY"; parameter.name = "Polyphony"; break;
+    case pIdPortaSpeed:
+        parameter.symbol = "POSP"; parameter.name = "Porta Speed"; break;
+    case pIdOutputGain:
+        parameter.symbol = "GAIN"; parameter.name = "Output Gain"; break;
+    }
 }
 
 std::string GetParameterDisplay(uint32_t index, double value)

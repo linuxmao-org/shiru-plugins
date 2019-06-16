@@ -9,7 +9,6 @@ ChipDrumPlugin::ChipDrumPlugin()
     memset(SynthChannel, 0, sizeof(SynthChannel));
 
     RandomNumberGenerator.seed(1);
-    InitNoise(Noise);
 }
 
 const char *ChipDrumPlugin::getLabel() const
@@ -49,17 +48,7 @@ int64_t ChipDrumPlugin::getUniqueId() const
 
 void ChipDrumPlugin::initParameter(uint32_t index, Parameter &parameter)
 {
-    DISTRHO_SAFE_ASSERT_RETURN(index < Parameter_Count, );
-
-    parameter.hints = kParameterIsAutomable;
-
-    parameter.ranges.min = 0.0;
-    parameter.ranges.max = 1.0;
-    parameter.ranges.def = PresetData[0].values[index];
-
-    ParameterName pn = GetParameterName(index);
-    parameter.symbol = pn.symbol.c_str();
-    parameter.name = pn.name.c_str();
+    InitParameter(index, parameter);
 }
 
 float ChipDrumPlugin::getParameterValue(uint32_t index) const

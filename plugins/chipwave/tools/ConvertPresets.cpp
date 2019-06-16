@@ -1,4 +1,4 @@
-#include "../DistrhoPluginInfo.h"
+#include "../ChipWaveShared.hpp"
 #include <endian.h>
 #include <string>
 #include <array>
@@ -114,6 +114,10 @@ int main(int argc, char *argv[])
     std::string *name = new std::string[numPrograms];
     std::array<float, Parameter_Count> *values = new std::array<float, Parameter_Count>[numPrograms];
 
+    Parameter param[Parameter_Count];
+    for (unsigned p = 0; p < Parameter_Count; ++p)
+        InitParameter(p, param[p]);
+
     for (;;) {
         if (!read_f32(fh, &tag)) {
             fprintf(stderr, "Cannot read tag\n");
@@ -216,6 +220,14 @@ int main(int argc, char *argv[])
 
             if (id == -1) {
                 fprintf(stderr, "Unrecognized parameter ID\n");
+                return 1;
+            }
+
+            value = value * (param[id].ranges.max - param[id].ranges.min) + param[id].ranges.min;
+            float valueNotFixed = value;
+            param[id].ranges.fixValue(value);
+            if (value != valueNotFixed) {
+                fprintf(stderr, "Preset value is not in range.\n");
                 return 1;
             }
 

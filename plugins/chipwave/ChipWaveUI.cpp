@@ -13,7 +13,8 @@ ChipWaveUI::ChipWaveUI()
       fControls(new std::unique_ptr<DGL::Widget>[Parameter_Count]),
       fControlNumSteps(new int[Parameter_Count]())
 {
-    InitNoise(fNoise);
+    for (unsigned p = 0; p < Parameter_Count; ++p)
+        InitParameter(p, fParameters[p]);
 
     TextEdit *nameEdit = new TextEdit(this);
     fNameEdit.reset(nameEdit);
@@ -177,9 +178,8 @@ void ChipWaveUI::onDisplay()
     if (controlHovered != -1) {
         PangoLayout_u layout(pango_cairo_create_layout(cr));
 
-        ParameterName pn = GetParameterName(controlHovered);
-
-        std::string text = std::string(pn.name) + " : " + GetParameterDisplay(controlHovered, getControlValue(controlHovered));
+        std::string text = std::string(fParameters[controlHovered].name.buffer())
+            + " : " + GetParameterDisplay(controlHovered, getControlValue(controlHovered));
 
         pango_layout_set_font_description(layout.get(), pango_font_description_from_string("Monospace 9"));
         pango_layout_set_text(layout.get(), text.c_str(), (int)text.size());
@@ -276,9 +276,9 @@ void ChipWaveUI::SliderAdd(int32_t x, int32_t y, int32_t w, int32_t h, int32_t p
         [this, param](double value) { setParameterValue(param, value); };
 
     if (!invert)
-        control->setValueBounds(1, 0);
+        control->setValueBounds(fParameters[param].ranges.max, fParameters[param].ranges.min);
     else
-        control->setValueBounds(0, 1);
+        control->setValueBounds(fParameters[param].ranges.min, fParameters[param].ranges.max);
 
     fControls[param] = std::move(control_ptr);
 }
@@ -337,7 +337,7 @@ void ChipWaveUI::RenderWaveform(int32_t x, int32_t y, int32_t w, int32_t h, int3
     cairo_new_path(cr);
     for(i=0;i<w;++i)
     {
-        fy=y+fh/2.0f-fh*SynthGetSample(&oscn,fNoise,over,duty,wave)*.9f;
+        fy=y+fh/2.0f-fh*SynthGetSample(&oscn,over,duty,wave)*.9f;
 
         sy=(int32_t)fy;
 

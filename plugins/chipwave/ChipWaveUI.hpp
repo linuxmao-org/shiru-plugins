@@ -1,4 +1,5 @@
 #pragma once
+#include "ChipWaveShared.hpp"
 #include "DistrhoUI.hpp"
 #include "Image.hpp"
 #include <vector>
@@ -33,5 +34,5 @@ private:
     std::unique_ptr<std::unique_ptr<DGL::Widget>[]> fControls;
     std::unique_ptr<int[]> fControlNumSteps;
     int fControlHovered = -1;
-    int32_t fNoise[65536];
+    Parameter fParameters[Parameter_Count];
 };

@@ -14,14 +14,12 @@ NAME = chipwave
 
 FILES_DSP = \
 	ChipWavePlugin.cpp \
-	ChipWaveShared.cpp \
-	DistrhoPluginInfo.cpp
+	ChipWaveShared.cpp
 
 FILES_UI  = \
 	ChipWaveUI.cpp \
 	ChipWaveShared.cpp \
 	Artwork.cpp \
-	DistrhoPluginInfo.cpp \
 	common/components/ColorPalette.cpp \
 	common/components/BasicWidget.cpp \
 	common/components/TextEdit.cpp \
@@ -49,8 +47,19 @@ TARGETS += lv2_sep
 TARGETS += vst
 
 all: $(TARGETS)
+tools: bin/ConvertPresets$(APP_EXT)
+
+clean: clean-tools
+.PHONY: clean-tools
 
 Artwork.cpp:
 	../../dpf/utils/res2c.py Artwork artwork
+
+bin/ConvertPresets$(APP_EXT): tools/ConvertPresets.cpp ChipWaveShared.cpp
+	@mkdir -p $(dir $@)
+	$(CXX) -o $@ -I../../dpf/distrho -I. $^
+
+clean-tools:
+	rm -rf bin
 
 # --------------------------------------------------------------

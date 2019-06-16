@@ -92,10 +92,3 @@ enum {
 
     State_Count,
 };
-
-struct ParameterName {
-    const char *symbol;
-    const char *name;
-};
-
-ParameterName GetParameterName(uint32_t index);

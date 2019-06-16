@@ -14,6 +14,9 @@ ChipDrumUI::ChipDrumUI()
       fControls(new std::unique_ptr<DGL::Widget>[Parameter_Count]),
       fControlNumSteps(new int[Parameter_Count]())
 {
+    for (unsigned p = 0; p < Parameter_Count; ++p)
+        InitParameter(p, fParameters[p]);
+
     TextEdit *nameEdit = new TextEdit(this);
     fNameEdit.reset(nameEdit);
     nameEdit->setAbsolutePos(300, 15);
@@ -203,19 +206,18 @@ void ChipDrumUI::onDisplay()
     if (controlHovered != -1) {
         PangoLayout_u layout(pango_cairo_create_layout(cr));
 
-        ParameterName pn = GetParameterName(controlHovered);
+        std::string paramName = fParameters[controlHovered].name.buffer();
 
         int controlParameter = controlHovered;
         if (ParameterNoteNumber(controlParameter) != -1) {
             controlParameter += fSelectedNoteNumber;
-
             // delete name prefix
             unsigned temp, count;
-            if (sscanf(pn.name.c_str(), "Note %u %n", &temp, &count) == 1)
-                pn.name = pn.name.substr(count);
+            if (sscanf(paramName.c_str(), "Note %u %n", &temp, &count) == 1)
+                paramName = paramName.substr(count);
         }
 
-        std::string text = std::string(pn.name) + " : " + GetParameterDisplay(controlHovered, getControlValue(controlParameter));
+        std::string text = paramName + " : " + GetParameterDisplay(controlHovered, getControlValue(controlParameter));
 
         pango_layout_set_font_description(layout.get(), pango_font_description_from_string("Monospace 9"));
         pango_layout_set_text(layout.get(), text.c_str(), (int)text.size());
@@ -328,9 +330,9 @@ void ChipDrumUI::SliderAdd(int32_t x, int32_t y, int32_t w, int32_t h, int32_t p
         };
 
     if (!invert)
-        control->setValueBounds(1, 0);
+        control->setValueBounds(fParameters[param].ranges.max, fParameters[param].ranges.min);
     else
-        control->setValueBounds(0, 1);
+        control->setValueBounds(fParameters[param].ranges.min, fParameters[param].ranges.max);
 
     fControls[param] = std::move(control_ptr);
 }

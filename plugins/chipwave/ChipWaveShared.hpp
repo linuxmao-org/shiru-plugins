@@ -1,6 +1,9 @@
 #pragma once
+#include "DistrhoPlugin.hpp"
+#include <array>
 #include <string>
 #include <cstdint>
+namespace DISTRHO { struct Parameter; }
 
 struct SynthOscObject {
     float acc;
@@ -11,15 +14,16 @@ struct SynthOscObject {
     int32_t noise_seed;
 };
 
-void InitNoise(int32_t noise[65536]);
+extern const std::array<int32_t, 65536> Noise;
 
 float OverdriveValue(float value);
-float SynthGetSample(SynthOscObject *osc, const int32_t *noise, float over, float duty, int wave);
+float SynthGetSample(SynthOscObject *osc, float over, float duty, int wave);
 
 float SynthEnvelopeTimeToDelta(float value, float max_ms);
 
 float FloatToMultiple(float value);
 
+void InitParameter(uint32_t index, Parameter &parameter);
 std::string GetParameterDisplay(uint32_t index, double value);
 
 __attribute__((unused)) static constexpr float OSC_CUT_MAX_MS = 1000;

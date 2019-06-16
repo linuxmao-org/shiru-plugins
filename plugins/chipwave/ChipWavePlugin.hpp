@@ -109,6 +109,4 @@ private:
     int32_t MidiRPNMSB;
     int32_t MidiDataLSB;
     int32_t MidiDataMSB;
-
-    int32_t Noise[65536];
 };

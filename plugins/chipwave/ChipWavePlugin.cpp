@@ -24,7 +24,6 @@ ChipWavePlugin::ChipWavePlugin()
     }
 
     RandomNumberGenerator.seed(1);
-    InitNoise(Noise);
 
     sEnvelopeDiv = 0;
 
@@ -80,17 +79,7 @@ int64_t ChipWavePlugin::getUniqueId() const
 
 void ChipWavePlugin::initParameter(uint32_t index, Parameter &parameter)
 {
-    DISTRHO_SAFE_ASSERT_RETURN(index < Parameter_Count, );
-
-    parameter.hints = kParameterIsAutomable;
-
-    parameter.ranges.min = 0.0;
-    parameter.ranges.max = 1.0;
-    parameter.ranges.def = PresetData[0].values[index];
-
-    ParameterName pn = GetParameterName(index);
-    parameter.symbol = pn.symbol;
-    parameter.name = pn.name;
+    InitParameter(index, parameter);
 }
 
 float ChipWavePlugin::getParameterValue(uint32_t index) const
@@ -487,8 +476,8 @@ void ChipWavePlugin::run(const float **, float **outputs, uint32_t frames, const
                 while(SynthChannel[chn].osca.acc>=1.0f) { SynthChannel[chn].osca.acc-=1.0f; ++SynthChannel[chn].osca.noise; }
                 while(SynthChannel[chn].oscb.acc>=1.0f) { SynthChannel[chn].oscb.acc-=1.0f; ++SynthChannel[chn].oscb.noise; }
 
-                if(!(osc_mute&1)) osca=SynthGetSample(&SynthChannel[chn].osca,Noise,overa,dutya,oscaw); else osca=0;
-                if(!(osc_mute&2)) oscb=SynthGetSample(&SynthChannel[chn].oscb,Noise,overb,dutyb,oscbw); else oscb=0;
+                if(!(osc_mute&1)) osca=SynthGetSample(&SynthChannel[chn].osca,overa,dutya,oscaw); else osca=0;
+                if(!(osc_mute&2)) oscb=SynthGetSample(&SynthChannel[chn].oscb,overb,dutyb,oscbw); else oscb=0;
 
                 switch(mix_mode)
                 {

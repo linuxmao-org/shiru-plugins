@@ -1,7 +1,7 @@
 #pragma once
+#include "ChipDrumShared.hpp"
 #include "DistrhoUI.hpp"
 #include "Image.hpp"
-#include "ChipDrumShared.hpp"
 #include <vector>
 #include <memory>
 class TextEdit;
@@ -44,6 +44,7 @@ private:
     ToggleButton *fNoteSelectButton[SYNTH_NOTES] = {};
 
     float fParameterValues[Parameter_Count] = {};
+    Parameter fParameters[Parameter_Count];
 
 private: //XXX: remove after implementing copy/paste support
     struct MaskRect { int x, y, w, h; };

@@ -1,6 +1,9 @@
 #pragma once
-#include "DistrhoPluginInfo.h"
+#include "DistrhoPlugin.hpp"
+#include <array>
 #include <cstdint>
+
+extern const std::array<int32_t, 65536> Noise;
 
 __attribute__((unused)) static constexpr float TONE_PITCH_MAX_HZ = 16000.0;
 __attribute__((unused)) static constexpr float NOISE_PITCH_MAX_HZ = 64000.0;
@@ -85,4 +88,5 @@ float OverdriveValue(float value);
 
 float SynthGetSample(int32_t wave, float acc, float over);
 
+void InitParameter(uint32_t index, Parameter &parameter);
 std::string GetParameterDisplay(uint32_t index, double value);

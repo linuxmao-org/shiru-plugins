@@ -121,6 +121,4 @@ private:
 
     Preset Program;
     SynthChannelObject SynthChannel[SYNTH_CHANNELS];
-
-    unsigned char Noise[65536];
 };

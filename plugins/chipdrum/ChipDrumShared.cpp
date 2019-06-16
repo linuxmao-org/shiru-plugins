@@ -1,13 +1,18 @@
 #include "ChipDrumShared.hpp"
+#include "ChipDrumPresets.hpp"
 #include <random>
 #include <cmath>
 
-void InitNoise(uint8_t noise[65536])
+std::array<int32_t, 65536> InitNoise()
 {
     std::minstd_rand prng;
     prng.seed(1);
+    std::array<int32_t, 65536> noise;
     for (unsigned i = 0; i < 65536; ++i) noise[i] = std::uniform_int_distribution<>{0x00, 0xff}(prng);
+    return noise;
 }
+
+const std::array<int32_t, 65536> Noise = InitNoise();
 
 float FloatToHz(float value, float range)
 {
@@ -70,6 +75,126 @@ float SynthGetSample(int32_t wave, float acc, float over)
     if(sample> 1.0f) sample= 1.0f;
 
     return sample;
+}
+
+void InitParameter(uint32_t index, Parameter &parameter)
+{
+    DISTRHO_SAFE_ASSERT_RETURN(index < Parameter_Count, );
+
+    parameter.hints = kParameterIsAutomable;
+
+    parameter.ranges.min = 0.0;
+    parameter.ranges.max = 1.0;
+    parameter.ranges.def = PresetData[0].values[index];
+
+    switch (ParameterFirstOfGroup(index)) {
+    case pIdToneLevel1:
+        parameter.symbol = "TLVL"; parameter.name = "Tone Level"; break;
+    case pIdToneDecay1:
+        parameter.symbol = "TDC1"; parameter.name = "Tone Decay Time"; break;
+    case pIdToneSustain1:
+        parameter.symbol = "TDCL"; parameter.name = "Tone Sustain Level"; break;
+    case pIdToneRelease1:
+        parameter.symbol = "TDC2"; parameter.name = "Tone Release Time"; break;
+    case pIdTonePitch1:
+        parameter.symbol = "TNPI"; parameter.name = "Tone Pitch"; break;
+    case pIdToneSlide1:
+        parameter.symbol = "TNSL"; parameter.name = "Tone Slide"; break;
+    case pIdToneWave1:
+        parameter.symbol = "TWAV"; parameter.name = "Tone Waveform"; break;
+    case pIdToneOver1:
+        parameter.symbol = "TOVR"; parameter.name = "Tone Overdrive"; break;
+
+    case pIdNoiseLevel1:
+        parameter.symbol = "LVLN"; parameter.name = "Noise Level"; break;
+    case pIdNoiseDecay1:
+        parameter.symbol = "DC1N"; parameter.name = "Noise Decay Time"; break;
+    case pIdNoiseSustain1:
+        parameter.symbol = "DCLN"; parameter.name = "Noise Sustain Level"; break;
+    case pIdNoiseRelease1:
+        parameter.symbol = "DC2N"; parameter.name = "Noise Release Time"; break;
+    case pIdNoisePitch11:
+        parameter.symbol = "PT1N"; parameter.name = "Noise Main Pitch"; break;
+    case pIdNoisePitch21:
+        parameter.symbol = "PT2N"; parameter.name = "Noise Secondary Pitch"; break;
+    case pIdNoisePitch2Off1:
+        parameter.symbol = "2OFN"; parameter.name = "Noise Secondary Pitch Offset"; break;
+    case pIdNoisePitch2Len1:
+        parameter.symbol = "2LNN"; parameter.name = "Noise Secondary Pitch Duration"; break;
+    case pIdNoisePeriod1:
+        parameter.symbol = "PRDN"; parameter.name = "Noise Period"; break;
+    case pIdNoiseSeed1:
+        parameter.symbol = "PSEN"; parameter.name = "Noise Seed"; break;
+    case pIdNoiseType1:
+        parameter.symbol = "TYPN"; parameter.name = "Noise Type"; break;
+
+    case pIdRetrigTime1:
+        parameter.symbol = "RTME"; parameter.name = "Retrigger Time"; break;
+    case pIdRetrigCount1:
+        parameter.symbol = "RCNT"; parameter.name = "Retrigger Count"; break;
+    case pIdRetrigRoute1:
+        parameter.symbol = "RRTE"; parameter.name = "Retrigger Route"; break;
+
+    case pIdFilterLP1:
+        parameter.symbol = "LLPF"; parameter.name = "Filter Low Pass"; break;
+    case pIdFilterHP1:
+        parameter.symbol = "HHPF"; parameter.name = "Filter High Pass"; break;
+    case pIdFilterRoute1:
+        parameter.symbol = "FLTR"; parameter.name = "Filter Route"; break;
+
+    case pIdDrumGroup1:
+        parameter.symbol = "GRPO"; parameter.name = "Drum Output"; break;
+    case pIdDrumBitDepth1:
+        parameter.symbol = "BDPT"; parameter.name = "Drum Bit Depth"; break;
+    case pIdDrumUpdateRate1:
+        parameter.symbol = "UPDR"; parameter.name = "Drum Update Rate"; break;
+    case pIdDrumVolume1:
+        parameter.symbol = "VOLU"; parameter.name = "Drum Volume"; break;
+    case pIdDrumPan1:
+        parameter.symbol = "PANO"; parameter.name = "Drum Pan"; break;
+
+    case pIdVelDrumVolume1:
+        parameter.symbol = "VDVL"; parameter.name = "Vel to Volume"; break;
+
+    case pIdVelTonePitch1:
+        parameter.symbol = "VTPL"; parameter.name = "Vel to Tone Pitch"; break;
+    case pIdVelNoisePitch1:
+        parameter.symbol = "VNPL"; parameter.name = "Vel to Noise Pitch"; break;
+    case pIdVelToneOver1:
+        parameter.symbol = "VODL"; parameter.name = "Vel to Tone Overdrive"; break;
+
+    case pIdHat1Length:
+        parameter.symbol = "1LNH"; parameter.name = "Hat F# Length"; break;
+    case pIdHat2Length:
+        parameter.symbol = "L2NH"; parameter.name = "Hat G# Length"; break;
+    case pIdHat3Length:
+        parameter.symbol = "LN3H"; parameter.name = "Hat A# Length"; break;
+    case pIdHatPanWidth:
+        parameter.symbol = "HPAN"; parameter.name = "Hat Pan Width"; break;
+
+    case pIdTom1Pitch:
+        parameter.symbol = "1PTT"; parameter.name = "Tom G Pitch Offset"; break;
+    case pIdTom2Pitch:
+        parameter.symbol = "P2TT"; parameter.name = "Tom A Pitch Offset"; break;
+    case pIdTom3Pitch:
+        parameter.symbol = "PT3T"; parameter.name = "Tom B Pitch Offset"; break;
+    case pIdTomPanWidth:
+        parameter.symbol = "TPAN"; parameter.name = "Tom Pan Width"; break;
+
+    case pIdOutputGain:
+        parameter.symbol = "GAIN"; parameter.name = "Output Gain"; break;
+
+    default:
+        DISTRHO_SAFE_ASSERT(false);
+    }
+
+    unsigned n = ParameterNoteNumber(index);
+    if ((int)n != -1) {
+        parameter.symbol = "n" + String(n + 1) + parameter.symbol;
+        parameter.name = "Note " + String(n + 1) + " " + parameter.name;
+    }
+    else
+        parameter.symbol = "p" + parameter.symbol;
 }
 
 std::string GetParameterDisplay(uint32_t index, double value)
