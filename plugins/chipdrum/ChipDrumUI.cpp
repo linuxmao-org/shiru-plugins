@@ -4,6 +4,7 @@
 #include "Artwork.hpp"
 #include "common/components/ValueFill.hpp"
 #include "common/components/ToggleButton.hpp"
+#include "common/components/TriggerButton.hpp"
 #include "common/components/TextEdit.hpp"
 #include "common/components/ColorPalette.hpp"
 #include "common/components/Pango.hpp"
@@ -34,10 +35,10 @@ ChipDrumUI::ChipDrumUI()
     sy=199;
 
     for(unsigned i = 0; i < 8; ++i) {
-        //ButtonAdd(sx,sy,50,22,true);
-        ButtonAdd(sx+28,sy,22,22,true);
+        //ToggleButtonAdd(sx,sy,50,22,true);
+        ToggleButtonAdd(sx+28,sy,22,22,true);
 
-        ToggleButton *button = fButtons.back().get();
+        ToggleButton *button = fToggleButtons.back().get();
         fNoteSelectButton[i] = button;
 
         button->setValue(fSelectedNoteNumber == i);
@@ -46,17 +47,16 @@ ChipDrumUI::ChipDrumUI()
                 if (value)
                     selectNote(i);
                 for (unsigned n = 0; n < SYNTH_NOTES; ++n)
-                    fButtons[n]->setValue(fSelectedNoteNumber == n);
+                    fToggleButtons[n]->setValue(fSelectedNoteNumber == n);
             };
 
         sy+=24;
     }
 
-#pragma message("TODO: no DPF support of copy/paste")
-    //ButtonAdd(91,345,54,18,false);
-    //ButtonAdd(91,369,54,18,false);
-    MaskBackgroundArea(91,345,54,18);
-    MaskBackgroundArea(91,369,54,18);
+    TriggerButtonAdd(91,345,54,18,false);
+    fTriggerButtons.back()->TriggeredCallback = [this] { CopyDrum(); };
+    TriggerButtonAdd(91,369,54,18,false);
+    fTriggerButtons.back()->TriggeredCallback = [this] { PasteDrum(); };
 
     sx=165;
     sy=77;
@@ -191,13 +191,6 @@ void ChipDrumUI::onDisplay()
 
     fBackgroundImage.draw();
 
-    //XXX: remove after implementing copy/paste support
-    for (const MaskRect &rect : fMaskAreas) {
-        cairo_set_source_color(cr, ColorRGBA{0xfe, 0xfc, 0xfd, 0xff});
-        cairo_rectangle(cr, rect.x, rect.y, rect.w, rect.h);
-        cairo_fill(cr);
-    }
-
     RenderWaveform(39,76,110,80);
 
     RenderEnvelope(428,96,124,90);
@@ -299,7 +292,7 @@ void ChipDrumUI::stateChanged(const char *key, const char *value)
         fNameEdit->setText(value);
 }
 
-void ChipDrumUI::ButtonAdd(int32_t x, int32_t y, int32_t w, int32_t h, bool hover)
+void ChipDrumUI::ToggleButtonAdd(int32_t x, int32_t y, int32_t w, int32_t h, bool hover)
 {
     ToggleButton *button = new ToggleButton(this);
     std::unique_ptr<ToggleButton> button_ptr(button);
@@ -307,7 +300,18 @@ void ChipDrumUI::ButtonAdd(int32_t x, int32_t y, int32_t w, int32_t h, bool hove
     button->setSize(w, h);
     button->setAbsolutePos(x, y);
 
-    fButtons.push_back(std::move(button_ptr));
+    fToggleButtons.push_back(std::move(button_ptr));
+}
+
+void ChipDrumUI::TriggerButtonAdd(int32_t x, int32_t y, int32_t w, int32_t h, bool hover)
+{
+    TriggerButton *button = new TriggerButton(this);
+    std::unique_ptr<TriggerButton> button_ptr(button);
+
+    button->setSize(w, h);
+    button->setAbsolutePos(x, y);
+
+    fTriggerButtons.push_back(std::move(button_ptr));
 }
 
 void ChipDrumUI::SliderAdd(int32_t x, int32_t y, int32_t w, int32_t h, int32_t param, int32_t steps, bool invert)
@@ -523,6 +527,33 @@ void ChipDrumUI::RenderEnvelope(int32_t x, int32_t y, int32_t w, int32_t h)
     cairo_stroke(cr);
 
     cairo_restore(cr);
+}
+
+void ChipDrumUI::CopyDrum()
+{
+    unsigned note = fSelectedNoteNumber;
+    float *ptr = fCopyBuf;
+
+    for (unsigned p = 0; p < Parameter_Count; ++p) {
+        if (ParameterNoteNumber(p) == (int)note)
+            *ptr++ = getControlValue(p);
+    }
+
+    fCopyBufActive = true;
+}
+
+void ChipDrumUI::PasteDrum()
+{
+    if (!fCopyBufActive)
+        return;
+
+    unsigned note = fSelectedNoteNumber;
+    const float *ptr = fCopyBuf;
+
+    for (unsigned p = 0; p < Parameter_Count; ++p) {
+        if (ParameterNoteNumber(p) == (int)note)
+            setControlValue(p, *ptr++);
+    }
 }
 
 float ChipDrumUI::getControlValue(uint32_t index) const

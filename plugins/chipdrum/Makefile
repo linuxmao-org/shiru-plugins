@@ -25,6 +25,7 @@ FILES_UI  = \
 	common/components/TextEdit.cpp \
 	common/components/TextLabel.cpp \
 	common/components/ToggleButton.cpp \
+	common/components/TriggerButton.cpp \
 	common/components/ValueFill.cpp
 
 # --------------------------------------------------------------

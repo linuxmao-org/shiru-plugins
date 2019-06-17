@@ -6,6 +6,7 @@
 #include <memory>
 class TextEdit;
 class ToggleButton;
+class TriggerButton;
 
 class ChipDrumUI : public DISTRHO::UI
 {
@@ -20,10 +21,15 @@ public:
     void stateChanged(const char* key, const char* value) override;
 
 private:
-    void ButtonAdd(int32_t x, int32_t y, int32_t w, int32_t h, bool hover);
+    void ToggleButtonAdd(int32_t x, int32_t y, int32_t w, int32_t h, bool hover);
+    void TriggerButtonAdd(int32_t x, int32_t y, int32_t w, int32_t h, bool hover);
     void SliderAdd(int32_t x, int32_t y, int32_t w, int32_t h, int32_t param, int32_t steps, bool invert);
     void RenderWaveform(int32_t x, int32_t y, int32_t w, int32_t h);
     void RenderEnvelope(int32_t x, int32_t y, int32_t w, int32_t h);
+
+private:
+    void CopyDrum();
+    void PasteDrum();
 
 private:
     float getControlValue(uint32_t index) const;
@@ -40,14 +46,13 @@ private:
     int fControlHovered = -1;
     unsigned fSelectedNoteNumber = 0;
 
-    std::vector<std::unique_ptr<ToggleButton>> fButtons;
+    std::vector<std::unique_ptr<ToggleButton>> fToggleButtons;
+    std::vector<std::unique_ptr<TriggerButton>> fTriggerButtons;
     ToggleButton *fNoteSelectButton[SYNTH_NOTES] = {};
 
     float fParameterValues[Parameter_Count] = {};
     Parameter fParameters[Parameter_Count];
 
-private: //XXX: remove after implementing copy/paste support
-    struct MaskRect { int x, y, w, h; };
-    std::vector<MaskRect> fMaskAreas;
-    void MaskBackgroundArea(int x, int y, int w, int h) { fMaskAreas.push_back(MaskRect{x, y, w, h}); }
+    bool fCopyBufActive = false;
+    float fCopyBuf[Parameter_Count] = {};
 };
