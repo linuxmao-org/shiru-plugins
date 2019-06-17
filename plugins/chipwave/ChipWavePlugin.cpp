@@ -304,10 +304,12 @@ void ChipWavePlugin::run(const float **, float **outputs, uint32_t frames, const
 
                     break;
 
-                case 0x7b: //all notes off and mono/poly mode changes that also requires to do all notes off
-                    memset(MidiKeyState, 0, sizeof(MidiKeyState));
+                default:
+                    if (msg[1] >= 0x7b) { //all notes off and mono/poly mode changes that also requires to do all notes off
+                        memset(MidiKeyState, 0, sizeof(MidiKeyState));
 
-                    for(chn=0; chn < MaxSynthChannels; ++chn) SynthStopEnvelope(chn);
+                        for(chn=0; chn < MaxSynthChannels; ++chn) SynthStopEnvelope(chn);
+                    }
                     break;
                 }
                 break;

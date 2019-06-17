@@ -282,10 +282,12 @@ void EvaluaPlugin::run(const float **, float **outputs, uint32_t frames, const M
 
                     break;
 
-                case 0x7b: //all notes off and mono/poly mode changes that also requires to do all notes off
-                    memset(MidiKeyState,0,sizeof(MidiKeyState));    //stop all channels
+                default:
+                    if (msg[1] >= 0x7b) { //all notes off and mono/poly mode changes that also requires to do all notes off
+                        memset(MidiKeyState,0,sizeof(MidiKeyState));    //stop all channels
 
-                    SynthChannelReleaseNote(-1,-1);
+                        SynthChannelReleaseNote(-1,-1);
+                    }
                     break;
                 }
                 break;
