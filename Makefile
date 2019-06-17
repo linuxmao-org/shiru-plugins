@@ -14,7 +14,7 @@ all: dgl plugins gen
 
 # --------------------------------------------------------------
 
-PLUGINS := evalua chipwave chipdrum crushdmc
+PLUGINS := evalua chipwave chipdrum crushdmc flopster
 
 dgl:
 	$(MAKE) -C dpf/dgl

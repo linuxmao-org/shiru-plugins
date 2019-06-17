@@ -28,6 +28,12 @@ Drum synth plugin, a counterpart for ChipWave, sharing the same concept, but for
 
 Bitcrusher plugin that emulates specific distortions of the Famicom/NES DMC channel.
 
+## Flopster
+
+### Description
+
+Emulator of a floppy disk drive that is used to play music.
+
 # Building
 
 Type `make`. The build will be found in the `bin` folder.
