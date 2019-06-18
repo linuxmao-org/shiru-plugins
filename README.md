@@ -34,6 +34,12 @@ Bitcrusher plugin that emulates specific distortions of the Famicom/NES DMC chan
 
 Emulator of a floppy disk drive that is used to play music.
 
+## 1bitstudio
+
+### Description
+
+A bundle of experimentalT2 plugins for 1-bit sound synthesis and processing.
+
 # Building
 
 Type `make`. The build will be found in the `bin` folder.
