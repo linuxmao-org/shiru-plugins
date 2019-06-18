@@ -1,0 +1,4 @@
+LIBRARY 1BSBITDRIVE
+EXPORTS
+VSTPluginMain 
+main=VSTPluginMain

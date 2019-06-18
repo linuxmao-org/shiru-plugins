@@ -1,0 +1,4 @@
+LIBRARY WAVESYNTH
+EXPORTS
+VSTPluginMain 
+main=VSTPluginMain

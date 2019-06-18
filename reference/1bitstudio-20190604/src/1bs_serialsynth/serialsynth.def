@@ -1,0 +1,4 @@
+LIBRARY SERIALSYNTH
+EXPORTS
+VSTPluginMain 
+main=VSTPluginMain

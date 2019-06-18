@@ -1,0 +1,4 @@
+LIBRARY CLICKYDRUMS
+EXPORTS
+VSTPluginMain 
+main=VSTPluginMain

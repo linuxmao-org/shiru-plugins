@@ -1,0 +1,4 @@
+LIBRARY OVERSYNTH
+EXPORTS
+VSTPluginMain 
+main=VSTPluginMain

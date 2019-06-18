@@ -1,0 +1,4 @@
+LIBRARY SWEEPSYNTH
+EXPORTS
+VSTPluginMain 
+main=VSTPluginMain

@@ -1,0 +1,4 @@
+LIBRARY TAPEDRUMS
+EXPORTS
+VSTPluginMain 
+main=VSTPluginMain

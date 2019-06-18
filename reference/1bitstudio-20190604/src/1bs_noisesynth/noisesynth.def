@@ -1,0 +1,4 @@
+LIBRARY NOISESYNTH
+EXPORTS
+VSTPluginMain 
+main=VSTPluginMain

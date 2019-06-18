@@ -1,0 +1,4 @@
+LIBRARY TNDRUMS
+EXPORTS
+VSTPluginMain 
+main=VSTPluginMain

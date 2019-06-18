@@ -1,0 +1,4 @@
+LIBRARY PHASESYNTH
+EXPORTS
+VSTPluginMain 
+main=VSTPluginMain

@@ -1,0 +1,4 @@
+LIBRARY PULSEDRIVE
+EXPORTS
+VSTPluginMain 
+main=VSTPluginMain

@@ -1,0 +1,4 @@
+LIBRARY NOISEDRUMS
+EXPORTS
+VSTPluginMain 
+main=VSTPluginMain

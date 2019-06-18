@@ -1,0 +1,4 @@
+LIBRARY PHATSYNTH
+EXPORTS
+VSTPluginMain 
+main=VSTPluginMain
