@@ -1,0 +1,4 @@
+LIBRARY FLOPSTER
+EXPORTS
+VSTPluginMain 
+main=VSTPluginMain
