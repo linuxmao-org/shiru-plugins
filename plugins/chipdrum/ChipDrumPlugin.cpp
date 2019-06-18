@@ -174,7 +174,7 @@ void ChipDrumPlugin::run(const float **, float **outputs, uint32_t frames, const
                 case 11: chn=6; note=7; break;//B
                 }
 
-                if(msg[2])//key on
+                if(msg[0] == 0x90 && msg[2] > 0)//key on
                 {
                     SynthChannel[chn].note=note;
                     SynthChannel[chn].notem=notem;

@@ -219,7 +219,7 @@ void FlopsterPlugin::run(const float **, float **outputs, uint32_t frames, const
             {
                 prev_any=MidiIsAnyKeyDown();
 
-                if(msg[2])//key on
+                if(msg[0] == 0x90 && msg[2] > 0)//key on
                 {
                     MidiKeyState[msg[1]]=msg[2];
                 }
