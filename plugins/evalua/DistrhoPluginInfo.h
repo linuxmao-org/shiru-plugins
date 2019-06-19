@@ -6,7 +6,7 @@
 #define DISTRHO_PLUGIN_UNIQUE_ID       'e','v','a','u'
 #define DISTRHO_PLUGIN_VERSION         1,1,0
 #define DISTRHO_PLUGIN_LABEL           "EVALUA"
-#define DISTRHO_PLUGIN_LICENSE         "WTFPL"
+#define DISTRHO_PLUGIN_LICENSE         "http://spdx.org/licenses/WTFPL"
 #define DISTRHO_PLUGIN_MAKER           "Shiru"
 #define DISTRHO_PLUGIN_DESCRIPTION     "v1.01 30.05.19 Shiru [LinuxMAO]"
 #define DISTRHO_PLUGIN_NUM_INPUTS      0

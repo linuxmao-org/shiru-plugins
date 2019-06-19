@@ -7,7 +7,7 @@
 #define DISTRHO_PLUGIN_UNIQUE_ID       '1','b','b','d'
 #define DISTRHO_PLUGIN_VERSION         0,12,0
 #define DISTRHO_PLUGIN_LABEL           "1bitstudio - bitdrive"
-#define DISTRHO_PLUGIN_LICENSE         "WTFPL"
+#define DISTRHO_PLUGIN_LICENSE         "http://spdx.org/licenses/WTFPL"
 #define DISTRHO_PLUGIN_MAKER           "Shiru"
 #define DISTRHO_PLUGIN_DESCRIPTION     "v0.12 02.06.19 [LinuxMAO]"
 #define DISTRHO_PLUGIN_NUM_INPUTS      2

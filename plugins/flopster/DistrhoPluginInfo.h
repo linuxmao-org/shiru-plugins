@@ -8,7 +8,7 @@
 #define DISTRHO_PLUGIN_UNIQUE_ID       'f','s','t','r'
 #define DISTRHO_PLUGIN_VERSION         1,1,0
 #define DISTRHO_PLUGIN_LABEL           "Flopster"
-#define DISTRHO_PLUGIN_LICENSE         "WTFPL"
+#define DISTRHO_PLUGIN_LICENSE         "http://spdx.org/licenses/WTFPL"
 #define DISTRHO_PLUGIN_MAKER           "Shiru"
 #define DISTRHO_PLUGIN_DESCRIPTION     "v1.01 03.06.19 [LinuxMAO]"
 #define DISTRHO_PLUGIN_NUM_INPUTS      0

@@ -7,7 +7,7 @@
 #define DISTRHO_PLUGIN_UNIQUE_ID       'c','d','m','c'
 #define DISTRHO_PLUGIN_VERSION         0,11,0
 #define DISTRHO_PLUGIN_LABEL           "CrushDMC"
-#define DISTRHO_PLUGIN_LICENSE         "WTFPL"
+#define DISTRHO_PLUGIN_LICENSE         "http://spdx.org/licenses/WTFPL"
 #define DISTRHO_PLUGIN_MAKER           "Shiru"
 #define DISTRHO_PLUGIN_DESCRIPTION     "v0.11 02.06.19 [LinuxMAO]"
 #define DISTRHO_PLUGIN_NUM_INPUTS      1
