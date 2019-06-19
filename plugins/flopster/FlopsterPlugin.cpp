@@ -74,37 +74,37 @@ void FlopsterPlugin::initParameter(uint32_t index, Parameter &parameter)
         parameter.symbol = "HeadStepGain";
         parameter.name = "Head step gain";
         parameter.hints |= kParameterIsLogarithmic;
-        parameter.ranges = ParameterRanges(1.0, 0.0, 1.0);
+        parameter.ranges = ParameterRanges(1.0, 0.01, 1.0);
         break;
     case pIdHeadSeekGain:
         parameter.symbol = "HeadSeekGain";
         parameter.name = "Head seek gain";
         parameter.hints |= kParameterIsLogarithmic;
-        parameter.ranges = ParameterRanges(1.0, 0.0, 1.0);
+        parameter.ranges = ParameterRanges(1.0, 0.01, 1.0);
         break;
     case pIdHeadBuzzGain:
         parameter.symbol = "HeadBuzzGain";
         parameter.name = "Head buzz gain";
         parameter.hints |= kParameterIsLogarithmic;
-        parameter.ranges = ParameterRanges(1.0, 0.0, 1.0);
+        parameter.ranges = ParameterRanges(1.0, 0.01, 1.0);
         break;
     case pIdSpindleGain:
         parameter.symbol = "SpindleGain";
         parameter.name = "Spindle gain";
         parameter.hints |= kParameterIsLogarithmic;
-        parameter.ranges = ParameterRanges(0.25, 0.0, 1.0);
+        parameter.ranges = ParameterRanges(0.25, 0.01, 1.0);
         break;
     case pIdNoisesGain:
         parameter.symbol = "NoisesGain";
         parameter.name = "Noises gain";
         parameter.hints |= kParameterIsLogarithmic;
-        parameter.ranges = ParameterRanges(0.5, 0.0, 1.0);
+        parameter.ranges = ParameterRanges(0.5, 0.01, 1.0);
         break;
     case pIdOutputGain:
         parameter.symbol = "OutputGain";
         parameter.name = "Output gain";
         parameter.hints |= kParameterIsLogarithmic;
-        parameter.ranges = ParameterRanges(1.0, 0.0, 1.0);
+        parameter.ranges = ParameterRanges(1.0, 0.01, 1.0);
         break;
     default:
         DISTRHO_SAFE_ASSERT(false);
