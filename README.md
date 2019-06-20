@@ -4,7 +4,7 @@ A set of music plugins created by Shiru, unofficial [DPF](https://github.com/DIS
 
 **Official home page:** http://shiru.untergrund.net/software.shtml
 
-[![Build Status](https://ci.appveyor.com/api/projects/status/github/jpcima/shiru-plugins?svg=true)](https://ci.appveyor.com/project/jpcima/shiru-plugins)
+[![Build Status](https://ci.appveyor.com/api/projects/status/github/linuxmao-org/shiru-plugins?svg=true)](https://ci.appveyor.com/project/jpcima/shiru-plugins)
 
 ## Description
 
