@@ -14,7 +14,7 @@ all: dgl plugins gen
 
 # --------------------------------------------------------------
 
-PLUGINS := evalua chipwave chipdrum crushdmc flopster 1bs_bitdrive
+PLUGINS := evalua chipwave chipdrum crushdmc flopster 1bs_bitdrive 1bs_clickydrums
 
 dgl:
 	$(MAKE) -C dpf/dgl
