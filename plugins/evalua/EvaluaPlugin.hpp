@@ -1,6 +1,7 @@
 #pragma once
 #include "DistrhoPlugin.hpp"
 #include "EvaluaPresets.hpp"
+#include "common/dsp/dc_filter.h"
 #include <random>
 #include <memory>
 class EV;
@@ -74,6 +75,8 @@ public:
     double SlideStep;
 
     std::unique_ptr<EV> ev;
+
+    Dc_Filter DcOffsetRemover;
 
     std::minstd_rand RandomNumberGenerator;
 

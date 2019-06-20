@@ -35,6 +35,9 @@ EvaluaPlugin::EvaluaPlugin()
     memset(MidiKeyState, 0, sizeof(MidiKeyState));
 
     SlideStep = 0;
+
+    double dc_remover_cutoff = 5.0;
+    DcOffsetRemover.cutoff(dc_remover_cutoff / getSampleRate());
 }
 
 const char *EvaluaPlugin::getLabel() const
@@ -387,11 +390,13 @@ void EvaluaPlugin::run(const float **, float **outputs, uint32_t frames, const M
 
         level = level * .25f;
 
+        level = DcOffsetRemover.process(level);
+
         if (level < -1.0f) level = -1.0f;
         if (level > 1.0f) level = 1.0f;
 
-        (*outL++)=level;
-        (*outR++)=level;
+        outL[frame_index] = level;
+        outR[frame_index] = level;
     }
 
     //UpdateGUI();
