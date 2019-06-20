@@ -1,0 +1,12 @@
+# Build settings for Appveyor CI
+
+image: Ubuntu
+
+configuration: Release
+
+install:
+  - sudo apt-get -y install build-essential libcairo2-dev libpango1.0-dev libjack-dev libgl-dev libglu-dev
+  - git submodule update --init --recursive
+
+build_script:
+  - make
