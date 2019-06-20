@@ -91,7 +91,12 @@ private:
 private:
     std::minstd_rand RandomNumberGenerator;
 
-    Preset Program;
+    struct programObject {
+        char name[MaxNameLen + 1];
+        float values[Parameter_Count];
+    };
+
+    programObject Program;
 
     unsigned char MidiKeyState[128];
 

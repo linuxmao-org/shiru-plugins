@@ -3,7 +3,7 @@
 #include <array>
 
 struct Preset {
-    char name[MAX_NAME_LEN + 1];
+    const char *name;
     float values[Parameter_Count];
 };
 

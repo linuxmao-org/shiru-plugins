@@ -7,7 +7,7 @@ enum {
 };
 
 struct Preset {
-    char name[MaxNameLen + 1];
+    const char *name;
     float values[Parameter_Count];
 };
 

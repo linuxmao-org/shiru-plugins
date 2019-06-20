@@ -119,6 +119,12 @@ private:
 private:
     std::minstd_rand RandomNumberGenerator;
 
-    Preset Program;
+    struct programObject {
+        char name[MAX_NAME_LEN + 1];
+        float values[Parameter_Count];
+    };
+
+    programObject Program;
+
     SynthChannelObject SynthChannel[SYNTH_CHANNELS];
 };

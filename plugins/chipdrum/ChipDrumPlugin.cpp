@@ -4,7 +4,7 @@
 ChipDrumPlugin::ChipDrumPlugin()
     : Plugin(Parameter_Count, DISTRHO_PLUGIN_NUM_PROGRAMS, State_Count)
 {
-    Program = PresetData[0];
+    loadProgram(0);
 
     memset(SynthChannel, 0, sizeof(SynthChannel));
 
@@ -76,7 +76,10 @@ void ChipDrumPlugin::loadProgram(uint32_t index)
 {
     DISTRHO_SAFE_ASSERT_RETURN(index < PresetData.size(), );
 
-    Program = PresetData[index];
+    setState("ProgramName", PresetData[index].name);
+
+    for (unsigned p = 0; p < Parameter_Count; ++p)
+        Program.values[p] = PresetData[index].values[p];
 }
 
 void ChipDrumPlugin::initState(uint32_t index, String &state_key, String &default_value)
@@ -101,10 +104,8 @@ String ChipDrumPlugin::getState(const char *key) const
 
 void ChipDrumPlugin::setState(const char *key, const char *value)
 {
-    if (!strcmp(key, "ProgramName")) {
-        memcpy(Program.name, value, strnlen(value, MAX_NAME_LEN));
-        Program.name[MAX_NAME_LEN] = '\0';
-    }
+    if (!strcmp(key, "ProgramName"))
+        memcpy(Program.name, value, strnlen(value, MAX_NAME_LEN) + 1);
 }
 
 void ChipDrumPlugin::run(const float **, float **outputs, uint32_t frames, const MidiEvent *events, uint32_t event_count)
