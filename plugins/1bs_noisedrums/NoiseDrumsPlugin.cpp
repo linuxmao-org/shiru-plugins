@@ -79,19 +79,32 @@ void NoiseDrumsPlugin::initParameter(uint32_t index, Parameter &parameter)
     parameter.ranges.max = 1.0;
     parameter.ranges.def = PresetData[0].values[index];
 
-    //ParameterEnumerationValue *pev = nullptr;
+    ParameterEnumerationValue *pev = nullptr;
 
     switch (ParameterFirstOfGroup(index)) {
     case pIdDrumVolume1:
+        parameter.ranges.min = 0.01;
+        parameter.hints |= kParameterIsLogarithmic;
         parameter.symbol = "VOLU"; parameter.name = "Drum volume"; break;
         break;
     case pIdBurst1Duration1:
+        parameter.ranges.max = NOISE_MAX_DURATION;
+        parameter.unit = "ms";
         parameter.symbol = "DURA"; parameter.name = "Duration"; break;
         break;
     case pIdBurst1Pitch1:
+        parameter.ranges.max = NOISE_MAX_PITCH;
+        parameter.unit = "Hz";
         parameter.symbol = "PTCH"; parameter.name = "Pitch"; break;
         break;
     case pIdBurst1Period1:
+        parameter.hints |= kParameterIsInteger;
+        parameter.ranges.max = 9;
+        parameter.enumValues.restrictedMode = true;
+        parameter.enumValues.count = 10;
+        parameter.enumValues.values = pev = new ParameterEnumerationValue[10];
+        for (int i = 0; i < 10; ++i)
+            pev[i] = ParameterEnumerationValue(i, String(FloatToNoisePeriod(i)));
         parameter.symbol = "PERD"; parameter.name = "Period"; break;
         break;
     case pIdBurst1PulseWidth1:
@@ -320,9 +333,7 @@ void NoiseDrumsPlugin::run(const float **, float **outputs, uint32_t frames, con
 
 int NoiseDrumsPlugin::FloatToNoisePeriod(float value)
 {
-    const int period[]={4,8,16,32,64,128,256,512,1024,2048};
-
-    return period[(int)(value*9.99f)];
+    return 1 << (2 + (int)value);
 }
 
 void NoiseDrumsPlugin::SynthNewNoiseBurst(int32_t chn)
@@ -334,8 +345,8 @@ void NoiseDrumsPlugin::SynthNewNoiseBurst(int32_t chn)
     int pNoteOffset = SynthChannel[chn].note * (pIdDrumVolume2 - pIdDrumVolume1);
     int pBurstOffset = SynthChannel[chn].burst * (pIdBurst2Duration1 - pIdBurst1Duration1);
 
-    SynthChannel[chn].duration =Program.values[pIdBurst1Duration1 + pNoteOffset + pBurstOffset]*NOISE_MAX_DURATION*(sampleRate/1000.0f);
-    SynthChannel[chn].increment=Program.values[pIdBurst1Pitch1 + pNoteOffset + pBurstOffset]*NOISE_MAX_PITCH/sampleRate;
+    SynthChannel[chn].duration =Program.values[pIdBurst1Duration1 + pNoteOffset + pBurstOffset]*(sampleRate/1000.0f);
+    SynthChannel[chn].increment=Program.values[pIdBurst1Pitch1 + pNoteOffset + pBurstOffset]/sampleRate;
 
     SynthChannel[chn].period=FloatToNoisePeriod(Program.values[pIdBurst1Period1 + pNoteOffset + pBurstOffset])-1;
 }
