@@ -1,10 +1,10 @@
 #pragma once
 #include "DistrhoPlugin.hpp"
-#include "ClickyDrumsShared.hpp"
+#include "NoiseDrumsShared.hpp"
 
-class ClickyDrumsPlugin : public DISTRHO::Plugin {
+class NoiseDrumsPlugin : public DISTRHO::Plugin {
 public:
-    ClickyDrumsPlugin();
+    NoiseDrumsPlugin();
 
     const char *getLabel() const override;
     const char *getMaker() const override;
@@ -28,6 +28,11 @@ public:
     void run(const float **inputs, float **outputs, uint32_t frames, const MidiEvent *events, uint32_t event_count) override;
 
 private:
+    static int FloatToNoisePeriod(float value);
+
+    void SynthNewNoiseBurst(int32_t chn);
+
+private:
     struct programObject {
         char name[MAX_NAME_LEN + 1];
         float values[Parameter_Count];
@@ -37,19 +42,22 @@ private:
 
     struct SynthChannelObject
     {
-        int32_t output;
+        int32_t note;
+        int32_t burst;
+
         float duration;
         float accumulator;
-        float delay;
-        float delay_min;
-        float delay_max;
+        float increment;
+
+        int32_t period;
         int32_t ptr;
-        int32_t type;
 
         float volume;
+
+        int32_t output;
     };
 
     SynthChannelObject SynthChannel[SYNTH_CHANNELS];
 
-    unsigned char Noise[16384];
+    unsigned Noise[2048];
 };
